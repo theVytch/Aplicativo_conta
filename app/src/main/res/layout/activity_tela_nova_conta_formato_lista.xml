@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corDeFundoAplicativo"
+    tools:context=".activities.ActivityTelaNovaContaFormatoLista">
+
+    <TextView
+        android:id="@+id/textViewValorDaContaFormatoLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Valor da conta"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/editTextNomeDaContaFormatoLista"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNomeDaContaFormatoLista" />
+
+    <EditText
+        android:id="@+id/editTextValorContaFormatoLista"
+        android:layout_width="322dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:hint="R$ 0,00"
+        android:textColorHint="@color/gray"
+        android:background="@drawable/borda_edittext"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/textViewValorDaContaFormatoLista"
+        app:layout_constraintTop_toBottomOf="@+id/textViewValorDaContaFormatoLista" />
+
+    <TextView
+        android:id="@+id/textViewNomeDaContaFormatoLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:text="Nome da conta"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextNomeDaContaFormatoLista"
+        android:layout_width="322dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Conta de luz"
+        android:padding="10dp"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:background="@drawable/borda_edittext"
+        android:textColorHint="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/textViewNomeDaContaFormatoLista"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomeDaContaFormatoLista" />
+
+    <Button
+        android:id="@+id/btnSalvarContaFormatoLista"
+        android:layout_width="110dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/botao"
+        android:onClick="salvarNovaConta"
+        android:text="Salvar"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/editTextValorContaFormatoLista"
+        app:layout_constraintTop_toBottomOf="@+id/editTextValorContaFormatoLista" />
+</androidx.constraintlayout.widget.ConstraintLayout>

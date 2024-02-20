@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corDeFundoAplicativo"
+    tools:context=".activities.ActivityTelaNovaConta">
+
+    <TextView
+        android:id="@+id/textViewNomeDaConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:text="Nome da conta"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextNomeConta"
+        android:layout_width="322dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Conta de luz"
+        android:padding="10dp"
+        android:textColorHint="@color/gray"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:background="@drawable/borda_edittext"
+        app:layout_constraintStart_toStartOf="@+id/textViewNomeDaConta"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomeDaConta" />
+
+    <TextView
+        android:id="@+id/textViewValorDaConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Valor da conta"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/textViewNomeDaConta"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNomeConta" />
+
+    <EditText
+        android:id="@+id/editTextValorConta"
+        android:layout_width="322dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:hint="R$ 0,00"
+        android:textColorHint="@color/gray"
+        android:background="@drawable/borda_edittext"
+        app:layout_constraintStart_toStartOf="@+id/textViewValorDaConta"
+        app:layout_constraintTop_toBottomOf="@+id/textViewValorDaConta" />
+
+    <TextView
+        android:id="@+id/textViewDataQueFoiGasto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Data que foi gasto"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/textViewNomeDaConta"
+        app:layout_constraintTop_toBottomOf="@+id/editTextValorConta" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/borda_edittext"
+        android:ems="10"
+        android:hint="dd/mm/yyyy"
+        android:inputType="date"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/textViewDataQueFoiGasto"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDataQueFoiGasto" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_nova_conta"
+        android:iconTint="@color/black"
+        android:title="Adicionar varis conta" />
+
+    <item
+        android:id="@+id/menu_usuario"
+        android:iconTint="@color/black"
+        android:title="Usuário" />
+
+    <item
+        android:id="@+id/menu_sobre"
+        android:iconTint="@color/black"
+        android:title="Sobre" />
+
+    <item
+        android:id="@+id/menu_criar_pdf"
+        android:iconTint="@color/black"
+        android:title="Criar PDF" />
+</menu>

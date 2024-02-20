@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/back"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="411dp"
+        android:layout_height="100dp"
+        android:background="@drawable/linha_lista"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="-1dp">
+
+        <TextView
+            android:id="@+id/textViewNomeContaLinha"
+            android:layout_width="374dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cifra"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginTop="10dp"
+            android:text="R$:"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/textViewNomeContaLinha"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNomeContaLinha" />
+
+        <br.edu.utfpr.eduardomelentovytch.contas.custom.CustomTextView
+            android:id="@+id/textViewValorContaLinha"
+            android:layout_width="180dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/cifra"
+            app:layout_constraintTop_toTopOf="@+id/cifra" />
+
+        <TextView
+            android:id="@+id/textViewData"
+            android:layout_width="126dp"
+            android:layout_height="24dp"
+            android:gravity="right"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewValorContaLinha"
+            app:layout_constraintEnd_toEndOf="@+id/textViewNomeContaLinha" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

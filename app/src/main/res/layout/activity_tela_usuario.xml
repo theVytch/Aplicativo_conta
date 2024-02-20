@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corDeFundoAplicativo"
+    tools:context=".activities.ActivityTelaUsuario">
+
+    <TextView
+        android:id="@+id/nomeusuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="80dp"
+        android:text="Nome"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/saldoUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Saldo"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="@+id/nomeusuario"
+        app:layout_constraintTop_toBottomOf="@+id/nomeusuario"
+        tools:text="@string/saldo" />
+
+    <Button
+        android:id="@+id/btnSalvarUsuario"
+        android:layout_width="162dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="50dp"
+        android:onClick="salvarUsuario"
+        android:text="Salvar"
+        android:textColor="@color/black"
+        android:background="@drawable/botao"
+        android:textSize="24sp"
+        android:fontFamily="@font/minha_fonte_bold"
+        app:layout_constraintStart_toStartOf="@+id/editTextSaldoUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSaldoUsuario" />
+
+    <EditText
+        android:id="@+id/editTextNomeUsuario"
+        android:layout_width="320dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:background="@drawable/borda_edittext"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="@+id/nomeusuario"
+        app:layout_constraintTop_toBottomOf="@+id/nomeusuario" />
+
+    <EditText
+        android:id="@+id/editTextSaldoUsuario"
+        android:layout_width="320dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:background="@drawable/borda_edittext"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="@+id/saldoUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/saldoUsuario" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
