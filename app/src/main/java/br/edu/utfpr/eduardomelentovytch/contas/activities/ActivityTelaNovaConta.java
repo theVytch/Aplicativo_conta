@@ -22,6 +22,7 @@ import br.edu.utfpr.eduardomelentovytch.contas.entities.Usuario;
 import br.edu.utfpr.eduardomelentovytch.contas.persistence.UsuarioDatabase;
 import br.edu.utfpr.eduardomelentovytch.contas.persistence.converters.DateConverter;
 import br.edu.utfpr.eduardomelentovytch.contas.utils.UtilsDateMaskWatcher;
+import br.edu.utfpr.eduardomelentovytch.contas.utils.UtilsValida;
 
 public class ActivityTelaNovaConta extends AppCompatActivity {
 
@@ -124,6 +125,7 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
                 }
             }
         });
+        editTextValorConta.setText("0,00");
     }
 
     private void buscaUsuario(){
@@ -151,19 +153,25 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
         String dataConta = editTextDate.getText().toString().trim();
 
         if(validarFormatoData(dataConta)) {
-            conta.setNomeConta(nomeConta);
-            conta.setValor(valorContaNovo);
-            conta.setData(DateConverter.stringToDate(dataConta));
-            conta.setUsuarioId(contaParaEditar.getUsuarioId());
+            if(UtilsValida.validaCampoPreenchido(nomeConta, valorContaNovo)) {
+                conta.setNomeConta(nomeConta);
+                conta.setValor(valorContaNovo);
+                conta.setData(DateConverter.stringToDate(dataConta));
+                conta.setUsuarioId(contaParaEditar.getUsuarioId());
 
-            database.contaDao().update(conta);
+                database.contaDao().update(conta);
 
-            atualizaSaldoUsuario(valorContaNovo, usuario);
-            mudarTelaInicial();
+                atualizaSaldoUsuario(valorContaNovo, usuario);
+                mudarTelaInicial();
+            }else{
+                Toast.makeText(this, R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(this, R.string.mensagemDataEstaErrada, Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     public boolean validarFormatoData(String data) {
         sdf.setLenient(false);
@@ -187,10 +195,14 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
         String dataConta = (editTextDate.getText().toString().isEmpty()) ? sdf.format(dataAtual) : editTextDate.getText().toString().trim();
 
         if (validarFormatoData(dataConta)) {
-            conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
-            database.contaDao().insert(conta);
-            atualizaSaldoUsuario(conta.getValor(), usuario);
-            mudarTelaInicial();
+            if(UtilsValida.validaCampoPreenchido(nomeConta, valor)) {
+                conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
+                database.contaDao().insert(conta);
+                atualizaSaldoUsuario(conta.getValor(), usuario);
+                mudarTelaInicial();
+            }else{
+                Toast.makeText(this, R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(this, R.string.mensagemDataEstaErrada, Toast.LENGTH_SHORT).show();
         }

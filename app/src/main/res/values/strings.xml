@@ -10,10 +10,12 @@
     <string name="mensagemAvisoTodasContasExcluida">Suas contas foram excluidas!</string>
     <string name="mensagemCrieUsuarioParaAdicionarConta">Crie um usuário para adicionar uma conta</string>
     <string name="mensagemDataEstaErrada">Data está errada</string>
+    <string name="mensagemCampoVazio">Preencha o campo nome ou valor</string>
     <string name="mensagemNomeUsuarioObrigatorio">Nome do usuário é obrigatório</string>>
     <string name="mensagemSaldoUsuarioObrigatorio">Saldo do usuário é obrigatório</string>
     <string name="mensagemErroCriarUsuario">Erro ao criar usuário</string>
-    <string name="mensagemAvisoPdfCriado">Seu Pdf foi criado na pasta de Download!</string>
+    <string name="mensagemAvisoPdfCriado">Seu PDF foi criado na pasta de Download!</string>
+    <string name="mensagemAvisoPdfErro">Erro ao criar PDF. Verifique as permissões do aplicativo.</string>
     <string name="confirmacao">Confirmação</string>
     <string name="sim">Sim</string>
     <string name="nao">Não</string>

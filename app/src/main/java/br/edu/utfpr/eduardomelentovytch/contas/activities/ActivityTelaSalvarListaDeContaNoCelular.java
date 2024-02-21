@@ -25,7 +25,6 @@ import br.edu.utfpr.eduardomelentovytch.contas.utils.UtilsGUI;
 public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
 
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 1;
-    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +85,15 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
         UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
         Usuario usuario = database.usuarioDao().getUsuario().get();
         List<Conta> contas = database.contaDao().getListaContasUsuarioOrderByData(usuario.getId());
-        PdfGenerator.gerarPdf(contas);
-        Toast.makeText(this,
-                R.string.mensagemAvisoPdfCriado,
-                Toast.LENGTH_LONG).show();
+        if(PdfGenerator.gerarPdf(contas)) {
+            Toast.makeText(this,
+                    R.string.mensagemAvisoPdfCriado,
+                    Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this,
+                    R.string.mensagemAvisoPdfErro,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     private void mudarTelaInicial(){

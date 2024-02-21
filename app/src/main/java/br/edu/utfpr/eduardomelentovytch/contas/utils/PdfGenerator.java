@@ -2,6 +2,7 @@ package br.edu.utfpr.eduardomelentovytch.contas.utils;
 
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.compose.ui.text.Paragraph;
 
@@ -18,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import br.edu.utfpr.eduardomelentovytch.contas.R;
+import br.edu.utfpr.eduardomelentovytch.contas.activities.ActivityTelaSalvarListaDeContaNoCelular;
 import br.edu.utfpr.eduardomelentovytch.contas.entities.Conta;
 
 public class PdfGenerator {
@@ -25,12 +28,11 @@ public class PdfGenerator {
     private static final String FORMAT_DATA = "dd-MM-yyyy-HH:mm:ss";
     private static final String TAG = "PdfGenerator";
 
-    public static void gerarPdf(List<Conta> contas) {
+    public static boolean gerarPdf(List<Conta> contas) {
         try {
             Date dataAtual = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATA);
-            //String nomeArquivo = sdf.format(dataAtual);
-            // Crie um novo documento PDF
+
             Document document = new Document();
             File pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "minha_lista_de_contas_"+sdf.format(dataAtual)+".pdf");
             PdfWriter.getInstance(document, new FileOutputStream(pdfFile));
@@ -48,10 +50,10 @@ public class PdfGenerator {
             // Feche o documento
             document.close();
             Log.d(TAG, "PDF gerado com sucesso: " + pdfFile.getAbsolutePath());
+            return true;
         } catch (DocumentException | FileNotFoundException e) {
             Log.e(TAG, "Erro ao gerar PDF: " + e.getMessage(), e);
+            return false;
         }
     }
-
-
 }
