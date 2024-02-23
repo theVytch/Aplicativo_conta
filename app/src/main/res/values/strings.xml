@@ -9,6 +9,7 @@
     <string name="mensagemAvisoApagarTodasContas">Deseja realmente deletar todas suas contas? \n isso ira apagar seu usuário também</string>
     <string name="mensagemAvisoTodasContasExcluida">Suas contas foram excluidas!</string>
     <string name="mensagemCrieUsuarioParaAdicionarConta">Crie um usuário para adicionar uma conta</string>
+    <string name="mensagemCrieUsuarioParaGerarPdf">Crie um usuário para gerar um PDF</string>
     <string name="mensagemDataEstaErrada">Data está errada</string>
     <string name="mensagemCampoVazio">Preencha o campo nome ou valor</string>
     <string name="mensagemNomeUsuarioObrigatorio">Nome do usuário é obrigatório</string>>

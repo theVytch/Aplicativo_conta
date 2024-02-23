@@ -50,4 +50,13 @@
         app:layout_constraintStart_toStartOf="@+id/textViewSobre"
         app:layout_constraintTop_toBottomOf="@+id/textViewSobre" />
 
+    <TextView
+        android:id="@+id/textViewLocalSalvoPdf"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/btnCriarPdf"
+        app:layout_constraintTop_toBottomOf="@+id/btnCriarPdf" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

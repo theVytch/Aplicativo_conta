@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'br.edu.utfpr.eduardomelentovytch.contas'
+    namespace 'br.com.contas'
     compileSdk 33
 
     defaultConfig {
-        applicationId "br.edu.utfpr.eduardomelentovytch.contas"
+        applicationId "br.com.contas"
         minSdk 24
         targetSdk 33
         versionCode 1

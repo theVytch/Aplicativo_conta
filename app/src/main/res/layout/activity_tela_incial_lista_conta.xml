@@ -33,7 +33,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
-  <br.edu.utfpr.eduardomelentovytch.contas.custom.CustomTextView
+  <br.com.contas.custom.CustomTextView
       android:id="@+id/textViewSaldoUsuarioTelaList"
       android:layout_width="229dp"
       android:layout_height="29dp"

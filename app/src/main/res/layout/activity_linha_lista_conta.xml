@@ -38,7 +38,7 @@
             app:layout_constraintStart_toStartOf="@+id/textViewNomeContaLinha"
             app:layout_constraintTop_toBottomOf="@+id/textViewNomeContaLinha" />
 
-        <br.edu.utfpr.eduardomelentovytch.contas.custom.CustomTextView
+        <br.com.contas.custom.CustomTextView
             android:id="@+id/textViewValorContaLinha"
             android:layout_width="180dp"
             android:layout_height="32dp"
