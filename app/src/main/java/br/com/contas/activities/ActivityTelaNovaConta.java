@@ -20,6 +20,7 @@ import br.com.contas.entities.Conta;
 import br.com.contas.entities.Usuario;
 import br.com.contas.persistence.UsuarioDatabase;
 import br.com.contas.persistence.converters.DateConverter;
+import br.com.contas.utils.DecimalDigits;
 import br.com.contas.utils.UtilsDateMaskWatcher;
 import br.com.contas.utils.UtilsValida;
 import br.com.contas.R;
@@ -135,7 +136,7 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
 
     private void edicaoDaConta(Conta conta) {
         editTextNomeConta.setText(conta.getNomeConta());
-        editTextValorConta.setText(conta.getValor().toString());
+        editTextValorConta.setText(DecimalDigits.formatarNumero(conta.getValor()));
         editTextDate.setText(DateConverter.dateToString(conta.getData()));
     }
 

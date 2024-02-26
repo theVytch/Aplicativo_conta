@@ -21,6 +21,7 @@ import java.util.concurrent.Executors;
 import br.com.contas.entities.Usuario;
 import br.com.contas.persistence.UsuarioDatabase;
 import br.com.contas.R;
+import br.com.contas.utils.DecimalDigits;
 
 public class ActivityTelaUsuario extends AppCompatActivity {
 
@@ -103,7 +104,7 @@ public class ActivityTelaUsuario extends AppCompatActivity {
 
     private void mudarTelaParaEdicao(Usuario usuario){
         editTextNomeUsuario.setText(usuario.getNome());
-        editTextSaldoUsuario.setText(formatarNumero(usuario.getSaldo()));
+        editTextSaldoUsuario.setText(DecimalDigits.formatarNumero(usuario.getSaldo()));
         btnSalvarUsuario.setText("Atualizar");
         usuarioExiste = 1;
     }
@@ -175,15 +176,5 @@ public class ActivityTelaUsuario extends AppCompatActivity {
     private void mudarTelaInicial(){
         Intent intent = new Intent(this, ActivityTelaIncialListaConta.class);
         startActivity(intent);
-    }
-
-    public String formatarNumero(Double numero) {
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator(',');
-        symbols.setGroupingSeparator('.');
-
-        DecimalFormat df = new DecimalFormat("#,##0.00", symbols);
-
-        return df.format(numero);
     }
 }
