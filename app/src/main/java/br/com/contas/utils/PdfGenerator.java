@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import br.com.contas.R;
 import br.com.contas.entities.Conta;
 
 public class PdfGenerator {
@@ -35,7 +36,7 @@ public class PdfGenerator {
             File pdfFile;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 pdfFile = new File(activity.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "minha_lista_de_contas_" + sdf.format(dataAtual) + ".pdf");
-                localSalvoArquivo = "Local salvo: Android/data/br.com.contas/files/Download";
+                localSalvoArquivo = R.string.msgLocalSalvo + "Android/data/br.com.contas/files/Download";
             } else {
                 pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "minha_lista_de_contas_" + sdf.format(dataAtual) + ".pdf");
             }
@@ -43,7 +44,7 @@ public class PdfGenerator {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfFile));
             document.open();
 
-            document.add(new Phrase("Contas"));
+            document.add(new Phrase(R.string.app_name));
             document.add(new Phrase("\n\n"));
             for (Conta conta : contas) {
                 document.add(new Phrase(conta.toString() + "\n"));
@@ -51,10 +52,10 @@ public class PdfGenerator {
 
             document.close();
             writer.close();
-            Log.d(TAG, "PDF gerado com sucesso: " + pdfFile.getAbsolutePath());
+            Log.d(TAG, R.string.msgPdfGerado + pdfFile.getAbsolutePath());
             return true;
         } catch (DocumentException | FileNotFoundException e) {
-            Log.e(TAG, "Erro ao gerar PDF: " + e.getMessage(), e);
+            Log.e(TAG, R.string.msgErroPdfGerado + e.getMessage(), e);
             return false;
         }
     }

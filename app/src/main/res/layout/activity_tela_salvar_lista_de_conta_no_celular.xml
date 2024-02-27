@@ -7,19 +7,17 @@
     android:background="@color/corDeFundoComponente"
     tools:context=".activities.ActivityTelaSalvarListaDeContaNoCelular">
 
-
     <TextView
         android:id="@+id/textViewSobre"
         android:layout_width="370dp"
         android:layout_height="310dp"
         android:layout_marginTop="50dp"
-        android:padding="10dp"
-        android:text="  O aplicativo precisa de permissão para escrever um arquivo Pdf onde ira informar todas as suas contas.
-                        \n O arquivo pdf sera escrito na sua pasta de Download.
-                        \n Caso tenha senha seu gerenciamento de arquivos o aplicativo pode ter problema para criar o arquivo."
-        android:textSize="20sp"
-        android:textColor="@color/black"
         android:background="@color/corDeComponenteAlerta"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        android:text="@string/textViewSobreInformacaoPdf"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +29,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/botao_aviso"
         android:onClick="deletarTodasContas"
-        android:text="Deletar todas as contas"
+        android:text="@string/btnDeletarTodasAsConta"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/textViewSobre"
@@ -44,7 +42,7 @@
         android:layout_marginTop="120dp"
         android:background="@drawable/botao_aviso"
         android:onClick="criarPdf"
-        android:text="Criar PDF"
+        android:text="@string/btnCriarPdf"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/textViewSobre"

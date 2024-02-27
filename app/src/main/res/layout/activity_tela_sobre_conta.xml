@@ -12,10 +12,10 @@
         android:layout_width="360dp"
         android:layout_height="300dp"
         android:layout_marginTop="50dp"
-        android:text="  Aplicativo feito para ajudar no controle de suas finanças.
-        \n  Você pode adicinar um valor na tela de usuario e em seguida ir adicionando suas contas, o aplicativo ira debitar direto do seu valor estipulado."
-        android:textSize="20sp"
+        android:scrollbars="vertical"
+        android:text="@string/textViewSobreInformacaoAplicativo"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

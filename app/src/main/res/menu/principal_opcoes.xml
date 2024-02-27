@@ -4,20 +4,20 @@
     <item
         android:id="@+id/menu_nova_conta"
         android:iconTint="@color/black"
-        android:title="Adicionar varis conta" />
+        android:title="@string/menu_nova_conta" />
 
     <item
         android:id="@+id/menu_usuario"
         android:iconTint="@color/black"
-        android:title="Usuário" />
+        android:title="@string/menu_usuario" />
 
     <item
         android:id="@+id/menu_sobre"
         android:iconTint="@color/black"
-        android:title="Sobre" />
+        android:title="@string/menu_sobre" />
 
     <item
         android:id="@+id/menu_criar_pdf"
         android:iconTint="@color/black"
-        android:title="Criar PDF" />
+        android:title="@string/menu_criar_pdf" />
 </menu>

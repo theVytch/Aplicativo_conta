@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Contas</string>
-    <string name="title_activity_tela_incial_lista_conta">activity_tela_incial_lista_conta</string>
+    <string name="title_activity_tela_incial_lista_conta" translatable="false">activity_tela_incial_lista_conta</string>
     <string name="saldo">Saldo</string>
     <string name="cancelar">Cancelar</string>
     <string name="salvar">Salvar</string>
+    <string name="atualizar">Atualizar</string>
     <string name="mensagemAvisoApagar">Deseja realmente deletar conta de: </string>
     <string name="mensagemRetornarValorContaSaldo">Deseja retornar o valor da conta para o saldo?</string>
     <string name="mensagemAvisoApagarTodasContas">Deseja realmente deletar todas suas contas? \n isso ira apagar seu usuário também</string>
@@ -21,4 +22,26 @@
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
     <string name="retornaValorContaSaldo">Deseja retornar o valor da conta para o saldo?</string>
+    <string name="msgLocalSalvo">Local salvo: </string>
+    <string name="msgPdfGerado">PDF gerado com sucesso: </string>
+    <string name="msgErroPdfGerado">Erro ao gerar PDF: </string>
+    <string name="cifra">R$:</string>
+    <string name="textViewSaldoTelaList">Saldo: R$</string>
+    <string name="textViewNomeDaConta">Nome da conta</string>
+    <string name="contaDeLuzHint">Conta de luz</string>
+    <string name="textViewValorDaConta">Valor da conta</string>
+    <string name="textViewDataQueFoiGasto">Data que foi gasto</string>
+    <string name="editTextDateHint">dd/mm/aaaa</string>
+    <string name="textViewSobreInformacaoPdf">" O aplicativo precisa de permissão para escrever um arquivo Pdf onde ira informar todas as suas contas.  O arquivo pdf sera escrito na sua pasta de Download.  Caso tenha senha seu gerenciamento de arquivos o aplicativo pode ter problema para criar o arquivo."</string>
+    <string name="btnDeletarTodasAsConta">Deletar todas as contas</string>
+    <string name="btnCriarPdf">Criar PDF</string>
+    <string name="textViewNomeUsuario">Nome</string>
+    <string name="textViewSaldoUsuario">Saldo</string>
+    <string name="textViewSobreInformacaoAplicativo">" O aplicativo foi projetado para simplificar o controle das suas finanças.  Basta inserir um valor inicial na tela principal e começar a adicionar suas despesas.  O aplicativo irá deduzir automaticamente esses gastos do valor que você estipulou, proporcionando um acompanhamento preciso e conveniente das suas finanças."</string>
+    <string name="menuItemEditarConta">Atualizar conta</string>
+    <string name="menuItemDeletarConta">Deletar</string>
+    <string name="menu_nova_conta">Adicionar varis conta</string>
+    <string name="menu_usuario">Usuário</string>
+    <string name="menu_sobre">Sobre</string>
+    <string name="menu_criar_pdf">Criar PDF</string>
 </resources>

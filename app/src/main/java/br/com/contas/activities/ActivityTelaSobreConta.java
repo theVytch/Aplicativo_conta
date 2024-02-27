@@ -3,18 +3,30 @@ package br.com.contas.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import br.com.contas.R;
+import br.com.contas.utils.UtilsDateMaskWatcher;
 
 public class ActivityTelaSobreConta extends AppCompatActivity {
+
+    private TextView textViewSobre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_sobre_conta);
 
+        iniciarComponentes();
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void iniciarComponentes(){
+        textViewSobre = findViewById(R.id.textViewSobre);
+        textViewSobre.setMovementMethod(new ScrollingMovementMethod());
     }
 
     @Override

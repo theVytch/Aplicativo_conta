@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expense Track</string>
+    <string name="saldo">Balance</string>
+    <string name="cancelar">Cancel</string>
+    <string name="salvar">Save</string>
+    <string name="atualizar">Update</string>
+    <string name="mensagemAvisoApagar">Do you really want to delete an account from:</string>
+    <string name="mensagemRetornarValorContaSaldo">Do you want to return the account value to the balance?</string>
+    <string name="mensagemAvisoApagarTodasContas">Do you really want to delete all your accounts?</string>
+    <string name="mensagemAvisoTodasContasExcluida">This will delete your username too</string>
+    <string name="mensagemCrieUsuarioParaAdicionarConta">Create a user to add an account</string>
+    <string name="mensagemCrieUsuarioParaGerarPdf">Create a user to generate a PDF</string>
+    <string name="mensagemDataEstaErrada">Date is wrong</string>
+    <string name="mensagemCampoVazio">Fill in the name or value field</string>
+    <string name="mensagemNomeUsuarioObrigatorio">Username is required</string>
+    <string name="mensagemSaldoUsuarioObrigatorio">User balance is required</string>
+    <string name="mensagemErroCriarUsuario">Error creating user</string>
+    <string name="mensagemAvisoPdfCriado">Your PDF was created in the Download folder!</string>
+    <string name="mensagemAvisoPdfErro">Error creating PDF. Check app permissions.</string>
+    <string name="confirmacao">Confirmation</string>
+    <string name="sim">Yes</string>
+    <string name="nao">No</string>
+    <string name="retornaValorContaSaldo">Do you want to return the account value to the balance?</string>
+    <string name="msgLocalSalvo">Saved location:</string>
+    <string name="msgPdfGerado">PDF generated successfully:</string>
+    <string name="msgErroPdfGerado">Error generating PDF:</string>
+    <string name="cifra">$:</string>
+    <string name="textViewSaldoTelaList">Balance: $</string>
+    <string name="textViewNomeDaConta">Account name</string>
+    <string name="contaDeLuzHint">Electricity bill</string>
+    <string name="textViewValorDaConta">Account value</string>
+    <string name="textViewDataQueFoiGasto">Date of expenditure</string>
+    <string name="editTextDateHint">mm/dd/yyyy</string>
+    <string name="btnDeletarTodasAsConta">Delete all accounts</string>
+    <string name="btnCriarPdf">Create PDF</string>
+    <string name="textViewNomeUsuario">Name</string>
+    <string name="textViewSaldoUsuario">Balance</string>
+    <string name="textViewSobreInformacaoAplicativo">" The application was designed to simplify control of your finances. Just enter a starting amount on the main screen and start adding your expenses. The application will automatically deduct these expenses from the amount you set, providing accurate and convenient monitoring of your finances."</string>
+    <string name="textViewSobreInformacaoPdf">" The application needs permission to write a PDF file where it will inform all your accounts. The pdf file will be written to your Download folder. If you have a password for your file management, the application may have problems creating the file."</string>
+    <string name="menuItemEditarConta">Update account</string>
+    <string name="menuItemDeletarConta">Delete</string>
+    <string name="menu_nova_conta">Add multiple account</string>
+    <string name="menu_usuario">User</string>
+    <string name="menu_sobre">Information</string>
+    <string name="menu_criar_pdf">Create PDF</string>
+</resources>

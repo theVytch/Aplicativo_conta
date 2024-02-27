@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#81D4FA"
+    android:background="@color/corDeFundoAplicativo"
     tools:context=".activities.ActivityTelaIncialListaConta">
 
   <ListView
@@ -12,7 +12,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginTop="29dp"
-      android:background="#81D4FA"
+      android:background="@color/corDeFundoAplicativo"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
@@ -22,12 +22,12 @@
 
   <TextView
       android:id="@+id/textViewSaldoTelaList"
-      android:layout_width="115dp"
+      android:layout_width="wrap_content"
       android:layout_height="29dp"
       android:layout_marginStart="20dp"
-      android:background="#81D4FA"
+      android:background="@color/corDeFundoAplicativo"
       android:includeFontPadding="false"
-      android:text="Saldo: R$"
+      android:text="@string/textViewSaldoTelaList"
       android:textColor="@color/black"
       android:textSize="20sp"
       app:layout_constraintStart_toStartOf="parent"
@@ -37,9 +37,10 @@
       android:id="@+id/textViewSaldoUsuarioTelaList"
       android:layout_width="229dp"
       android:layout_height="29dp"
-      android:textSize="20sp"
-      android:background="#81D4FA"
+      android:layout_marginStart="2dp"
+      android:background="@color/corDeFundoAplicativo"
       android:textColor="@color/black"
+      android:textSize="20sp"
       app:layout_constraintStart_toEndOf="@+id/textViewSaldoTelaList"
       app:layout_constraintTop_toTopOf="parent" />
 

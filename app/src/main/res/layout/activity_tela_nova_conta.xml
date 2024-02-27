@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="100dp"
-        android:text="Nome da conta"
-        android:textSize="24sp"
+        android:text="@string/textViewNomeDaConta"
         android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,13 +24,13 @@
         android:layout_width="322dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Conta de luz"
-        android:padding="10dp"
-        android:textColorHint="@color/gray"
-        android:inputType="text"
-        android:textColor="@color/black"
         android:background="@drawable/borda_edittext"
+        android:ems="10"
+        android:hint="@string/contaDeLuzHint"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
         app:layout_constraintStart_toStartOf="@+id/textViewNomeDaConta"
         app:layout_constraintTop_toBottomOf="@+id/textViewNomeDaConta" />
 
@@ -39,9 +39,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Valor da conta"
-        android:textSize="24sp"
+        android:text="@string/textViewValorDaConta"
         android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/textViewNomeDaConta"
         app:layout_constraintTop_toBottomOf="@+id/editTextNomeConta" />
 
@@ -65,9 +65,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Data que foi gasto"
-        android:textSize="24sp"
+        android:text="@string/textViewDataQueFoiGasto"
         android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/textViewNomeDaConta"
         app:layout_constraintTop_toBottomOf="@+id/editTextValorConta" />
 
@@ -78,7 +78,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/borda_edittext"
         android:ems="10"
-        android:hint="dd/mm/yyyy"
+        android:hint="@string/editTextDateHint"
         android:inputType="date"
         android:padding="10dp"
         android:textColor="@color/black"

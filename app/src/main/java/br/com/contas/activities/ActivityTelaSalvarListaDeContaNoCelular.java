@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -27,8 +28,8 @@ import br.com.contas.utils.UtilsGUI;
 public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
+    private TextView textViewSobre;
     private TextView textViewLocalSalvoPdf;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,8 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
 
     private void iniciaComponente(){
         textViewLocalSalvoPdf = findViewById(R.id.textViewLocalSalvoPdf);
+        textViewSobre = findViewById(R.id.textViewSobre);
+        textViewSobre.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void requestPermissionsIfNecessary(String[] permissions) {
@@ -61,9 +64,6 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
 
         if (permissionsNeeded) {
             ActivityCompat.requestPermissions(this, permissions, PERMISSION_REQUEST_CODE);
-        } else {
-            // As permissões já foram concedidas
-            // Continue com sua lógica aqui
         }
     }
 
@@ -77,13 +77,6 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
                     allPermissionsGranted = false;
                     break;
                 }
-            }
-            if (allPermissionsGranted) {
-                // Permissões concedidas
-                // Continue com sua lógica aqui
-            } else {
-                // Permissões negadas
-                // Trate isso adequadamente
             }
         }
     }

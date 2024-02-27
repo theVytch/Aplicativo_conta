@@ -8,27 +8,27 @@
     tools:context=".activities.ActivityTelaUsuario">
 
     <TextView
-        android:id="@+id/nomeusuario"
+        android:id="@+id/textViewNomeUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="80dp"
-        android:text="Nome"
+        android:text="@string/textViewNomeUsuario"
         android:textColor="@color/black"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/saldoUsuario"
+        android:id="@+id/textViewSaldoUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Saldo"
+        android:text="@string/textViewSaldoUsuario"
         android:textColor="@color/black"
         android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="@+id/nomeusuario"
-        app:layout_constraintTop_toBottomOf="@+id/nomeusuario"
+        app:layout_constraintStart_toStartOf="@+id/textViewNomeUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomeUsuario"
         tools:text="@string/saldo" />
 
     <Button
@@ -38,7 +38,7 @@
         android:layout_marginStart="70dp"
         android:layout_marginTop="50dp"
         android:onClick="salvarUsuario"
-        android:text="Salvar"
+        android:text="@string/salvar"
         android:textColor="@color/black"
         android:background="@drawable/botao"
         android:textSize="24sp"
@@ -56,8 +56,8 @@
         android:textColor="@color/black"
         android:background="@drawable/borda_edittext"
         android:padding="10dp"
-        app:layout_constraintStart_toStartOf="@+id/nomeusuario"
-        app:layout_constraintTop_toBottomOf="@+id/nomeusuario" />
+        app:layout_constraintStart_toStartOf="@+id/textViewNomeUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomeUsuario" />
 
     <EditText
         android:id="@+id/editTextSaldoUsuario"
@@ -69,7 +69,7 @@
         android:background="@drawable/borda_edittext"
         android:textColor="@color/black"
         android:padding="10dp"
-        app:layout_constraintStart_toStartOf="@+id/saldoUsuario"
-        app:layout_constraintTop_toBottomOf="@+id/saldoUsuario" />
+        app:layout_constraintStart_toStartOf="@+id/textViewSaldoUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSaldoUsuario" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

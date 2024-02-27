@@ -105,14 +105,14 @@ public class ActivityTelaUsuario extends AppCompatActivity {
     private void mudarTelaParaEdicao(Usuario usuario){
         editTextNomeUsuario.setText(usuario.getNome());
         editTextSaldoUsuario.setText(DecimalDigits.formatarNumero(usuario.getSaldo()));
-        btnSalvarUsuario.setText("Atualizar");
+        btnSalvarUsuario.setText(R.string.atualizar);
         usuarioExiste = 1;
     }
 
     private void mudarTelaParaCriarUsuario(){
         editTextNomeUsuario.setText("");
         editTextSaldoUsuario.setText("");
-        btnSalvarUsuario.setText("Salvar");
+        btnSalvarUsuario.setText(R.string.salvar);
         usuarioExiste = 0;
     }
 
