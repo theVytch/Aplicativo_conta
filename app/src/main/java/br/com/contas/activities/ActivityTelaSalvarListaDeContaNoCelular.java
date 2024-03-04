@@ -101,6 +101,7 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
                     Toast.makeText(this,
                             R.string.mensagemAvisoTodasContasExcluida,
                             Toast.LENGTH_LONG).show();
+                    mudarTelaInicial();
                     break;
                 case DialogInterface.BUTTON_NEGATIVE:
                     // Não fazer nada
