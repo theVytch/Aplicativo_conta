@@ -40,7 +40,7 @@
     <string name="textViewSobreInformacaoAplicativo">" O aplicativo foi projetado para simplificar o controle das suas finanças.  Basta inserir um valor inicial na tela principal e começar a adicionar suas despesas.  O aplicativo irá deduzir automaticamente esses gastos do valor que você estipulou, proporcionando um acompanhamento preciso e conveniente das suas finanças."</string>
     <string name="menuItemEditarConta">Atualizar conta</string>
     <string name="menuItemDeletarConta">Deletar</string>
-    <string name="menu_nova_conta">Adicionar varis conta</string>
+    <string name="menu_nova_conta">Adicionar várias conta</string>
     <string name="menu_usuario">Usuário</string>
     <string name="menu_sobre">Sobre</string>
     <string name="menu_criar_pdf">Criar PDF</string>
