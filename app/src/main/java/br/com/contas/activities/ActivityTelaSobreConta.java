@@ -2,6 +2,7 @@ package br.com.contas.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
@@ -30,11 +31,19 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
+            mudarTelaInicial();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void mudarTelaInicial(){
+        Intent intent = new Intent(this, ActivityTelaIncialListaConta.class);
+        startActivity(intent);
     }
 }

@@ -41,6 +41,10 @@ public class ActivityTelaUsuario extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             mudarTelaInicial();

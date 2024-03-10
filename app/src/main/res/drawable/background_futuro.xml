@@ -1,0 +1,69 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1560dp"
+    android:height="400dp"
+    android:viewportWidth="1560"
+    android:viewportHeight="400">
+    <path
+        android:fillColor="#67a9c8"
+        android:strokeColor="#67a9c8"
+        android:strokeWidth="1"
+        android:strokeMiterLimit="100"
+        android:name="Retângulo 5"
+        android:pathData="m0 0v400h1560v-400z" />
+    <path
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="1"
+        android:strokeMiterLimit="100"
+        android:name="Retângulo 7"
+        android:pathData="m0 0h10v133h-10v-133z" />
+    <path
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="1"
+        android:strokeMiterLimit="100"
+        android:name="Retângulo 7"
+        android:pathData="m0 267h10v133h-10v-133z" />
+    <path
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="1"
+        android:strokeMiterLimit="100"
+        android:name="Retângulo 7"
+        android:pathData="m1550 0h10v133h-10v-133z" />
+    <path
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="1"
+        android:strokeMiterLimit="100"
+        android:name="Retângulo 6"
+        android:pathData="m1040 390h520v10h-520v-10z" />
+    <path
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="1"
+        android:strokeMiterLimit="100"
+        android:name="Retângulo 6"
+        android:pathData="m0 390h520v10h-520v-10z" />
+    <path
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="1"
+        android:strokeMiterLimit="100"
+        android:name="Retângulo 6"
+        android:pathData="m1040 0h520v10h-520v-10z" />
+    <path
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="1"
+        android:strokeMiterLimit="100"
+        android:name="Retângulo 6"
+        android:pathData="m0 0h520v10h-520v-10z" />
+    <path
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="1"
+        android:strokeMiterLimit="100"
+        android:name="Retângulo 7"
+        android:pathData="m1550 267h10v133h-10v-133z" />
+</vector>

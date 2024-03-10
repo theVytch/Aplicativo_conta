@@ -7,36 +7,40 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import java.util.List;
 
 import br.com.contas.R;
 import br.com.contas.custom.CustomTextView;
 import br.com.contas.entities.Conta;
+import br.com.contas.persistence.UsuarioDatabase;
 import br.com.contas.persistence.converters.DateConverter;
 
 public class ContaAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Conta> contas;
+    private List<Conta> listaContas;
 
     private static class ContaHolder{
         public TextView textViewNomeConta, textViewData;
         public CustomTextView textViewValorConta;
+        public ConstraintLayout constraintLinhaLista;
     }
 
     public ContaAdapter(Context context, List<Conta> contas){
         this.context = context;
-        this.contas = contas;
+        this.listaContas = contas;
     }
 
     @Override
     public int getCount() {
-        return contas.size();
+        return listaContas.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return contas.get(position);
+        return listaContas.get(position);
     }
 
     @Override
@@ -57,15 +61,23 @@ public class ContaAdapter extends BaseAdapter {
             holder.textViewNomeConta = convertView.findViewById(R.id.textViewNomeContaLinha);
             holder.textViewValorConta = convertView.findViewById(R.id.textViewValorContaLinha);
             holder.textViewData = convertView.findViewById(R.id.textViewData);
+            holder.constraintLinhaLista = convertView.findViewById(R.id.contraintLinhaConta);
 
             convertView.setTag(holder);
         } else {
             holder = (ContaHolder) convertView.getTag();
         }
 
-        holder.textViewNomeConta.setText(contas.get(position).getNomeConta());
-        holder.textViewValorConta.setText(contas.get(position).getValor().toString());
-        holder.textViewData.setText(DateConverter.dateToString(contas.get(position).getData()));
+        //Conta conta = listaContas.get(position);
+        // Define a cor de fundo do item selecionado
+        if (DateConverter.verificaDataFutura(listaContas.get(position).getData())) {
+            holder.constraintLinhaLista.setBackgroundResource(R.drawable.background_futuro); // Define a cor de fundo como verde
+        }
+
+
+        holder.textViewNomeConta.setText(listaContas.get(position).getNomeConta());
+        holder.textViewValorConta.setText(listaContas.get(position).getValor().toString());
+        holder.textViewData.setText(DateConverter.dateToString(listaContas.get(position).getData()));
 
         return convertView;
     }

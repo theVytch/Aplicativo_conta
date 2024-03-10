@@ -12,6 +12,7 @@
     <color name="yellow">#e5c35b</color>
 
     <color name="corDeFundoAplicativo">#81D4FA</color>
+    <color name="corDeFundoAplicativoContaFutura">#67a9c8</color>
     <color name="corDeFundoComponente">#74bee1</color>
     <color name="corDeComponenteAlerta">#e37a8d</color>
     <color name="corDeComponenteAlertaSelecionado">#884954</color>

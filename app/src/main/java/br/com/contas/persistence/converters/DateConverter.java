@@ -5,6 +5,7 @@ import androidx.room.TypeConverter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 
@@ -48,5 +49,23 @@ public class DateConverter  {
     public static String dateToString(Date date) {
         SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
         return format.format(date);
+    }
+
+    public static boolean verificaDataFutura(Date data){
+        Date hoje = new Date();
+        return data.after(hoje);
+    }
+
+    public static boolean verificaDataIgual(Date data){
+        Date hoje = new Date();
+        String dataHoje = DateConverter.dateToString(hoje);
+        String dataRecebida = DateConverter.dateToString(data);
+        boolean resp = true;
+        if(dataRecebida.equals(dataHoje) || data.before(hoje)){
+            resp = true;
+        }else{
+            resp = false;
+        }
+        return resp;
     }
 }

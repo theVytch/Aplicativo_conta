@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UtilsDateMaskWatcher implements TextWatcher {
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private final EditText editText;
     private String previousText = "";
 

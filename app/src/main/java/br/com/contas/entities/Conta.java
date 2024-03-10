@@ -2,6 +2,7 @@ package br.com.contas.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -25,12 +26,14 @@ public class Conta implements Serializable {
     @NotNull
     private Date data;
     private Long usuarioId;
+    private boolean contaFutura;
 
     public Conta(String nomeConta, Double valor, Date data, Long usuarioId) {
         this.nomeConta = nomeConta;
         this.valor = valor;
         this.data = data;
         this.usuarioId = usuarioId;
+        this.contaFutura = contaFutura();
     }
 
     public Long getId() {
@@ -74,6 +77,19 @@ public class Conta implements Serializable {
 
     public void setUsuarioId(Long usuario) {
         this.usuarioId = usuarioId;
+    }
+
+    @Ignore
+    public boolean isContaFutura() {
+        return contaFutura;
+    }
+
+    public void setContaFutura(boolean contaFutura) {
+        this.contaFutura = contaFutura;
+    }
+
+    public boolean contaFutura(){
+        return DateConverter.verificaDataFutura(getData());
     }
 
     @Override

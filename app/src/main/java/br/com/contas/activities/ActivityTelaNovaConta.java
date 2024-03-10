@@ -21,6 +21,7 @@ import br.com.contas.entities.Usuario;
 import br.com.contas.persistence.UsuarioDatabase;
 import br.com.contas.persistence.converters.DateConverter;
 import br.com.contas.utils.DecimalDigits;
+import br.com.contas.utils.UtilsConta;
 import br.com.contas.utils.UtilsDateMaskWatcher;
 import br.com.contas.utils.UtilsValida;
 import br.com.contas.R;
@@ -64,9 +65,9 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
         int id = item.getItemId();
 
         if (item.getItemId() == android.R.id.home) {
-            // Lidar com o clique na seta de voltar
             onBackPressed();
             return true;
+            //mudarTelaInicial();
         } else if(id == R.id.menuItemSalvar){
             if(contaParaEditar != null){
                 salvarEdicaoConta();
@@ -159,9 +160,8 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
                 conta.setValor(valorContaNovo);
                 conta.setData(DateConverter.stringToDate(dataConta));
                 conta.setUsuarioId(contaParaEditar.getUsuarioId());
-
+                conta.setContaFutura(false);
                 database.contaDao().update(conta);
-
                 atualizaSaldoUsuario(valorContaNovo, usuario);
                 mudarTelaInicial();
             }else{
@@ -207,6 +207,32 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
         } else {
             Toast.makeText(this, R.string.mensagemDataEstaErrada, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void salvarComSaldo(Conta conta){
+        UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+        database.contaDao().insert(conta);
+        UtilsConta.atualizaSaldoUsuario(this, conta.getValor(), usuario);
+        mudarTelaInicial();
+    }
+
+    private void salvarSemSaldo(Conta conta){
+        UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+        database.contaDao().insert(conta);
+        mudarTelaInicial();
+    }
+
+    private void salvarEdicaoComSaldo(Conta conta){
+        UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+        database.contaDao().update(conta);
+        UtilsConta.atualizaSaldoUsuario(this, conta.getValor(), usuario);
+        mudarTelaInicial();
+    }
+
+    private void salvarEdicaoSemSaldo(Conta conta){
+        UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+        database.contaDao().update(conta);
+        mudarTelaInicial();
     }
     private void atualizaSaldoUsuario(Double saldo, Usuario usuario){
         UsuarioDatabase database = UsuarioDatabase.getDatabase(this);

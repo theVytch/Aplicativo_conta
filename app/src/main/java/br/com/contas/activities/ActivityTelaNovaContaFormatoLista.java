@@ -40,6 +40,11 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        mudarTelaInicial();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             mudarTelaInicial();
