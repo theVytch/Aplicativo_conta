@@ -61,12 +61,15 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
+            mudarTelaInicial();
             //mudarTelaInicial();
         } else if(id == R.id.menuItemSalvar){
             if(contaParaEditar != null){
