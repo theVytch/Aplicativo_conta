@@ -78,6 +78,6 @@ public class Conta implements Serializable {
 
     @Override
     public String toString() {
-        return "Nome:" + nomeConta + ", Valor:" + valor +", Data:" + DateConverter.dateToString(data);
+        return "Nome: " + nomeConta + ",           Valor: " + valor +", Data: " + DateConverter.dateToString(data);
     }
 }

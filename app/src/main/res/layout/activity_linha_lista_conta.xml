@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="390dp"
         android:layout_height="100dp"
-        android:background="@drawable/background"
+        android:background="@drawable/linha_lista_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints"

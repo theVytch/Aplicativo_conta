@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +46,55 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
         verificaSeUsuarioExiste();
 
         registerForContextMenu(listViewContas);
+
+        marcarLinhaSelecionada();
+    }
+
+    @Override
+    public void onBackPressed() {
+        int selecionados = retornarNumeroDeItensSelecionados();
+        if(selecionados == 0){
+            exitApp();
+        }
+        limparSelecionadoNaLista();
+    }
+
+    private void limparSelecionadoNaLista() {
+        for (int i = 0; i < listViewContas.getChildCount(); i++) {
+            View view = listViewContas.getChildAt(i);
+            if (view != null) {
+                view.setActivated(false);
+            }
+        }
+    }
+
+    private void exitApp() {
+        finishAffinity();  // Fecha todas as atividades e sai do aplicativo
+    }
+
+    private void marcarLinhaSelecionada() {
+        listViewContas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!view.isActivated()) {
+                    view.setActivated(!view.isActivated());
+                    return true;
+                }
+                if(view.isActivated()){
+                    return false;
+                }
+                return true;
+            }
+        });
+
+        listViewContas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(view.isActivated()){
+                    view.setActivated(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -81,15 +132,59 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
         if (id == R.id.menuItemEditarConta) {
             mudarParaTelaDeNovaContaParaEditar(info.position);
         } else if (id == R.id.menuItemDeletarConta) {
-            deletarConta(info.position);
+            deletar(info);
         } else {
             return super.onContextItemSelected(item);
         }
         return super.onContextItemSelected(item);
     }
 
+    private void deletar(AdapterView.AdapterContextMenuInfo info) {
+        if(retornarNumeroDeItensSelecionadosParaDeletar() > 1){
+            deletarMaisDeUmaConta(retornarListaConta());
+        }else{
+            deletarConta(info.position);
+        }
+    }
+
+    private int retornarNumeroDeItensSelecionados() {
+        int count = 0;
+        for (int i = 0; i < listViewContas.getChildCount(); i++) {
+            View view = listViewContas.getChildAt(i);
+            if (view != null && view.isActivated()) {
+                count++;
+                break;
+            }
+        }
+        return count;
+    }
+
+    private int retornarNumeroDeItensSelecionadosParaDeletar() {
+        int count = 1;
+        for (int i = 0; i < listViewContas.getChildCount(); i++) {
+            View view = listViewContas.getChildAt(i);
+            if (view != null && view.isActivated()) {
+                count++;
+                break;
+            }
+        }
+        return count;
+    }
+
+    private List<Conta> retornarListaConta() {
+        List<Conta> listaItens = new ArrayList<>();
+        for (int i = 0; i < listViewContas.getChildCount(); i++) {
+            View view = listViewContas.getChildAt(i);
+            if (view != null && view.isActivated()) {
+                Conta conta = (Conta) listViewContas.getItemAtPosition(i);
+                listaItens.add(conta);
+            }
+        }
+        return listaItens;
+    }
+
     public void mudarParaTelaDeUsuario() {
-        Intent intent = new Intent(this, br.com.contas.activities.ActivityTelaUsuario.class);
+        Intent intent = new Intent(this, ActivityTelaUsuario.class);
         startActivity(intent);
     }
 
@@ -162,6 +257,47 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
                         }
                     };
                     UtilsGUI.confirmacao(this, getResources().getString(R.string.mensagemRetornarValorContaSaldo), confirmarListener);
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    // Não fazer nada
+                    break;
+            }
+        };
+        UtilsGUI.confirmacao(this, mensagem, listener);
+    }
+
+    public void deletarMaisDeUmaConta(List<Conta> listaConta){
+        String mensagem = getResources().getString(R.string.mensagemAvisoApagarMaisDeUmaConta);
+        Double valorTodasContaExcluida = 0.0;
+
+        for(Conta conta : listaConta){
+            valorTodasContaExcluida += conta.getValor();
+        }
+
+        Double finalValorTodasContaExcluida = valorTodasContaExcluida;
+
+        DialogInterface.OnClickListener listener = (dialog, which) -> {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+                    for(Conta conta : listaConta){
+                        database.contaDao().delete(conta);
+                        lista.remove(conta);
+                    }
+                    contaAdapter.notifyDataSetChanged();
+
+                    DialogInterface.OnClickListener confirmarListener = (dialogInner, whichInner) -> {
+                        switch (whichInner) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                retornaValorContaParaSaldoUsuario(finalValorTodasContaExcluida);
+                                colocaSaldoNaTela();
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                // Não fazer nada
+                                break;
+                        }
+                    };
+                    UtilsGUI.confirmacao(this, getResources().getString(R.string.mensagemRetornarValorTodasAsContaSaldo), confirmarListener);
                     break;
                 case DialogInterface.BUTTON_NEGATIVE:
                     // Não fazer nada

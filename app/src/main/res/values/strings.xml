@@ -6,7 +6,9 @@
     <string name="salvar">Salvar</string>
     <string name="atualizar">Atualizar</string>
     <string name="mensagemAvisoApagar">Deseja realmente deletar conta de: </string>
+    <string name="mensagemAvisoApagarMaisDeUmaConta">Deseja realmente deletar mais de uma conta? </string>
     <string name="mensagemRetornarValorContaSaldo">Deseja retornar o valor da conta para o saldo?</string>
+    <string name="mensagemRetornarValorTodasAsContaSaldo">Deseja retornar o valor da todas as conta selecionada para o saldo?</string>
     <string name="mensagemAvisoApagarTodasContas">Deseja realmente deletar todas suas contas? \n isso ira apagar seu usuário também</string>
     <string name="mensagemAvisoTodasContasExcluida">Suas contas foram excluidas!</string>
     <string name="mensagemCrieUsuarioParaAdicionarConta">Crie um usuário para adicionar uma conta</string>
