@@ -15,19 +15,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Contas"
         tools:targetApi="31">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".activities.ActivityTelaSalvarListaDeContaNoCelular"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.ActivityTelaSobreConta"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.ActivityTelaNovaContaFormatoLista"
+            android:screenOrientation="portrait"
             android:exported="false" />
-        <activity android:name=".activities.ActivityTelaNovaConta" />
-        <activity android:name=".activities.ActivityTelaUsuario" />
+        <activity
+            android:name=".activities.ActivityTelaListaDocumentoPdf"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity android:name=".activities.ActivityTelaNovaConta"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ActivityTelaUsuario"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.ActivityTelaIncialListaConta"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

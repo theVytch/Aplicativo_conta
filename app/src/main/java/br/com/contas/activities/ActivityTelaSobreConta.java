@@ -21,12 +21,18 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
 
         iniciarComponentes();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        exibirBotaoVoltar();
     }
 
     private void iniciarComponentes(){
         textViewSobre = findViewById(R.id.textViewSobre);
         textViewSobre.setMovementMethod(new ScrollingMovementMethod());
+    }
+
+    private void exibirBotaoVoltar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override

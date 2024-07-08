@@ -8,6 +8,7 @@
     <string name="mensagemAvisoApagar">Do you really want to delete an account from:</string>
     <string name="mensagemAvisoApagarMaisDeUmaConta">Do you really want to delete more than one account? </string>
     <string name="mensagemRetornarValorContaSaldo">Do you want to return the account value to the balance?</string>
+    <string name="mensagemRetornarValorTodasAsContaSaldo">Do you want to return the value of all selected accounts to your balance?</string>
     <string name="mensagemAvisoApagarTodasContas">Do you really want to delete all your accounts?</string>
     <string name="mensagemAvisoTodasContasExcluida">This will delete your username too</string>
     <string name="mensagemCrieUsuarioParaAdicionarConta">Create a user to add an account</string>

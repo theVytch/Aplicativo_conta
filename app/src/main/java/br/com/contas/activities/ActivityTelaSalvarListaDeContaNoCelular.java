@@ -44,13 +44,19 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
             requestPermissionsIfNecessary(permissions);
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        exibirBotaoVoltar();
     }
 
     private void iniciaComponente(){
         textViewLocalSalvoPdf = findViewById(R.id.textViewLocalSalvoPdf);
         textViewSobre = findViewById(R.id.textViewSobre);
         textViewSobre.setMovementMethod(new ScrollingMovementMethod());
+    }
+
+    private void exibirBotaoVoltar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void requestPermissionsIfNecessary(String[] permissions) {
@@ -114,8 +120,8 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
     public void criarPdf(View view){
         UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
         Usuario usuario = database.usuarioDao().getUsuario().get();
-        List<Conta> contas = database.contaDao().getListaContasUsuarioOrderByData(usuario.getId());
-        if(PdfGenerator.gerarPdf(contas, this)) {
+        List<Conta> contas = database.contaDao().getListaContasUsuarioOrderByDataDescAndContaIdDesc(usuario.getId());
+        if(PdfGenerator.gerarPdf(contas, this, usuario)) {
 
             Toast.makeText(this,
                     R.string.mensagemAvisoPdfCriado,
@@ -130,6 +136,11 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
 
     private void mudarTelaInicial(){
         Intent intent = new Intent(this, ActivityTelaIncialListaConta.class);
+        startActivity(intent);
+    }
+
+    public void abrirTelaDoc(View view){
+        Intent intent = new Intent(this, ActivityTelaListaDocumentoPdf.class);
         startActivity(intent);
     }
 }

@@ -26,8 +26,20 @@ public interface ContaDao {
     @Query("SELECT * FROM Conta Where usuarioId = :id")
     List<Conta> getListaContasUsuario(Long id);
 
-    @Query("SELECT * FROM Conta Where usuarioId = :id ORDER BY data desc")
-    List<Conta> getListaContasUsuarioOrderByData(Long id);
+    @Query("SELECT * FROM Conta Where usuarioId = :id ORDER BY data desc, conta_id DESC")
+    List<Conta> getListaContasUsuarioOrderByDataDescAndContaIdDesc(Long id); // ordenar por mais novo adicionado
+
+    @Query("SELECT * FROM Conta Where usuarioId = :id ORDER BY nomeConta ASC")
+    List<Conta> getListaContasUsuarioOrderByNomeContaAZ(Long id);
+
+    @Query("SELECT * FROM Conta Where usuarioId = :id ORDER BY nomeConta DESC")
+    List<Conta> getListaContasUsuarioOrderByNomeContaZA(Long id);
+
+    @Query("SELECT * FROM Conta Where usuarioId = :id ORDER BY valor DESC")
+    List<Conta> getListaContasUsuarioOrderByValorMaiorMenor(Long id);
+
+    @Query("SELECT * FROM Conta Where usuarioId = :id ORDER BY valor ASC")
+    List<Conta> getListaContasUsuarioOrderByValorMenorMenor(Long id);
 
     @Query("SELECT * FROM Conta Where conta_id = :id")
     Optional<Conta> getContaById(Long id);

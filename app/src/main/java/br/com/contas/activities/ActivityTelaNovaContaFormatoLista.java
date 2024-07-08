@@ -36,7 +36,7 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
 
         iniciarComponentes();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        exibirBotaoVoltar();
     }
 
     @Override
@@ -46,6 +46,12 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void exibirBotaoVoltar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void iniciarComponentes(){

@@ -37,8 +37,9 @@ public class ActivityTelaUsuario extends AppCompatActivity {
         setContentView(R.layout.activity_tela_usuario);
 
         iniciarComponentes();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
+
+        exibirBotaoVoltar();
+     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -47,6 +48,12 @@ public class ActivityTelaUsuario extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void exibirBotaoVoltar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void iniciarComponentes(){

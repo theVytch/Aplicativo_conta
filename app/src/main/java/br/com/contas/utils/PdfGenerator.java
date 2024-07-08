@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.contas.entities.Conta;
+import br.com.contas.entities.Usuario;
 
 public class PdfGenerator {
     private static final String FORMAT_DATA = "dd-MM-yyyy-HH:mm:ss";
@@ -33,7 +34,7 @@ public class PdfGenerator {
     private static final String TAG = "PdfGenerator";
     public static String localSalvoArquivo = "";
 
-    public static boolean gerarPdf(List<Conta> contas, Activity activity) {
+    public static boolean gerarPdf(List<Conta> contas, Activity activity, Usuario usuario) {
         try {
             Date dataAtual = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATA);
@@ -96,7 +97,7 @@ public class PdfGenerator {
             // Tabela Resultado Final
             PdfPTable tableBodyResult = new PdfPTable(3);
             tableBodyResult.setWidthPercentage(100);
-            adicionandoInformacoesNaColunaFinal(tableBodyResult, resultadoFinal, font14);
+            adicionandoInformacoesNaColunaFinal(tableBodyResult, resultadoFinal, font14, usuario);
 
             //Adiciona tudo e reza
             document.add(tableHead);
@@ -165,30 +166,36 @@ public class PdfGenerator {
 
     }
 
-    private static void adicionandoInformacoesNaColunaFinal(PdfPTable tableBodyResult, Double resultadoTotal, Font font14){
+    private static void adicionandoInformacoesNaColunaFinal(PdfPTable tableBodyResult, Double resultadoTotal, Font font14, Usuario usuario){
         String resultadoString = "TOTAL:  " + "R$ " + formatarNumero(resultadoTotal);
-        String[] lista = {"","", resultadoString};
+        String usuarioInfo = "Entrada:   R$" + formatarNumero(resultadoTotal + usuario.getSaldo()) + "\n" +
+                             "Restante: R$" + formatarNumero(usuario.getSaldo());
+        String[] lista = {usuarioInfo,"", resultadoString};
+
+
+        PdfPCell cellZero = new PdfPCell(new Phrase(lista[0], font14));
+        cellZero.setBorder(PdfPCell.NO_BORDER);
+        cellZero.setBorderWidthTop(1f);
+        cellZero.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellZero.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cellZero.setBackgroundColor(BaseColor.WHITE);
+        tableBodyResult.addCell(cellZero);
 
         //eXtreme Go Horse--------------
         gambiarraParaDeixarApenasUmaColunaComResultadoEnquantoAsOutrasTresFicamEmBranco(tableBodyResult, font14, lista);
         //------------------------------
 
         // Coluna resultado final
-        PdfPCell cellResult = new PdfPCell(new Phrase(lista[2], font14));
-        cellResult.setBorder(PdfPCell.NO_BORDER);
-        cellResult.setBorderWidthTop(1f);
-        cellResult.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        cellResult.setVerticalAlignment(Element.ALIGN_MIDDLE);
-        cellResult.setBackgroundColor(BaseColor.YELLOW);
-        tableBodyResult.addCell(cellResult);
+        PdfPCell cellDoisResult = new PdfPCell(new Phrase(lista[2], font14));
+        cellDoisResult.setBorder(PdfPCell.NO_BORDER);
+        cellDoisResult.setBorderWidthTop(1f);
+        cellDoisResult.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        cellDoisResult.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cellDoisResult.setBackgroundColor(BaseColor.YELLOW);
+        tableBodyResult.addCell(cellDoisResult);
     }
 
     private static void gambiarraParaDeixarApenasUmaColunaComResultadoEnquantoAsOutrasTresFicamEmBranco(PdfPTable tableBodyResult, Font font14, String[] lista) {
-        PdfPCell cellZero = new PdfPCell(new Phrase(lista[0], font14));
-        cellZero.setBorder(PdfPCell.NO_BORDER);
-        cellZero.setBackgroundColor(BaseColor.WHITE);
-        tableBodyResult.addCell(cellZero);
-
         PdfPCell cellUm = new PdfPCell(new Phrase(lista[1], font14));
         cellUm.setBorder(PdfPCell.NO_BORDER);
         cellUm.setBackgroundColor(BaseColor.WHITE);

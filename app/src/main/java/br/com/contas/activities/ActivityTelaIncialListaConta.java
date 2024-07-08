@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.SparseBooleanArray;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,7 +68,7 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     }
 
     private void exitApp() {
-        finishAffinity();  // Fecha todas as atividades e sai do aplicativo
+        finishAffinity();
     }
 
     private void marcarLinhaSelecionada() {
@@ -218,7 +217,7 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
         if(optionalUsuario.isPresent()){
             usuario = optionalUsuario.get();
         }
-        lista = database.contaDao().getListaContasUsuarioOrderByData(usuario.getId());
+        lista = database.contaDao().getListaContasUsuarioOrderByDataDescAndContaIdDesc(usuario.getId());
         if (lista != null) {
             atualizarLista();
         }

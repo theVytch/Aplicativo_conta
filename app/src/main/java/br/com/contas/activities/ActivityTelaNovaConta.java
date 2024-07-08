@@ -50,7 +50,7 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
             edicaoDaConta(contaParaEditar);
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        exibirBotaoVoltar();
     }
 
     @Override
@@ -84,6 +84,12 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
         iniciaEditTextValorConta();
         editTextDate = findViewById(R.id.editTextDate);
         editTextDate.addTextChangedListener(new UtilsDateMaskWatcher(editTextDate));
+    }
+
+    private void exibirBotaoVoltar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void limparCampos(){
