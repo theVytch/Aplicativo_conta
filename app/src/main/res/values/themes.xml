@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Contas" parent="Theme.AppCompat.Light">
+    <style name="Theme.Contas.Light" parent="Theme.AppCompat.Light">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorMenu</item> <!-- TITULO. -->
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="AppTheme.NoTitle" parent="Theme.MaterialComponents.Light.NoActionBar">

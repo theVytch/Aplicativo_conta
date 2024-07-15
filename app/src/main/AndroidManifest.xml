@@ -14,7 +14,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Contas"
+        android:theme="@style/Theme.Contas.Light"
         tools:targetApi="31">
 
         <provider
