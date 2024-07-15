@@ -45,7 +45,7 @@ public class PdfGenerator {
             File pdfFile;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 pdfFile = new File(activity.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "minha_lista_de_contas_" + sdf.format(dataAtual) + ".pdf");
-                localSalvoArquivo = "Local salvo: Android/data/br.com.contas/files/Download";
+                localSalvoArquivo = "Local salvo: " + pdfFile.getPath();
             } else {
                 pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "minha_lista_de_contas_" + sdf.format(dataAtual) + ".pdf");
             }
@@ -169,7 +169,7 @@ public class PdfGenerator {
     private static void adicionandoInformacoesNaColunaFinal(PdfPTable tableBodyResult, Double resultadoTotal, Font font14, Usuario usuario){
         String resultadoString = "TOTAL:  " + "R$ " + formatarNumero(resultadoTotal);
         String usuarioInfo = "Entrada:   R$" + formatarNumero(resultadoTotal + usuario.getSaldo()) + "\n" +
-                             "Restante: R$" + formatarNumero(usuario.getSaldo());
+                "Restante: R$" + formatarNumero(usuario.getSaldo());
         String[] lista = {usuarioInfo,"", resultadoString};
 
 

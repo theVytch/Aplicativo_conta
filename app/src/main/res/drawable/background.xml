@@ -4,8 +4,8 @@
     android:viewportWidth="1560"
     android:viewportHeight="400">
     <path
-        android:fillColor="#74bee1"
-        android:strokeColor="#74bee1"
+        android:fillColor="@color/colorOnPrimary"
+        android:strokeColor="@color/colorOnPrimary"
         android:strokeWidth="1"
         android:strokeMiterLimit="100"
         android:name="Retângulo 5"

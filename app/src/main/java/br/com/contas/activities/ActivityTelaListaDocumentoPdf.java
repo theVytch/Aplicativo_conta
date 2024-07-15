@@ -33,9 +33,7 @@ import br.com.contas.R;
 public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
 
     private ListView listViewDocumetos;
-    private static final String TAG = "MainActivity";
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
-
     private ArrayList<File> listaDeArquivos;
 
     @Override
@@ -44,7 +42,8 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
         setContentView(R.layout.activity_tela_lista_documento_pdf);
 
         inicializaComponentes();
-        listarArquivosPdf();
+        //listarArquivosPdf();
+        listPdfFiles();
         abrirDocumentoComUmClickNaLista();
         registerForContextMenu(listViewDocumetos);
 
@@ -110,6 +109,7 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+            listPdfFiles();
         } else {
             listPdfFiles();
         }
@@ -147,6 +147,7 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
         Collections.sort(pdfFiles,  Collections.reverseOrder());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pdfFiles);
         listViewDocumetos.setAdapter(adapter);
+        //listViewDocumetos.setText
     }
 
     private ArrayList<File> listarPdfs() {

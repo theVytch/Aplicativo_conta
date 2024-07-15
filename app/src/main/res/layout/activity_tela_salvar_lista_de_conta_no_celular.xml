@@ -63,6 +63,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/botao_aviso"
+        android:textColor="@color/black"
         android:onClick="abrirTelaDoc"
         android:text="Ver Documentos"
 
