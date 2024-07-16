@@ -31,7 +31,7 @@
         android:onClick="deletarTodasContas"
         android:text="@string/btnDeletarTodasAsConta"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/textViewSobre"
         app:layout_constraintTop_toBottomOf="@+id/textViewSobre" />
 
@@ -44,7 +44,7 @@
         android:onClick="criarPdf"
         android:text="@string/btnCriarPdf"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/textViewSobre"
         app:layout_constraintTop_toBottomOf="@+id/textViewSobre" />
 
@@ -65,8 +65,8 @@
         android:background="@drawable/botao_aviso"
         android:textColor="@color/black"
         android:onClick="abrirTelaDoc"
-        android:text="Ver Documentos"
-
+        android:text="@string/ver_documentos"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/btnCriarPdf"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocalSalvoPdf" />
 

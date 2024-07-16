@@ -159,11 +159,14 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     }
 
     private int retornarNumeroDeItensSelecionadosParaDeletar() {
-        int count = 1;
+        int count = 0;
         for (int i = 0; i < listViewContas.getChildCount(); i++) {
             View view = listViewContas.getChildAt(i);
             if (view != null && view.isActivated()) {
                 count++;
+            }
+
+            if(count == 2){
                 break;
             }
         }
