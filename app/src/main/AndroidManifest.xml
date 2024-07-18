@@ -12,7 +12,7 @@
         android:icon="@mipmap/ic_pixel_coin_foreground"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_pixel_coin_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Contas.Light"
         tools:targetApi="31">

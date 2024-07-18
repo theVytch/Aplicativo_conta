@@ -1,5 +1,6 @@
 package br.com.contas.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,6 +28,7 @@ import br.com.contas.utils.DecimalDigits;
 public class ActivityTelaUsuario extends AppCompatActivity {
 
     private EditText editTextNomeUsuario, editTextSaldoUsuario;
+    private String idiomaCel;
     private Button btnSalvarUsuario;
     private Usuario usuario;
     private int usuarioExiste = 0; // 1 - existe, 0 - nao existe
@@ -66,7 +69,8 @@ public class ActivityTelaUsuario extends AppCompatActivity {
     private void iniciaEditTextValorConta(){
         editTextSaldoUsuario = findViewById(R.id.editTextSaldoUsuario);
         editTextSaldoUsuario.addTextChangedListener(new TextWatcher() {
-            DecimalFormat format = new DecimalFormat("#,##0.00");
+            //DecimalFormat format = new DecimalFormat("#,##0.00");
+            DecimalFormat format = new DecimalFormat(DecimalDigits.modeloFormatPattern);
             private String current = "";
 
             @Override
@@ -139,7 +143,8 @@ public class ActivityTelaUsuario extends AppCompatActivity {
                 return;
             }
 
-            String saldoStr = editTextSaldoUsuario.getText().toString().replaceAll("[^\\d,]", "").replace(",", ".");
+            //String saldoStr = editTextSaldoUsuario.getText().toString().replaceAll("[^\\d,]", "").replace(",", ".");
+            String saldoStr = getNumeroParaString();
             if (saldoStr.isEmpty()) {
                 runOnUiThread(() -> {
                     Toast.makeText(this,
@@ -157,6 +162,22 @@ public class ActivityTelaUsuario extends AppCompatActivity {
                 editar(database, nome, saldo);
             }
         });
+    }
+
+    @NonNull
+    private String getNumeroParaString() {
+        String saldoStr;
+        if (DecimalDigits.idiomaCelular.equals("en")) {
+            // Formato americano: 1,000.00
+            saldoStr = editTextSaldoUsuario.getText().toString();
+            saldoStr = saldoStr.replace(",", "");
+        } else {
+            // Formato brasileiro: 1.000,00
+            saldoStr = editTextSaldoUsuario.getText().toString().replaceAll("[^\\d,]", "");
+            saldoStr = saldoStr.replace(",", ".");
+        }
+
+        return saldoStr;
     }
 
     private void salvar(UsuarioDatabase database, String nome, Double saldo){

@@ -9,15 +9,16 @@
 
     <TextView
         android:id="@+id/textViewSobre"
-        android:layout_width="360dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="349dp"
+        android:layout_height="293dp"
         android:scrollbars="vertical"
         android:text="@string/textViewSobreInformacaoAplicativo"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.112" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package br.com.contas.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -102,6 +103,7 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
         editTextValorConta = findViewById(R.id.editTextValorConta);
         editTextValorConta.addTextChangedListener(new TextWatcher() {
             DecimalFormat format = new DecimalFormat("#,##0.00");
+            //DecimalFormat format = new DecimalFormat(DecimalDigits.modeloFormatPattern);
             private String current = "";
 
             @Override
@@ -153,9 +155,8 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
         Double valorContaAntigo = contaParaEditar.getValor();
         usuario.setSaldo(valorContaAntigo + usuario.getSaldo());
 
-        Double valorContaNovo = Double.parseDouble(editTextValorConta.getText().toString()
-                                                    .replaceAll("[^\\d,]", "")
-                                                    .replace(",", "."));
+        Double valorContaNovo = Double.parseDouble(getNumeroParaString());
+
         String nomeConta = editTextNomeConta.getText().toString().trim();
         String dataConta = editTextDate.getText().toString().trim();
 
@@ -195,9 +196,8 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
         UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
 
         String nomeConta = editTextNomeConta.getText().toString().trim();
-        Double valor = Double.parseDouble(editTextValorConta.getText().toString()
-                                            .replaceAll("[^\\d,]", "")
-                                            .replace(",", "."));
+
+        Double valor = Double.parseDouble(getNumeroParaString());
 
         String dataConta = (editTextDate.getText().toString().isEmpty()) ? sdf.format(dataAtual) : editTextDate.getText().toString().trim();
 
@@ -214,6 +214,23 @@ public class ActivityTelaNovaConta extends AppCompatActivity {
             Toast.makeText(this, R.string.mensagemDataEstaErrada, Toast.LENGTH_SHORT).show();
         }
     }
+
+    @NonNull
+    private String getNumeroParaString() {
+        String contaStr;
+        if (DecimalDigits.idiomaCelular.equals("en")) {
+            // Formato americano: 1,000.00
+            contaStr = editTextValorConta.getText().toString();
+            contaStr = contaStr.replace(",", "");
+        } else {
+            // Formato brasileiro: 1.000,00
+            contaStr = editTextValorConta.getText().toString().replaceAll("[^\\d,]", "");
+            contaStr = contaStr.replace(",", ".");
+        }
+
+        return contaStr;
+    }
+
     private void atualizaSaldoUsuario(Double saldo, Usuario usuario){
         UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
         usuario.setSaldo(usuario.getSaldo() - saldo);

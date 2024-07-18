@@ -7,6 +7,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import java.text.DecimalFormat;
 
+import br.com.contas.utils.DecimalDigits;
+
 public class CustomTextView extends AppCompatTextView {
 
     public CustomTextView(Context context) {
@@ -28,7 +30,8 @@ public class CustomTextView extends AppCompatTextView {
                 // Converter o texto para double
                 double value = Double.parseDouble(text.toString());
                 // Formatar o valor com duas casas decimais
-                DecimalFormat df = new DecimalFormat("#,##0.00");
+                //DecimalFormat df = new DecimalFormat("#,##0.00");
+                DecimalFormat df = new DecimalFormat(DecimalDigits.modeloFormatPattern);
                 String formattedValue = df.format(value);
                 super.setText(formattedValue, type);
             } catch (NumberFormatException e) {

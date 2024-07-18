@@ -1,5 +1,6 @@
 package br.com.contas.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,6 +21,7 @@ import br.com.contas.entities.Conta;
 import br.com.contas.entities.Usuario;
 import br.com.contas.persistence.UsuarioDatabase;
 import br.com.contas.persistence.converters.DateConverter;
+import br.com.contas.utils.DecimalDigits;
 import br.com.contas.utils.UtilsValida;
 import br.com.contas.R;
 
@@ -37,6 +39,11 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
         iniciarComponentes();
 
         exibirBotaoVoltar();
+    }
+
+    @Override
+    public void onBackPressed() {
+        mudarTelaInicial();
     }
 
     @Override
@@ -62,6 +69,7 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
     private void iniciaEditTextValorConta(){
         editTextValorContaFormatoLista = findViewById(R.id.editTextValorContaFormatoLista);
         editTextValorContaFormatoLista.addTextChangedListener(new TextWatcher() {
+            //DecimalFormat format = new DecimalFormat("#,##0.00");
             DecimalFormat format = new DecimalFormat("#,##0.00");
             private String current = "";
 
@@ -107,9 +115,8 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
         Usuario usuario = optionalUsuario.get();
 
         String nomeConta = editTextNomeDaContaFormatoLista.getText().toString().trim();
-        Double valor = Double.parseDouble(editTextValorContaFormatoLista.getText().toString()
-                                                        .replaceAll("[^\\d,]", "")
-                                                        .replace(",", "."));
+        Double valor = Double.parseDouble(getNumeroParaString());
+
         Date dataAtual = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATA);
         String dataConta = sdf.format(dataAtual);
@@ -128,6 +135,22 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
         UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
         usuario.setSaldo(usuario.getSaldo() - saldo);
         database.usuarioDao().update(usuario);
+    }
+
+    @NonNull
+    private String getNumeroParaString() {
+        String contaStr;
+        if (DecimalDigits.idiomaCelular.equals("en")) {
+            // Formato americano: 1,000.00
+            contaStr = editTextValorContaFormatoLista.getText().toString();
+            contaStr = contaStr.replace(",", "");
+        } else {
+            // Formato brasileiro: 1.000,00
+            contaStr = editTextValorContaFormatoLista.getText().toString().replaceAll("[^\\d,]", "");
+            contaStr = contaStr.replace(",", ".");
+        }
+
+        return contaStr;
     }
 
     private void mudarTelaInicial(){

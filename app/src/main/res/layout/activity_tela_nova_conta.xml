@@ -9,13 +9,14 @@
 
     <TextView
         android:id="@+id/textViewNomeDaConta"
-        android:layout_width="wrap_content"
+        android:layout_width="322dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:text="@string/textViewNomeDaConta"
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,18 +32,22 @@
         android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
-        app:layout_constraintStart_toStartOf="@+id/textViewNomeDaConta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNomeDaConta" />
 
     <TextView
         android:id="@+id/textViewValorDaConta"
-        android:layout_width="wrap_content"
+        android:layout_width="322dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:text="@string/textViewValorDaConta"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewNomeDaConta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNomeConta" />
 
     <EditText
@@ -50,32 +55,34 @@
         android:layout_width="322dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/borda_edittext"
         android:ems="10"
+        android:hint="R$ 0,00"
         android:inputType="numberDecimal"
         android:padding="10dp"
         android:textColor="@color/black"
-        android:hint="R$ 0,00"
         android:textColorHint="@color/gray"
-        android:background="@drawable/borda_edittext"
-        app:layout_constraintStart_toStartOf="@+id/textViewValorDaConta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewValorDaConta" />
 
     <TextView
         android:id="@+id/textViewDataQueFoiGasto"
-        android:layout_width="wrap_content"
+        android:layout_width="322dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="@string/textViewDataQueFoiGasto"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewNomeDaConta"
+        app:layout_constraintStart_toStartOf="@+id/textViewValorDaConta"
         app:layout_constraintTop_toBottomOf="@+id/editTextValorConta" />
 
     <EditText
         android:id="@+id/editTextDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/borda_edittext"
         android:ems="10"
         android:hint="@string/editTextDateHint"

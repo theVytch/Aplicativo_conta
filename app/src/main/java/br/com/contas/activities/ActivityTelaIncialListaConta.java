@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 
@@ -25,6 +26,7 @@ import br.com.contas.entities.Conta;
 import br.com.contas.entities.Usuario;
 import br.com.contas.persistence.UsuarioDatabase;
 
+import br.com.contas.utils.DecimalDigits;
 import br.com.contas.utils.UtilsGUI;
 import br.com.contas.R;
 
@@ -203,6 +205,11 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     private void inicializaComponentes() {
         listViewContas = findViewById(R.id.listViewContas);
         textViewSaldoUsuarioTelaList = findViewById(R.id.textViewSaldoUsuarioTelaList);
+        DecimalDigits.formatPattern(idiomaCelular());
+    }
+    private String idiomaCelular(){
+        Locale currentLocale = getResources().getConfiguration().getLocales().get(0);
+        return currentLocale.getLanguage();
     }
 
     private void colocaSaldoNaTela(){

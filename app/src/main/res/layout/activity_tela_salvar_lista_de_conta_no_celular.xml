@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,67 +7,89 @@
     android:background="@color/corDeFundoComponente"
     tools:context=".activities.ActivityTelaSalvarListaDeContaNoCelular">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
     <TextView
         android:id="@+id/textViewSobre"
-        android:layout_width="370dp"
-        android:layout_height="310dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="352dp"
+        android:layout_height="297dp"
         android:background="@color/corDeComponenteAlerta"
         android:padding="10dp"
         android:scrollbars="vertical"
         android:text="@string/textViewSobreInformacaoPdf"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.091" />
 
     <Button
         android:id="@+id/btnDeletarTodasAsConta"
         android:layout_width="230dp"
         android:layout_height="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/botao_aviso"
         android:onClick="deletarTodasContas"
         android:text="@string/btnDeletarTodasAsConta"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewSobre"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSobre" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSobre"
+        app:layout_constraintVertical_bias="0.004" />
 
     <Button
         android:id="@+id/btnCriarPdf"
         android:layout_width="230dp"
         android:layout_height="40dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/botao_aviso"
         android:onClick="criarPdf"
         android:text="@string/btnCriarPdf"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewSobre"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSobre" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSobre"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textViewLocalSalvoPdf"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_width="352dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/btnCriarPdf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCriarPdf" />
 
     <Button
         android:id="@+id/btnTelaListaDoc"
         android:layout_width="230dp"
         android:layout_height="40dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/botao_aviso"
-        android:textColor="@color/black"
         android:onClick="abrirTelaDoc"
         android:text="@string/ver_documentos"
+        android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/btnCriarPdf"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocalSalvoPdf" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
