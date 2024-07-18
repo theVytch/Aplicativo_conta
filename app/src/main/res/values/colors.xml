@@ -10,18 +10,19 @@
     <color name="green">#008000</color>
     <color name="gray">#676767</color>
     <color name="yellow">#e5c35b</color>
-    <color name="clicadoLista">#2F87B2</color>
 
-    <color name="corDeFundoAplicativo">#81D4FA</color>
-    <color name="corDeFundoComponente">#74BDE1</color>
+
+    <color name="clicadoLista">#17422A</color>
+    <color name="corDeFundoAplicativo">#3BA76A</color>
+    <color name="corDeFundoComponente">#4FD98B</color>
     <color name="corDeComponenteAlerta">#e37a8d</color>
-    <color name="corDeComponenteAlertaSelecionado">#884954</color>
-
-    <color name="colorPrimary">#81D4FA</color>
-    <color name="colorPrimaryVariant">#4FC3F7</color>
-    <color name="colorOnPrimary">#4FA4CD</color>
-
-    <color name="colorMenu">#74BDE1</color>
+    <color name="corDeComponenteAlertaSelecionado">#884954</color>74BDE1
+    <color name="corDoBotaoUsuarioSemClick">#399360</color>
+    <color name="corDoBotaoUsuarioComClick">#328254</color>
+    <color name="colorPrimary">#2A7C4E</color>
+    <color name="colorPrimaryVariant">#3BA76A</color>
+    <color name="colorOnPrimary">#2A7C4E</color>
+    <color name="colorMenu">#399360</color>
 
 
 
