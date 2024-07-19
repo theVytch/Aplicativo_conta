@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Contas.AppWidget.Container"
+    android:theme="@style/Theme.Contas.Light.AppWidgetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <TextView
+        android:id="@+id/appwidget_textConta"
+        android:layout_width="wrap_content"
+        android:layout_height="131dp"
+        android:background="@drawable/background_widget"
+        android:gravity="center_vertical|end"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="16sp"
+        app:autoSizeMaxTextSize="26sp"
+        app:autoSizeStepGranularity="2sp"
+        android:fontFamily="@font/minha_fonte_bold"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</RelativeLayout>

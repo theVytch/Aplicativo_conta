@@ -47,4 +47,7 @@
     <string name="menu_sobre">Sobre</string>
     <string name="menu_criar_pdf">Criar PDF</string>
     <string name="ver_documentos">Ver Documentos</string>
+    <string name="appwidget_textConta">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>
