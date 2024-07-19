@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import java.text.DecimalFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -46,9 +47,13 @@ public class ContasWidget extends AppWidgetProvider {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.contas_widget);
 
-        String saldo = DecimalDigits.formatarNumero(Double.parseDouble(getSaldo(context)));
+
+        DecimalFormat df = new DecimalFormat(DecimalDigits.modeloFormatPattern);
+        String formattedValue = df.format(Double.parseDouble(getSaldo(context)));
+
+        //String saldo = DecimalDigits.formatarNumero(Double.parseDouble(getSaldo(context)));
         String cifra = context.getString(R.string.cifra);
-        views.setTextViewText(R.id.appwidget_textConta, cifra + saldo + " ");
+        views.setTextViewText(R.id.appwidget_textConta, cifra + formattedValue + " ");
 
         //abrir aplicativo com clicl no widget
         abrirAplicativoAoClicarNoWidget(context, views);
@@ -58,7 +63,7 @@ public class ContasWidget extends AppWidgetProvider {
 
     private static void abrirAplicativoAoClicarNoWidget(Context context, RemoteViews views) {
         Intent intent = new Intent(context, ActivityTelaIncialListaConta.class); // Substitua MainActivity pela atividade desejada
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         views.setOnClickPendingIntent(R.id.appwidget_textConta, pendingIntent);
     }
 
@@ -90,7 +95,7 @@ public class ContasWidget extends AppWidgetProvider {
             saldoStr = saldoStr.replace(",", "");
         } else {
             // Formato brasileiro: 1.000,00
-            saldoStr = saldo.toString().replaceAll("[^\\d,]", "");
+            saldoStr = saldo.toString();
             saldoStr = saldoStr.replace(",", ".");
         }
         return saldoStr;
