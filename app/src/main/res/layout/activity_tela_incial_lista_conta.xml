@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/corDeFundoAplicativo"
+    android:background="@drawable/background_lista_cbp"
     tools:context=".activities.ActivityTelaIncialListaConta">
 
-  <!-- android:choiceMode="multipleChoice" -->
+
+  <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/appBarLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintStart_toEndOf="parent"
+      >
+
+      <androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:title="@string/app_name"
+          app:titleTextColor="@color/corDoTitulo"
+          app:iconTint="@color/corDoTitulo"
+          android:fontFamily="@font/minha_fonte_medium"
+          android:background="?attr/colorPrimary"
+          android:minHeight="?attr/actionBarSize"
+          app:popupTheme="@style/PopupMenu"
+          android:theme="?attr/actionBarTheme" />
+
+  </com.google.android.material.appbar.AppBarLayout>
+
   <ListView
       android:id="@+id/listViewContas"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="29dp"
-      android:background="@color/corDeFundoAplicativo"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginStart="0dp"
+      android:background="@drawable/background_lista_cbp"
+      android:dividerHeight="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textViewSaldoUsuarioTelaList"
       tools:listitem="@layout/activity_linha_lista_conta" />
@@ -25,25 +52,25 @@
       android:id="@+id/textViewSaldoTelaList"
       android:layout_width="wrap_content"
       android:layout_height="29dp"
-      android:layout_marginStart="20dp"
-      android:background="@color/corDeFundoAplicativo"
+      android:layout_marginStart="28dp"
+      android:background="@android:color/transparent"
       android:includeFontPadding="false"
       android:text="@string/textViewSaldoTelaList"
-      android:textColor="@color/black"
+      android:textColor="@color/yellow"
       android:textSize="20sp"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
   <br.com.contas.custom.CustomTextView
       android:id="@+id/textViewSaldoUsuarioTelaList"
       android:layout_width="229dp"
       android:layout_height="29dp"
       android:layout_marginStart="2dp"
-      android:background="@color/corDeFundoAplicativo"
-      android:textColor="@color/black"
+      android:background="@android:color/transparent"
+      android:textColor="@color/yellow"
       android:textSize="20sp"
       app:layout_constraintStart_toEndOf="@+id/textViewSaldoTelaList"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/floatingBtnAdicionarConta"
@@ -54,7 +81,7 @@
       android:clickable="true"
       android:onClick="adicionarNovaConta"
       app:tint="@android:color/black"
-      app:backgroundTint="#f9e04b"
+      app:backgroundTint="@color/yellow"
       app:fabSize="auto"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

@@ -10,7 +10,7 @@
         android:id="@+id/appwidget_textConta"
         android:layout_width="wrap_content"
         android:layout_height="131dp"
-        android:background="@drawable/background_widget"
+        android:background="@drawable/widget_cbp"
         android:gravity="center_vertical|end"
         android:textColor="@color/black"
         android:textSize="26sp"

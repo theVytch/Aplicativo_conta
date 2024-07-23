@@ -1,30 +1,47 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Contas.Light" parent="Theme.AppCompat.Light">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorMenu</item> <!-- TITULO. -->
+    <style name="Theme.Contas.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorMenu</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="android:fontFamily">@font/minha_fonte_medium</item>
-        <item name="titleTextColor">@color/black</item>
-        <!-- Secondary brand color. -->
 
-        <!-- Status bar color. -->
+        <item name="titleTextColor">@color/yellow</item>
+        <item name="colorAccent">@color/yellow</item>
+        <item name="android:textColorPrimary">@color/yellow</item>
+        <item name="android:textColorSecondary">@color/corDoTitulo</item>
+
+        <!-- Status bar color -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
 
-        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+
+        <item name="colorControlNormal">@color/corLetraListaCbp</item>
+
+        <!-- Toolbar styles -->
+        <item name="toolbarStyle">@style/ToolbarStyle</item>
+        <item name="popupMenuStyle">@style/PopupMenu</item>
+        <item name="actionOverflowButtonStyle">@style/Threedotcolor</item>
     </style>
 
-    <style name="AppTheme.NoTitle" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextColor">@color/corDoTitulo</item>
+        <item name="subtitleTextColor">@color/corDoTitulo</item>
+        <item name="popupTheme">@style/PopupMenu</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="android:itemBackground">#ffffff</item>
-        <item name="android:textColor">#000000</item>
+    <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:colorBackground">@color/corFundoPopUp</item>
+        <item name="android:textColor">@color/corLetraListaCbp</item>
+        <item name="android:iconTint">@color/corDoTitulo</item>
     </style>
+
+    <style name="Threedotcolor" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/yellow</item>
+    </style>
+
+
+
+
     <style name="Theme.Contas.Light.AppWidgetContainerParent"
         parent="@android:style/Theme.DeviceDefault">
         <!-- Radius of the outer bound of widgets to make the rounded corners -->

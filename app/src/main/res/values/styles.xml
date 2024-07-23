@@ -1,7 +1,12 @@
 <resources>
+
     <style name="Widget.Contas.AppWidget.Container" parent="android:Widget">
         <item name="android:id">@android:id/background</item>
         <item name="android:background">?android:attr/colorBackground</item>
+
+        <!-- Cor do título da Toolbar/ActionBar -->
+        <item name="android:titleTextColor">@color/yellow</item>
+        <item name="titleTextColor">@color/yellow</item>
     </style>
 
     <style name="Widget.Contas.AppWidget.InnerView" parent="android:Widget">

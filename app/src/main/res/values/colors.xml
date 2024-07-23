@@ -9,7 +9,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#008000</color>
     <color name="gray">#676767</color>
-    <color name="yellow">#e5c35b</color>
+    <color name="yellow">#ffd700 </color>
+    <color name="red">#C83935 </color>
+
+    <color name="corFundoPopUp">#04050A </color>
+    <color name="corLetraListaCbp">#1EE4E7 </color>
+    <color name="corDeFundoListaSaldo">#6D040B </color>
+    <color name="corDoTitulo">#14D367 </color>
 
 
     <color name="clicadoLista">#17422A</color>
@@ -19,10 +25,13 @@
     <color name="corDeComponenteAlertaSelecionado">#884954</color>74BDE1
     <color name="corDoBotaoUsuarioSemClick">#399360</color>
     <color name="corDoBotaoUsuarioComClick">#328254</color>
-    <color name="colorPrimary">#2A7C4E</color>
-    <color name="colorPrimaryVariant">#3BA76A</color>
-    <color name="colorOnPrimary">#2A7C4E</color>
-    <color name="colorMenu">#399360</color>
+
+
+
+    <color name="colorPrimary">#6D040B</color>
+    <color name="colorPrimaryVariant">#6D040B</color>
+    <color name="colorOnPrimary">#6D040B</color>
+    <color name="colorMenu">#6D040B</color>
 
 
 

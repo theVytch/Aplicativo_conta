@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Contas.Light" parent="Theme.AppCompat.Light">
+    <style name="Theme.Contas.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorMenu</item> <!-- TITULO. -->
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -15,5 +15,8 @@
         <!-- Customize your theme here. -->
 
         <item name="android:forceDarkAllowed">false</item>
+
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 </resources>

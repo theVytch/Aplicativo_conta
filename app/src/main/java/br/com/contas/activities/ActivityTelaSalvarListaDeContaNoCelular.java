@@ -56,6 +56,7 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
     private void exibirBotaoVoltar() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         }
     }
 

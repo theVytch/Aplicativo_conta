@@ -4,20 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/corDeFundoComponente"
+    android:background="@drawable/background_lista_cbp"
     tools:context=".activities.ActivityTelaSalvarListaDeContaNoCelular">
+
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
 
+    <include
+        layout="@layout/toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textViewSobre"
         android:layout_width="352dp"
         android:layout_height="297dp"
+        android:layout_marginTop="35dp"
         android:background="@color/corDeComponenteAlerta"
         android:padding="10dp"
+        android:paddingStart="35dp"
         android:scrollbars="vertical"
         android:text="@string/textViewSobreInformacaoPdf"
         android:textColor="@color/black"
