@@ -17,10 +17,13 @@
 
         <item name="colorControlNormal">@color/corLetraListaCbp</item>
 
+        <item name="popupMenuBackground">@color/corFundoPopUp</item>
+
+
         <!-- Toolbar styles -->
         <item name="toolbarStyle">@style/ToolbarStyle</item>
         <item name="popupMenuStyle">@style/PopupMenu</item>
-        <item name="actionOverflowButtonStyle">@style/Threedotcolor</item>
+        <item name="actionOverflowButtonStyle">@style/ThemeOverlay</item>
     </style>
 
     <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
@@ -35,9 +38,25 @@
         <item name="android:iconTint">@color/corDoTitulo</item>
     </style>
 
+
+
+
     <style name="Threedotcolor" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">@color/yellow</item>
     </style>
+
+    <style name="ThemeOverlay" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:colorBackground">@color/corFundoPopUp</item>
+        <item name="android:textColor">@color/corLetraListaCbp</item>
+    </style>
+
+    <style name="CustomContextMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:background">@color/corFundoPopUp</item>
+        <item name="android:textColor">@color/corLetraListaCbp</item>
+        <item name="android:iconTint">@color/corDoTitulo</item>
+    </style>
+
+
 
 
 

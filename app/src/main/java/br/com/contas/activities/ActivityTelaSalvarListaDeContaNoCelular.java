@@ -2,6 +2,7 @@ package br.com.contas.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -35,6 +36,9 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_salvar_lista_de_conta_no_celular);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         iniciaComponente();
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
@@ -56,7 +60,6 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
     private void exibirBotaoVoltar() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         }
     }
 

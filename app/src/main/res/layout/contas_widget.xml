@@ -8,9 +8,9 @@
 
     <TextView
         android:id="@+id/appwidget_textConta"
-        android:layout_width="wrap_content"
-        android:layout_height="131dp"
-        android:background="@drawable/widget_cbp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/widget_cor_final"
         android:gravity="center_vertical|end"
         android:textColor="@color/black"
         android:textSize="26sp"

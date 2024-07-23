@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -29,6 +30,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.com.contas.R;
+import br.com.contas.adapter.ListPdfAdapter;
 
 public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
 
@@ -40,6 +42,9 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_lista_documento_pdf);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         inicializaComponentes();
         //listarArquivosPdf();
@@ -145,7 +150,8 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
         }
 
         Collections.sort(pdfFiles,  Collections.reverseOrder());
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pdfFiles);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pdfFiles);
+        ListPdfAdapter adapter = new ListPdfAdapter(this, pdfFiles);
         listViewDocumetos.setAdapter(adapter);
         //listViewDocumetos.setText
     }
