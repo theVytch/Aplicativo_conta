@@ -63,7 +63,7 @@
         android:paddingStart="15dp"
         android:ems="10"
         android:hint="@string/contaDeLuzHint"
-        android:inputType="text"
+        android:inputType="text|textCapSentences"
         android:padding="10dp"
         android:textColor="@color/corLetraListaCbp"
         android:textColorHint="@color/gray"
@@ -73,7 +73,7 @@
 
     <Button
         android:id="@+id/btnSalvarContaFormatoLista"
-        android:layout_width="110dp"
+        android:layout_width="160dp"
         android:layout_height="45dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/botao"

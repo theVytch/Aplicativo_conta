@@ -33,7 +33,7 @@
         android:paddingStart="15dp"
         android:ems="10"
         android:hint="@string/contaDeLuzHint"
-        android:inputType="text"
+        android:inputType="text|textCapSentences"
         android:padding="10dp"
         android:textColor="@color/corLetraListaCbp"
         android:textColorHint="@color/gray"
@@ -90,14 +90,16 @@
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/input_saldo_azul_cbp"
-        android:paddingStart="15dp"
         android:ems="10"
         android:hint="@string/editTextDateHint"
         android:inputType="date"
         android:padding="10dp"
+        android:paddingStart="15dp"
         android:textColor="@color/corLetraListaCbp"
         android:textColorHint="@color/gray"
-        app:layout_constraintStart_toStartOf="@+id/textViewDataQueFoiGasto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDataQueFoiGasto" />
 
 

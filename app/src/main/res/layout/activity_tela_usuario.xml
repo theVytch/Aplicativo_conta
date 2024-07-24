@@ -36,7 +36,7 @@
 
     <Button
         android:id="@+id/btnSalvarUsuario"
-        android:layout_width="162dp"
+        android:layout_width="160dp"
         android:layout_height="45dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/botao"
@@ -57,7 +57,7 @@
         android:paddingStart="15dp"
         android:background="@drawable/input_nome_azul_cbp"
         android:ems="10"
-        android:inputType="text"
+        android:inputType="text|textCapSentences"
         android:padding="10dp"
         android:textColor="@color/corLetraListaCbp"
         app:layout_constraintEnd_toEndOf="parent"
