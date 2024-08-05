@@ -65,6 +65,7 @@ public class PdfGenerator {
             PdfPTable tableHead = new PdfPTable(1); // Número de colunas
             tableHead.setWidthPercentage(100);
             BaseColor customColor = new BaseColor(116, 190, 225);
+            BaseColor customColorGreen = new BaseColor(144, 238, 144);
             String titulo = "CONTAS";
 
             PdfPCell cellHead = new PdfPCell(new Phrase(titulo, font15));
@@ -88,7 +89,8 @@ public class PdfGenerator {
             boolean alternateColor = false;
             double resultadoFinal = 0.0;
             for (Conta conta : contas) {
-                BaseColor backgroundColor = alternateColor ? BaseColor.WHITE : BaseColor.LIGHT_GRAY;
+                BaseColor backgroundColor = "ENTRADA".equals(conta.getTipo()) ? customColorGreen : (alternateColor ? BaseColor.WHITE : BaseColor.LIGHT_GRAY);
+
                 adicionandoInformacoesNasColuna(conta, font12, backgroundColor, tableBody, sdfDocument);
                 resultadoFinal += conta.getValor();
                 alternateColor = !alternateColor;

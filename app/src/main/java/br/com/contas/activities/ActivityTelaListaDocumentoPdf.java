@@ -27,16 +27,21 @@ import androidx.core.content.FileProvider;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.contas.R;
+import br.com.contas.adapter.ContaAdapter;
 import br.com.contas.adapter.ListPdfAdapter;
 
 public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
 
+    private ListPdfAdapter listPdfAdapter;
     private ListView listViewDocumetos;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
-    private ArrayList<File> listaDeArquivos;
+    private List<File> listaDeArquivos;
+    private List<String> pdfFiles;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,7 +143,8 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
         // Diretório onde os arquivos PDF estão localizados Android/data/br.com.contas/files/Download/
         File downloadsDirectory = new File(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)));
 
-        List<String> pdfFiles = new ArrayList<>();
+        //List<String> pdfFiles = new ArrayList<>();
+        pdfFiles = new ArrayList<>();
 
         File[] files = downloadsDirectory.listFiles();
         if (files != null) {
@@ -150,13 +156,15 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
         }
 
         Collections.sort(pdfFiles,  Collections.reverseOrder());
+
         //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pdfFiles);
         ListPdfAdapter adapter = new ListPdfAdapter(this, pdfFiles);
+        adapter.notifyDataSetChanged();
         listViewDocumetos.setAdapter(adapter);
         //listViewDocumetos.setText
     }
 
-    private ArrayList<File> listarPdfs() {
+    private List<File> listarPdfs() {
         ArrayList<File> pdfList = new ArrayList<>();
         File downloadsDirectory = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "");
         File[] files = downloadsDirectory.listFiles();
@@ -167,7 +175,7 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
                 }
             }
         }
-        return pdfList;
+        return pdfList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
     }
 
     private void abrirPdf(File file) {
@@ -193,6 +201,7 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
                 deleted = file.delete(); // Tenta deletar o arquivo
                 if (deleted) {
                     listPdfFiles();
+                    listaDeArquivos.remove(file);
                     Toast.makeText(context, "Arquivo deletado com sucesso", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "Falha ao deletar o arquivo", Toast.LENGTH_SHORT).show();

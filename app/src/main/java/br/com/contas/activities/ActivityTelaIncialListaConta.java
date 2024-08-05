@@ -13,15 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 
 
 import br.com.contas.adapter.ContaAdapter;
@@ -41,6 +42,8 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     private ContaAdapter contaAdapter;
     private List<Conta> lista;
     private Usuario usuario;
+    private final String TIPO = "ENTRADA";
+    private Set<Integer> posicaoSelecionada = new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +77,14 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
                 view.setActivated(false);
             }
         }
+        posicaoSelecionada.clear();
     }
 
     private void exitApp() {
         finishAffinity();
     }
 
-    private void marcarLinhaSelecionada() {
+    /*private void marcarLinhaSelecionada() {
         listViewContas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -101,6 +105,41 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
                 if(view.isActivated()){
                     view.setActivated(false);
                 }
+            }
+        });
+    }*/
+
+    private void marcarLinhaSelecionada() {
+        listViewContas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (posicaoSelecionada.contains(position)) {
+                    posicaoSelecionada.remove(position);
+                } else {
+                    posicaoSelecionada.add(position);
+                }
+                if(!view.isActivated()) {
+                    view.setActivated(!view.isActivated());
+                    return true;
+                }
+                if(view.isActivated()){
+                    return false;
+                }
+
+                contaAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
+        listViewContas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                if (posicaoSelecionada.contains(position)) {
+                    posicaoSelecionada.remove(position);
+                } else {
+                    posicaoSelecionada.add(position);
+                }
+
             }
         });
     }
@@ -189,6 +228,7 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
             if (view != null && view.isActivated()) {
                 Conta conta = (Conta) listViewContas.getItemAtPosition(i);
                 listaItens.add(conta);
+                //listViewContas.getChildAt(i).setActivated(false);
             }
         }
         return listaItens;
@@ -241,7 +281,7 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     }
 
     public void atualizarLista() {
-        contaAdapter = new ContaAdapter(this, lista);
+        contaAdapter = new ContaAdapter(this, lista, posicaoSelecionada);
         contaAdapter.notifyDataSetChanged();
         listViewContas.setAdapter(contaAdapter);
     }
@@ -253,13 +293,21 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     public void deletarConta(int posicao){
         String mensagem = getResources().getString(R.string.mensagemAvisoApagar) + "\n" + lista.get(posicao).getNomeConta() + " ?";
         Double valorContaExcluida = lista.get(posicao).getValor();
+        boolean tipoConta = lista.get(posicao).getTipo().equals(TIPO);
         DialogInterface.OnClickListener listener = (dialog, which) -> {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
                     UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
                     database.contaDao().delete(lista.get(posicao));
                     lista.remove(posicao);
+
                     contaAdapter.notifyDataSetChanged();
+
+                    if(tipoConta){
+                        removerContaAdicionalDoSaldoUsuario(valorContaExcluida);
+                        colocaSaldoNaTela();
+                        break;
+                    }
 
                     DialogInterface.OnClickListener confirmarListener = (dialogInner, whichInner) -> {
                         switch (whichInner) {
@@ -285,23 +333,34 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     public void deletarMaisDeUmaConta(List<Conta> listaConta){
         String mensagem = getResources().getString(R.string.mensagemAvisoApagarMaisDeUmaConta);
         Double valorTodasContaExcluida = 0.0;
+        Double valorTodoSaldoExcluida = 0.0;
 
         for(Conta conta : listaConta){
-            valorTodasContaExcluida += conta.getValor();
+            if(conta.getTipo().equals(TIPO)){
+                valorTodoSaldoExcluida += conta.getValor();
+            }else {
+                valorTodasContaExcluida += conta.getValor();
+            }
         }
 
         Double finalValorTodasContaExcluida = valorTodasContaExcluida;
+        Double finalValorTodoSaldoExcluida = valorTodoSaldoExcluida;
 
         DialogInterface.OnClickListener listener = (dialog, which) -> {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
                     UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+                    removerContaAdicionalDoSaldoUsuario(finalValorTodoSaldoExcluida);
                     for(Conta conta : listaConta){
                         database.contaDao().delete(conta);
                         lista.remove(conta);
                     }
+                    colocaSaldoNaTela();
                     contaAdapter.notifyDataSetChanged();
 
+                    if(!listaConta.stream().anyMatch(c -> c.getTipo().equals("SAIDA"))){
+                        break;
+                    }
                     DialogInterface.OnClickListener confirmarListener = (dialogInner, whichInner) -> {
                         switch (whichInner) {
                             case DialogInterface.BUTTON_POSITIVE:
@@ -321,6 +380,15 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
             }
         };
         UtilsGUI.confirmacao(this, mensagem, listener);
+        limparSelecionadoNaLista();
+    }
+
+    private void removerContaAdicionalDoSaldoUsuario(Double finalValorTodoSaldoExcluida) {
+        UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+        Usuario usuarioSaldoAtualizado = database.usuarioDao().getUsuario().get();
+        usuarioSaldoAtualizado.setSaldo(usuarioSaldoAtualizado.getSaldo() - finalValorTodoSaldoExcluida);
+        database.usuarioDao().update(usuarioSaldoAtualizado);
+        usuario = usuarioSaldoAtualizado;
     }
 
     private void retornaValorContaParaSaldoUsuario(Double valorContaExcluida){

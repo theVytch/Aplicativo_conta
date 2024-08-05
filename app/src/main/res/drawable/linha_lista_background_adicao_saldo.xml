@@ -1,0 +1,5 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/linha_lista_selecionada_background_cbp" android:state_activated="true" /> <!-- ativado manualmente -->
+    <item android:drawable="@drawable/linha_lista_selecionada_background_cbp" android:state_pressed="true" /> <!-- pressionado -->
+    <item android:drawable="@drawable/cor_linha_lista_borda_verde_cbp" /> <!-- normal -->
+</selector>

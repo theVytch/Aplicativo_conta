@@ -47,4 +47,7 @@
     <string name="menu_sobre">Information</string>
     <string name="menu_criar_pdf">Create PDF</string>
     <string name="ver_documentos">Documents</string>
+    <string name="textViewValorDaContaFormatoListaAdicao">Amount received</string>
+    <string name="textViewNomeDaContaFormatoListaAdicao">Amount name</string>
+    <string name="salarioTrabalho">Wage</string>
 </resources>

@@ -11,77 +11,18 @@
         layout="@layout/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewValorDaContaFormatoLista"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/textViewValorDaConta"
-        android:textColor="@color/corDoTitulo"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNomeDaContaFormatoLista" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerSubtracao"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <EditText
-        android:id="@+id/editTextValorContaFormatoLista"
-        android:layout_width="322dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/input_saldo_azul_cbp"
-        android:paddingStart="15dp"
-        android:ems="10"
-        android:hint="R$ 0,00"
-        android:inputType="numberDecimal"
-        android:padding="10dp"
-        android:textColor="@color/yellow"
-        android:textColorHint="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textViewValorDaContaFormatoLista"
-        app:layout_constraintTop_toBottomOf="@+id/textViewValorDaContaFormatoLista" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerAdicao"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView
-        android:id="@+id/textViewNomeDaContaFormatoLista"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="@string/textViewNomeDaConta"
-        android:textColor="@color/corDoTitulo"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextNomeDaContaFormatoLista"
-        android:layout_width="322dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/input_nome_azul_cbp"
-        android:paddingStart="15dp"
-        android:ems="10"
-        android:hint="@string/contaDeLuzHint"
-        android:inputType="text|textCapSentences"
-        android:padding="10dp"
-        android:textColor="@color/corLetraListaCbp"
-        android:textColorHint="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNomeDaContaFormatoLista" />
-
-    <Button
-        android:id="@+id/btnSalvarContaFormatoLista"
-        android:layout_width="160dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/botao"
-        android:onClick="salvarNovaConta"
-        android:text="@string/salvar"
-        android:textColor="@color/corLetraListaCbp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextValorContaFormatoLista" />
 </androidx.constraintlayout.widget.ConstraintLayout>

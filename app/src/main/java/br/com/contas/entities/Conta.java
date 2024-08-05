@@ -25,12 +25,14 @@ public class Conta implements Serializable {
     @NotNull
     private Date data;
     private Long usuarioId;
+    private String tipo;
 
     public Conta(String nomeConta, Double valor, Date data, Long usuarioId) {
         this.nomeConta = nomeConta;
         this.valor = valor;
         this.data = data;
         this.usuarioId = usuarioId;
+        this.tipo = "SAIDA";
     }
 
     public Long getId() {
@@ -74,6 +76,14 @@ public class Conta implements Serializable {
 
     public void setUsuarioId(Long usuario) {
         this.usuarioId = usuarioId;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override

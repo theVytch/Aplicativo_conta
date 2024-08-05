@@ -23,6 +23,18 @@ public class ListPdfAdapter extends ArrayAdapter<String> {
         this.pdfFiles = pdfFiles;
     }
 
+    @Override
+    public int getCount() {
+        return pdfFiles.size();
+    }
+
+
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

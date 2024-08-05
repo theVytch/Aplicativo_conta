@@ -30,8 +30,11 @@
     <string name="cifra">R$:</string>
     <string name="textViewSaldoTelaList">Saldo: R$</string>
     <string name="textViewNomeDaConta">Nome da conta</string>
+    <string name="textViewNomeDaContaFormatoListaAdicao">Nome do valor recebido</string>
     <string name="contaDeLuzHint">Conta de luz</string>
+    <string name="salarioTrabalho">Salario</string>
     <string name="textViewValorDaConta">Valor da conta</string>
+    <string name="textViewValorDaContaFormatoListaAdicao">Valor recebido</string>
     <string name="textViewDataQueFoiGasto">Data que foi gasto</string>
     <string name="editTextDateHint">dd/mm/aaaa</string>
     <string name="textViewSobreInformacaoPdf">" O aplicativo precisa de permissão para escrever um arquivo Pdf onde ira informar todas as suas contas.  O arquivo pdf sera escrito na sua pasta de Download.  Caso tenha senha seu gerenciamento de arquivos o aplicativo pode ter problema para criar o arquivo."</string>
