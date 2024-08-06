@@ -23,6 +23,7 @@ import br.com.contas.R;
 import br.com.contas.entities.Conta;
 import br.com.contas.entities.Usuario;
 import br.com.contas.persistence.UsuarioDatabase;
+import br.com.contas.utils.Ordenar;
 import br.com.contas.utils.PdfGenerator;
 import br.com.contas.utils.UtilsGUI;
 
@@ -124,7 +125,8 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
     public void criarPdf(View view){
         UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
         Usuario usuario = database.usuarioDao().getUsuario().get();
-        List<Conta> contas = database.contaDao().getListaContasUsuarioOrderByDataDescAndContaIdDesc(usuario.getId());
+        //List<Conta> contas = database.contaDao().getListaContasUsuarioOrderByDataDescAndContaIdDesc(usuario.getId());
+        List<Conta> contas = Ordenar.retornaListaOrdenada(usuario.getId(), Ordenar.opcaoOrdenacao, database);
         if(PdfGenerator.gerarPdf(contas, this, usuario)) {
 
             Toast.makeText(this,

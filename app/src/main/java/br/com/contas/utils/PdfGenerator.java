@@ -3,6 +3,7 @@ package br.com.contas.utils;
 import static br.com.contas.utils.DecimalDigits.formatarNumero;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
@@ -67,6 +68,13 @@ public class PdfGenerator {
             BaseColor customColor = new BaseColor(116, 190, 225);
             BaseColor customColorGreen = new BaseColor(144, 238, 144);
             String titulo = "CONTAS";
+            String dataGerada = sdfDocument.format(dataAtual);
+
+            PdfPCell cellHeadDate = new PdfPCell(new Phrase(dataGerada, font12));
+            cellHeadDate.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cellHeadDate.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cellHeadDate.setBorder(PdfPCell.NO_BORDER);
+            tableHead.addCell(cellHeadDate);
 
             PdfPCell cellHead = new PdfPCell(new Phrase(titulo, font15));
             cellHead.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -92,7 +100,9 @@ public class PdfGenerator {
                 BaseColor backgroundColor = "ENTRADA".equals(conta.getTipo()) ? customColorGreen : (alternateColor ? BaseColor.WHITE : BaseColor.LIGHT_GRAY);
 
                 adicionandoInformacoesNasColuna(conta, font12, backgroundColor, tableBody, sdfDocument);
-                resultadoFinal += conta.getValor();
+                if(conta.getTipo().equals("SAIDA")){
+                    resultadoFinal += conta.getValor();
+                }
                 alternateColor = !alternateColor;
             }
 

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -32,6 +31,7 @@ import br.com.contas.entities.Usuario;
 import br.com.contas.persistence.UsuarioDatabase;
 
 import br.com.contas.utils.DecimalDigits;
+import br.com.contas.utils.Ordenar;
 import br.com.contas.utils.UtilsGUI;
 import br.com.contas.R;
 
@@ -83,31 +83,6 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     private void exitApp() {
         finishAffinity();
     }
-
-    /*private void marcarLinhaSelecionada() {
-        listViewContas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if(!view.isActivated()) {
-                    view.setActivated(!view.isActivated());
-                    return true;
-                }
-                if(view.isActivated()){
-                    return false;
-                }
-                return true;
-            }
-        });
-
-        listViewContas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(view.isActivated()){
-                    view.setActivated(false);
-                }
-            }
-        });
-    }*/
 
     private void marcarLinhaSelecionada() {
         listViewContas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -274,7 +249,7 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
         if(optionalUsuario.isPresent()){
             usuario = optionalUsuario.get();
         }
-        lista = database.contaDao().getListaContasUsuarioOrderByDataDescAndContaIdDesc(usuario.getId());
+        lista = Ordenar.retornaListaOrdenada(usuario.getId(), Ordenar.opcaoOrdenacao, database); //ordenar
         if (lista != null) {
             atualizarLista();
         }

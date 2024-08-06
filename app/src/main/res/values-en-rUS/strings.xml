@@ -50,4 +50,12 @@
     <string name="textViewValorDaContaFormatoListaAdicao">Amount received</string>
     <string name="textViewNomeDaContaFormatoListaAdicao">Amount name</string>
     <string name="salarioTrabalho">Wage</string>
+    <string name="app_widget_description">Monitor your balance</string>
+
+    <string name="ordenarDataDesc">Sort by latest date</string>
+    <string name="ordenarDataAsc">Sort by earliest date</string>
+    <string name="ordenarNomeDesc">Sort by name A - Z</string>
+    <string name="ordenarNomeAsc">Sort by name Z - A</string>
+    <string name="ordenarValorDesc">Sort by highest value</string>
+    <string name="ordenarValorAsc">Sort by lowest value</string>
 </resources>

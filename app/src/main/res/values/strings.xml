@@ -52,5 +52,13 @@
     <string name="ver_documentos">Ver Documentos</string>
     <string name="appwidget_textConta">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
+    <string name="app_widget_description">Monitore seu saldo</string>
+
+
+    <string name="ordenarDataDesc">Ordenar por data maior  </string>
+    <string name="ordenarDataAsc">Ordenar por data menor  </string>
+    <string name="ordenarNomeDesc">Ordenar por nome A - Z  </string>
+    <string name="ordenarNomeAsc">Ordenar por nome Z - A  </string>
+    <string name="ordenarValorDesc">Ordenar por valor maior  </string>
+    <string name="ordenarValorAsc">Ordenar por valor menor  </string>
 </resources>
