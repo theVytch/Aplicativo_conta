@@ -81,7 +81,9 @@
         android:text="@string/textViewDataQueFoiGasto"
         android:textColor="@color/corDoTitulo"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewValorDaConta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextValorConta" />
 
     <EditText
@@ -98,7 +100,7 @@
         android:textColor="@color/corLetraListaCbp"
         android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.273"
+        app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDataQueFoiGasto" />
 

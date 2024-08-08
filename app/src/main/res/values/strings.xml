@@ -27,6 +27,7 @@
     <string name="msgLocalSalvo">Local salvo: </string>
     <string name="msgPdfGerado">PDF gerado com sucesso: </string>
     <string name="msgErroPdfGerado">Erro ao gerar PDF: </string>
+    <string name="totalComEspaco">"Total:  "</string>
     <string name="cifra">R$:</string>
     <string name="textViewSaldoTelaList">Saldo: R$</string>
     <string name="textViewNomeDaConta">Nome da conta</string>

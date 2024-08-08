@@ -3,7 +3,6 @@ package br.com.contas.utils;
 import static br.com.contas.utils.DecimalDigits.formatarNumero;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
@@ -169,7 +168,11 @@ public class PdfGenerator {
         cellNome.setVerticalAlignment(Element.ALIGN_MIDDLE);
         table.addCell(cellNome);
 
-        PdfPCell cellValor = new PdfPCell(new Phrase("R$ " + formatarNumero(conta.getValor()), font12));
+        String cifra = "R$ -";
+        if(conta.getTipo().equals("ENTRADA")){
+            cifra = "R$ +";
+        }
+        PdfPCell cellValor = new PdfPCell(new Phrase(cifra + formatarNumero(conta.getValor()), font12));
         cellValor.setBackgroundColor(backgroundColor);
         cellValor.setHorizontalAlignment(Element.ALIGN_RIGHT); // Alinhar horizontalmente ao centro
         cellValor.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -179,7 +182,7 @@ public class PdfGenerator {
     }
 
     private static void adicionandoInformacoesNaColunaFinal(PdfPTable tableBodyResult, Double resultadoTotal, Font font14, Usuario usuario){
-        String resultadoString = "TOTAL:  " + "R$ " + formatarNumero(resultadoTotal);
+        String resultadoString = "Total:  " + "R$ " + formatarNumero(resultadoTotal);
         String usuarioInfo = "Entrada:   R$" + formatarNumero(resultadoTotal + usuario.getSaldo()) + "\n" +
                 "Restante: R$" + formatarNumero(usuario.getSaldo());
         String[] lista = {usuarioInfo,"", resultadoString};
