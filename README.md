@@ -4,8 +4,9 @@ Aplicativo feito para estudos.
 O aplicativo oferece uma maneira simples e eficaz de controlar seus gastos. Basta definir um orçamento inicial e começar a registrar seus gastos conforme eles ocorrem. À medida que você adiciona suas despesas, o aplicativo automaticamente deduz esses valores do seu orçamento, fornecendo uma visão clara e em tempo real de suas finanças.
 
 
-# Baixe ele nesse link
+# Baixe ele nesse link  
+//versão velha com muitos erros, apenas para eu ver como era.
 https://github.com/theVytch/Aplicativo_conta/blob/master/app/src/apk/Contas.apk
 
-Aplicativo no estilo Cyberpunk 2077
+Aplicativo no estilo Cyberpunk 2077 //versão nova e incrivel.
 https://github.com/theVytch/Aplicativo_conta/blob/themeCyberPunk2077/app/src/apk/Contas.apk
