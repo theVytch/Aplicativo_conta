@@ -3,6 +3,7 @@ package br.com.contas.utils;
 import static br.com.contas.utils.DecimalDigits.formatarNumero;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
@@ -25,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import br.com.contas.R;
 import br.com.contas.entities.Conta;
 import br.com.contas.entities.Usuario;
 
@@ -34,7 +36,14 @@ public class PdfGenerator {
     private static final String TAG = "PdfGenerator";
     public static String localSalvoArquivo = "";
 
-    public static boolean gerarPdf(List<Conta> contas, Activity activity, Usuario usuario) {
+    private Context context;
+
+    // Constructor
+    public PdfGenerator(Context context) {
+        this.context = context;
+    }
+
+    public boolean gerarPdf(List<Conta> contas, Activity activity, Usuario usuario) {
         try {
             Date dataAtual = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATA);
@@ -44,10 +53,10 @@ public class PdfGenerator {
 
             File pdfFile;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                pdfFile = new File(activity.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "minha_lista_de_contas_" + sdf.format(dataAtual) + ".pdf");
-                localSalvoArquivo = "Local salvo: " + pdfFile.getPath();
+                pdfFile = new File(activity.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), context.getString(R.string.minha_lista_de_contas_) + sdf.format(dataAtual) + context.getString(R.string.pdf));
+                localSalvoArquivo = context.getString(R.string.msgLocalSalvo) + " " + pdfFile.getPath();
             } else {
-                pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "minha_lista_de_contas_" + sdf.format(dataAtual) + ".pdf");
+                pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), context.getString(R.string.minha_lista_de_contas_) + sdf.format(dataAtual) + context.getString(R.string.pdf));
             }
 
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfFile));
@@ -66,7 +75,8 @@ public class PdfGenerator {
             tableHead.setWidthPercentage(100);
             BaseColor customColor = new BaseColor(116, 190, 225);
             BaseColor customColorGreen = new BaseColor(144, 238, 144);
-            String titulo = "CONTAS";
+            //String titulo = "CONTAS"; -- teste
+            String titulo = context.getString(R.string.app_name);
             String dataGerada = sdfDocument.format(dataAtual);
 
             PdfPCell cellHeadDate = new PdfPCell(new Phrase(dataGerada, font12));
@@ -119,16 +129,17 @@ public class PdfGenerator {
             document.close();
             writer.close();
 
-            Log.d(TAG, "PDF gerado com sucesso em: " + pdfFile.getAbsolutePath());
+            Log.d(TAG, context.getString(R.string.pdf_gerado_com_sucesso_em) + pdfFile.getAbsolutePath());
             return true;
         } catch (DocumentException | FileNotFoundException e) {
-            Log.e(TAG, "Erro ao gerar PDF: " + e.getMessage(), e);
+            Log.e(TAG, context.getString(R.string.erro_ao_gerar_pdf) + e.getMessage(), e);
             return false;
         }
     }
 
-    private static void criandoCabecacolhoDaTabelaBody(Font font14, PdfPTable tableBody) {
-        String[] cabecalhos = { "Data","Nome","Preço"};
+    // teste ee-----------------------------------
+    private void criandoCabecacolhoDaTabelaBody(Font font14, PdfPTable tableBody) {
+        String[] cabecalhos = {context.getString(R.string.Data),context.getString(R.string.Nome),context.getString(R.string.Preco)};
 
         PdfPCell cellData = new PdfPCell(new Phrase(cabecalhos[0], font14));
         cellData.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -152,7 +163,7 @@ public class PdfGenerator {
         tableBody.addCell(cellValor);
     }
 
-    private static void adicionandoInformacoesNasColuna(Conta conta, Font font12, BaseColor backgroundColor, PdfPTable table, SimpleDateFormat sdfDocument) {
+    private void adicionandoInformacoesNasColuna(Conta conta, Font font12, BaseColor backgroundColor, PdfPTable table, SimpleDateFormat sdfDocument) {
 
         PdfPCell cellData = new PdfPCell(new Phrase(sdfDocument.format(conta.getData()), font12));
         cellData.setHorizontalAlignment(Element.ALIGN_CENTER); // Alinhar horizontalmente ao centro
@@ -168,9 +179,9 @@ public class PdfGenerator {
         cellNome.setVerticalAlignment(Element.ALIGN_MIDDLE);
         table.addCell(cellNome);
 
-        String cifra = "R$ -";
+        String cifra = context.getString(R.string.cifra_com_espaco_e_sinal_de_subtracao);
         if(conta.getTipo().equals("ENTRADA")){
-            cifra = "R$ +";
+            cifra = context.getString(R.string.cifra_com_espaco_e_sinal_de_adicao);
         }
         PdfPCell cellValor = new PdfPCell(new Phrase(cifra + formatarNumero(conta.getValor()), font12));
         cellValor.setBackgroundColor(backgroundColor);
@@ -181,10 +192,11 @@ public class PdfGenerator {
 
     }
 
-    private static void adicionandoInformacoesNaColunaFinal(PdfPTable tableBodyResult, Double resultadoTotal, Font font14, Usuario usuario){
-        String resultadoString = "Total:  " + "R$ " + formatarNumero(resultadoTotal);
-        String usuarioInfo = "Entrada:   R$" + formatarNumero(resultadoTotal + usuario.getSaldo()) + "\n" +
-                "Restante: R$" + formatarNumero(usuario.getSaldo());
+    private void adicionandoInformacoesNaColunaFinal(PdfPTable tableBodyResult, Double resultadoTotal, Font font14, Usuario usuario){
+        //String resultadoString = context.getString(R.string.total_com_espaco) + context.getString(R.string.cifra_com_espaco) + formatarNumero(resultadoTotal);
+        String resultadoString = context.getString(R.string.total_com_espaco) + "  " + context.getString(R.string.cifra_com_espaco) + " " + formatarNumero(resultadoTotal);
+        String usuarioInfo = context.getString(R.string.Entrada_tres_espaco_com_cifra) + "   " + context.getString(R.string.cifra) + formatarNumero(resultadoTotal + usuario.getSaldo()) + "\n" +
+                context.getString(R.string.Restante_espaco_com_cifra) + "  " + context.getString(R.string.cifra) +  formatarNumero(usuario.getSaldo());
         String[] lista = {usuarioInfo,"", resultadoString};
 
 
@@ -210,7 +222,7 @@ public class PdfGenerator {
         tableBodyResult.addCell(cellDoisResult);
     }
 
-    private static void gambiarraParaDeixarApenasUmaColunaComResultadoEnquantoAsOutrasTresFicamEmBranco(PdfPTable tableBodyResult, Font font14, String[] lista) {
+    private void gambiarraParaDeixarApenasUmaColunaComResultadoEnquantoAsOutrasTresFicamEmBranco(PdfPTable tableBodyResult, Font font14, String[] lista) {
         PdfPCell cellUm = new PdfPCell(new Phrase(lista[1], font14));
         cellUm.setBorder(PdfPCell.NO_BORDER);
         cellUm.setBackgroundColor(BaseColor.WHITE);

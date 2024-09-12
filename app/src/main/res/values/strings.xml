@@ -24,7 +24,7 @@
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
     <string name="retornaValorContaSaldo">Deseja retornar o valor da conta para o saldo?</string>
-    <string name="msgLocalSalvo">Local salvo: </string>
+    <string name="msgLocalSalvo">Local salvo:</string>
     <string name="msgPdfGerado">PDF gerado com sucesso: </string>
     <string name="msgErroPdfGerado">Erro ao gerar PDF: </string>
     <string name="totalComEspaco">"Total:  "</string>
@@ -51,6 +51,14 @@
     <string name="menu_sobre">Sobre</string>
     <string name="menu_criar_pdf">Criar PDF</string>
     <string name="ver_documentos">Ver Documentos</string>
+
+    <string name="nao_foi_possivel_abrir_o_documento">Não foi possivel abrir o documento!</string>
+    <string name="arquivo_deletado_com_sucesso">Arquivo deletado com sucesso!</string>
+    <string name="falha_ao_deletar_o_arquivo">Falha ao deletar o arquivo!</string>
+    <string name="arquivo_nao_encontrado">Arquivo não encontrado!</string>
+    <string name="erro_ao_deletar_o_arquivo">Erro ao deletar o arquivo: </string>
+
+
     <string name="appwidget_textConta">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">Monitore seu saldo</string>
@@ -62,4 +70,21 @@
     <string name="ordenarNomeAsc">Ordenar por nome Z - A  </string>
     <string name="ordenarValorDesc">Ordenar por valor maior  </string>
     <string name="ordenarValorAsc">Ordenar por valor menor  </string>
+
+    <string name="total_com_espaco">Total:  </string>
+    <string name="cifra_com_espaco">R$ </string>
+    <string name="pdf_gerado_com_sucesso_em">PDF gerado com sucesso em: </string>
+    <string name="erro_ao_gerar_pdf">Erro ao gerar PDF: </string>
+    <string name="cifra_com_espaco_e_sinal_de_subtracao">R$ -</string>
+    <string name="cifra_com_espaco_e_sinal_de_adicao">R$ +</string>
+
+    <string name="minha_lista_de_contas_">minha_lista_de_contas_</string>
+    <string name="pdf">.pdf</string>
+
+    <string name="Entrada_tres_espaco_com_cifra">Entrada:   </string>
+    <string name="Restante_espaco_com_cifra">Restante: </string>
+
+    <string name="Data">Data</string>
+    <string name="Nome">Nome</string>
+    <string name="Preco">Preço</string>
 </resources>

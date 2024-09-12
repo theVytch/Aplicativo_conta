@@ -127,7 +127,8 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
         Usuario usuario = database.usuarioDao().getUsuario().get();
         //List<Conta> contas = database.contaDao().getListaContasUsuarioOrderByDataDescAndContaIdDesc(usuario.getId());
         List<Conta> contas = Ordenar.retornaListaOrdenada(usuario.getId(), Ordenar.opcaoOrdenacao, database);
-        if(PdfGenerator.gerarPdf(contas, this, usuario)) {
+        PdfGenerator pdfGen = new PdfGenerator(view.getContext());
+        if(pdfGen.gerarPdf(contas, this, usuario)) {
 
             Toast.makeText(this,
                     R.string.mensagemAvisoPdfCriado,

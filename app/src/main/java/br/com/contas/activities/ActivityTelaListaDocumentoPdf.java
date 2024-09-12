@@ -12,7 +12,6 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,7 +31,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.contas.R;
-import br.com.contas.adapter.ContaAdapter;
 import br.com.contas.adapter.ListPdfAdapter;
 
 public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
@@ -188,7 +186,7 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Toast.makeText(this,
-                    "Não foi possivel abrir o documento!",
+                    getResources().getString(R.string.nao_foi_possivel_abrir_o_documento),
                     Toast.LENGTH_LONG).show();
         }
     }
@@ -202,15 +200,15 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
                 if (deleted) {
                     listPdfFiles();
                     listaDeArquivos.remove(file);
-                    Toast.makeText(context, "Arquivo deletado com sucesso", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.arquivo_deletado_com_sucesso), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Falha ao deletar o arquivo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.falha_ao_deletar_o_arquivo), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(context, "Arquivo não encontrado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getString(R.string.arquivo_nao_encontrado), Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Toast.makeText(context, "Erro ao deletar o arquivo: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.erro_ao_deletar_o_arquivo) + " " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         return deleted;

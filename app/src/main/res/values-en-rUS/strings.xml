@@ -28,6 +28,7 @@
     <string name="msgPdfGerado">PDF generated successfully:</string>
     <string name="msgErroPdfGerado">Error generating PDF:</string>
     <string name="cifra">$:</string>
+    <string name="totalComEspaco">"Total:  "</string>
     <string name="textViewSaldoTelaList">Balance: $</string>
     <string name="textViewNomeDaConta">Account name</string>
     <string name="contaDeLuzHint">Electricity bill</string>
@@ -47,6 +48,13 @@
     <string name="menu_sobre">Information</string>
     <string name="menu_criar_pdf">Create PDF</string>
     <string name="ver_documentos">Documents</string>
+
+    <string name="nao_foi_possivel_abrir_o_documento">Could not open the document!</string>
+    <string name="arquivo_deletado_com_sucesso">File deleted successfully!</string>
+    <string name="falha_ao_deletar_o_arquivo">Failed to delete the file!</string>
+    <string name="arquivo_nao_encontrado">File not found!</string>
+    <string name="erro_ao_deletar_o_arquivo">Error deleting the file: </string>
+
     <string name="textViewValorDaContaFormatoListaAdicao">Amount received</string>
     <string name="textViewNomeDaContaFormatoListaAdicao">Amount name</string>
     <string name="salarioTrabalho">Wage</string>
@@ -58,4 +66,21 @@
     <string name="ordenarNomeAsc">Sort by name Z - A</string>
     <string name="ordenarValorDesc">Sort by highest value</string>
     <string name="ordenarValorAsc">Sort by lowest value</string>
+
+    <string name="total_com_espaco">Total:  </string>
+    <string name="cifra_com_espaco">$ </string>
+    <string name="pdf_gerado_com_sucesso_em">PDF successfully generated at: </string>
+    <string name="erro_ao_gerar_pdf">Error generating PDF: </string>
+    <string name="cifra_com_espaco_e_sinal_de_subtracao">$ -</string>
+    <string name="cifra_com_espaco_e_sinal_de_adicao">$ +</string>
+
+    <string name="minha_lista_de_contas_">my_list_of_bills_</string>
+    <string name="pdf">.pdf</string>
+
+    <string name="Entrada_tres_espaco_com_cifra">Income:       </string>
+    <string name="Restante_espaco_com_cifra">Remaining:  </string>
+
+    <string name="Data">Date</string>
+    <string name="Nome">Name</string>
+    <string name="Preco">Price</string>
 </resources>
