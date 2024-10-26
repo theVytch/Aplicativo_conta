@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Contas</string>
+    <string name="app_name">clonacartão</string>
     <string name="title_activity_tela_incial_lista_conta" translatable="false">activity_tela_incial_lista_conta</string>
     <string name="saldo">Saldo</string>
     <string name="cancelar">Cancelar</string>
