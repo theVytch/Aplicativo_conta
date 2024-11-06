@@ -15,9 +15,6 @@ public class ViewPagerAdapterConta extends FragmentStateAdapter {
     private FragmentTelaContaSubtracao fragmentSubtracao;
     private FragmentTelaContaAdicao fragmentAdicao;
 
-    private Fragment currentFragment;
-
-
     public ViewPagerAdapterConta(@NonNull FragmentActivity fa, Conta contaParaEditar) {
         super(fa);
         if(contaParaEditar != null){
@@ -28,25 +25,64 @@ public class ViewPagerAdapterConta extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == 0) {
-            if (fragmentSubtracao == null) {
-                fragmentSubtracao = new FragmentTelaContaSubtracao();
-                Bundle args = new Bundle();
-                args.putSerializable("conta_para_editar", contaParaEditar);
-                fragmentSubtracao.setArguments(args);
+        if (contaParaEditar != null){
+            if(contaParaEditar.getTipo().equals("ENTRADA")){
+                if (position == 0) {
+                    if (fragmentAdicao == null) {
+                        fragmentAdicao = new FragmentTelaContaAdicao();
+                        Bundle args = new Bundle();
+                        args.putSerializable("conta_para_editar", contaParaEditar);
+                        fragmentAdicao.setArguments(args);
+                    }
+                    return fragmentAdicao;
+                } else {
+                    if (fragmentSubtracao == null) {
+                        fragmentSubtracao = new FragmentTelaContaSubtracao();
+                        Bundle args = new Bundle();
+                        args.putSerializable("conta_para_editar", contaParaEditar);
+                        fragmentSubtracao.setArguments(args);
+                    }
+                    return fragmentSubtracao;
+                }
+            }else {
+                if (position == 0) {
+                    if (fragmentSubtracao == null) {
+                        fragmentSubtracao = new FragmentTelaContaSubtracao();
+                        Bundle args = new Bundle();
+                        args.putSerializable("conta_para_editar", contaParaEditar);
+                        fragmentSubtracao.setArguments(args);
+                    }
+                    return fragmentSubtracao;
+                } else {
+                    if (fragmentAdicao == null) {
+                        fragmentAdicao = new FragmentTelaContaAdicao();
+                        Bundle args = new Bundle();
+                        args.putSerializable("conta_para_editar", contaParaEditar);
+                        fragmentAdicao.setArguments(args);
+                    }
+                    return fragmentAdicao;
+                }
             }
-            return fragmentSubtracao;
-        } else {
-            if (fragmentAdicao == null) {
-                fragmentAdicao = new FragmentTelaContaAdicao();
-                Bundle args = new Bundle();
-                args.putSerializable("conta_para_editar", contaParaEditar);
-                fragmentAdicao.setArguments(args);
+        }else{
+            if (position == 0) {
+                if (fragmentSubtracao == null) {
+                    fragmentSubtracao = new FragmentTelaContaSubtracao();
+                    Bundle args = new Bundle();
+                    args.putSerializable("conta_para_editar", contaParaEditar);
+                    fragmentSubtracao.setArguments(args);
+                }
+                return fragmentSubtracao;
+            } else {
+                if (fragmentAdicao == null) {
+                    fragmentAdicao = new FragmentTelaContaAdicao();
+                    Bundle args = new Bundle();
+                    args.putSerializable("conta_para_editar", contaParaEditar);
+                    fragmentAdicao.setArguments(args);
+                }
+                return fragmentAdicao;
             }
-            return fragmentAdicao;
         }
     }
-
 
     @Override
     public int getItemCount() {
