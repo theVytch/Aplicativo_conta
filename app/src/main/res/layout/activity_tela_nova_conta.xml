@@ -5,103 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_lista_cbp"
-    tools:context=".activities.ActivityTelaNovaConta">
+    tools:context=".activities.telas_conta.ActivityTelaNovaConta">
 
     <include
         layout="@layout/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewNomeDaConta"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="@string/textViewNomeDaConta"
-        android:textColor="@color/corDoTitulo"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextNomeConta"
-        android:layout_width="322dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/input_nome_azul_cbp"
-        android:paddingStart="15dp"
-        android:ems="10"
-        android:hint="@string/contaDeLuzHint"
-        android:inputType="text|textCapSentences"
-        android:padding="10dp"
-        android:textColor="@color/corLetraListaCbp"
-        android:textColorHint="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNomeDaConta" />
-
-    <TextView
-        android:id="@+id/textViewValorDaConta"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/textViewValorDaConta"
-        android:textColor="@color/corDoTitulo"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNomeConta" />
-
-    <EditText
-        android:id="@+id/editTextValorConta"
-        android:layout_width="322dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/input_saldo_azul_cbp"
-        android:paddingStart="15dp"
-        android:ems="10"
-        android:hint="R$ 0,00"
-        android:inputType="numberDecimal"
-        android:padding="10dp"
-        android:textColor="@color/yellow"
-        android:textColorHint="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewValorDaConta" />
-
-    <TextView
-        android:id="@+id/textViewDataQueFoiGasto"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/textViewDataQueFoiGasto"
-        android:textColor="@color/corDoTitulo"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextValorConta" />
-
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="322dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/input_saldo_azul_cbp"
-        android:paddingStart="15dp"
-        android:ems="10"
-        android:hint="@string/editTextDateHint"
-        android:inputType="date"
-        android:padding="10dp"
-        android:textColor="@color/corLetraListaCbp"
-        android:textColorHint="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDataQueFoiGasto" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerConta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

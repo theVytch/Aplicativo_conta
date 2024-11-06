@@ -5,24 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_lista_cbp"
-    tools:context=".activities.ActivityTelaNovaContaFormatoLista">
+    tools:context=".activities.telas_conta.ActivityTelaNovaContaFormatoLista">
 
     <include
         layout="@layout/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPagerSubtracao"
+        android:id="@+id/viewPagerListaConta"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPagerAdicao"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

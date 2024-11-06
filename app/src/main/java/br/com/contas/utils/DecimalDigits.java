@@ -1,7 +1,5 @@
 package br.com.contas.utils;
 
-import androidx.annotation.NonNull;
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
@@ -9,6 +7,7 @@ public class DecimalDigits{
 
     public static String modeloFormatPattern;
     public static String idiomaCelular;
+
 
     public static String formatarNumero(Double numero) {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
@@ -23,7 +22,7 @@ public class DecimalDigits{
 
     public static void formatPattern(String idioma){
         if(idioma.equals("en")){
-            modeloFormatPattern = "#,###.00";
+            modeloFormatPattern = "#,###0.00";
             idiomaCelular = idioma;
             return;
         }

@@ -7,12 +7,12 @@
         android:icon="@drawable/btn_top_salvar_cbp"
         android:title="@string/salvar"
         android:iconTint="@color/corDoTitulo"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/menuItemCancelar"
         android:icon="@drawable/btn_top_cancelar_cbp"
         android:title="@string/cancelar"
         android:iconTint="@color/red"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="always" />
 </menu>

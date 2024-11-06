@@ -29,7 +29,7 @@ android {
             mavenCentral()
         }
         dependencies {
-            classpath 'com.android.tools.build:gradle:8.0.2' // Atualize para a versão mais recente
+            classpath 'com.android.tools.build:gradle:8.1.0' // Atualize para a versão mais recente
         }
     }
 
