@@ -7,6 +7,9 @@ import br.com.contas.persistence.UsuarioDatabase;
 
 public class Ordenar {
 
+    public static String radio_size = "Blind";
+    public static int layout_size = 100;
+
     public static String opcaoOrdenacao = "orderDataDesc";
 
     public static List<Conta> retornaListaOrdenada(Long usuarioId, String ordenar, UsuarioDatabase database){
@@ -25,5 +28,18 @@ public class Ordenar {
             listaOrdenada = database.contaDao().getListaContasUsuarioOrderByValorMenorMaior(usuarioId);
         }
         return listaOrdenada;
+    }
+
+    public static int retornaTamanhoEscolhido(){
+        if (radio_size.equals("Small")){
+            layout_size = 70;
+        } else if (radio_size.equals("Middle")){
+            layout_size = 80;
+        } else if (radio_size.equals("Large")) {
+            layout_size = 90;
+        } else {
+            layout_size = 100;
+        }
+        return layout_size;
     }
 }

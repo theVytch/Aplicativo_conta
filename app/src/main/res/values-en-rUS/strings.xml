@@ -83,4 +83,9 @@
     <string name="Data">Date</string>
     <string name="Nome">Name</string>
     <string name="Preco">Price</string>
+
+    <string name="rb_pequeno">Small</string>
+    <string name="rb_medio">Medium</string>
+    <string name="rb_grande">Large</string>
+    <string name="rb_cego">Blind</string>
 </resources>

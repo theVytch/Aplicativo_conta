@@ -87,4 +87,9 @@
     <string name="Data">Data</string>
     <string name="Nome">Nome</string>
     <string name="Preco">Preço</string>
+
+    <string name="rb_pequeno">Pequeno</string>
+    <string name="rb_medio">Médio</string>
+    <string name="rb_grande">Grande</string>
+    <string name="rb_cego">Cego</string>
 </resources>

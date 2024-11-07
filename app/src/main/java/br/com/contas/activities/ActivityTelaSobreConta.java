@@ -3,6 +3,7 @@ package br.com.contas.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import br.com.contas.R;
@@ -20,9 +23,17 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
 
     private static final String ARQUIVO =
             "br.edu.eduardomelentovytch.aplicativoContas.PREFERENCIA_ORDENACAO";
+    private static final String ARQUIVO_SIZE =
+            "br.edu.eduardomelentovytch.aplicativoContas.PREFERENCIA_ORDENACAO_SIZE";
     private static final String ORDENACAO = "ORDENACAO";
+    private static final String ORDENACAO_SIZE = "ORDENACAO_SIZE";
     private String opcao = Ordenar.opcaoOrdenacao;
     private TextView textViewSobre;
+    private RadioButton radioButtonSmall;
+    private RadioButton radioButtonMiddle;
+    private RadioButton radioButtonLarge;
+    private RadioButton radioButtonBlind;
+    private String tamanhoSelecionado = Ordenar.radio_size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +44,7 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         iniciarComponentes();
+        retornaPreferenciaSize();
 
         exibirBotaoVoltar();
     }
@@ -45,6 +57,11 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
     private void iniciarComponentes(){
         textViewSobre = findViewById(R.id.textViewSobre);
         textViewSobre.setMovementMethod(new ScrollingMovementMethod());
+
+        radioButtonSmall = findViewById(R.id.radioButtonSmall);
+        radioButtonMiddle = findViewById(R.id.radioButtonMiddle);
+        radioButtonLarge = findViewById(R.id.radioButtonLarge);
+        radioButtonBlind = findViewById(R.id.radioButtonBlind);
     }
 
     private void exibirBotaoVoltar() {
@@ -120,7 +137,41 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
         Ordenar.opcaoOrdenacao = shared.getString(ORDENACAO, opcao);
     }
 
+    private void salvarPreferenciaSize() {
+        if (radioButtonSmall.isChecked()) {
+            tamanhoSelecionado = "Small";
+        } else if (radioButtonMiddle.isChecked()) {
+            tamanhoSelecionado = "Middle";
+        } else if (radioButtonLarge.isChecked()) {
+            tamanhoSelecionado = "Large";
+        } else {
+            tamanhoSelecionado = "Blind";
+        }
+
+        SharedPreferences shared = getSharedPreferences(ARQUIVO_SIZE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared.edit();
+        editor.putString(ORDENACAO_SIZE, tamanhoSelecionado);
+        editor.commit();
+        Ordenar.radio_size = tamanhoSelecionado;
+    }
+
+    private void retornaPreferenciaSize() {
+        SharedPreferences shared = getSharedPreferences(ARQUIVO_SIZE, Context.MODE_PRIVATE);
+        tamanhoSelecionado = shared.getString(ORDENACAO_SIZE, tamanhoSelecionado);
+
+        if (tamanhoSelecionado.equals("Small")) {
+            radioButtonSmall.setChecked(true);
+        } else if (tamanhoSelecionado.equals("Middle")) {
+            radioButtonMiddle.setChecked(true);
+        } else if (tamanhoSelecionado.equals("Large")) {
+            radioButtonLarge.setChecked(true);
+        } else {
+            radioButtonBlind.setChecked(true);
+        }
+    }
+
     private void mudarTelaInicial(){
+        salvarPreferenciaSize();
         retornaPreferencia();
         Intent intent = new Intent(this, ActivityTelaIncialListaConta.class);
         startActivity(intent);
