@@ -7,23 +7,16 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import br.com.contas.R;
-import br.com.contas.api.ApiClient;
-import br.com.contas.api.ApiService;
 import br.com.contas.api.Cotacao;
 import br.com.contas.utils.Ordenar;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ActivityTelaSobreConta extends AppCompatActivity {
 
@@ -54,14 +47,14 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
         iniciarComponentes();
         retornaPreferenciaSize();
 
-        chamaApi(getResources());
+        //chamaApi(getResources());
 
         exibirBotaoVoltar();
     }
 
 
 
-    private static void chamaApi(Resources resources) {
+    /*private static void chamaApi(Resources resources) {
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
 
         apiService.getCotacao().enqueue(new Callback<Cotacao>() {
@@ -88,7 +81,7 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
                 Log.e("API_ERROR", t.getMessage());
             }
         });
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
