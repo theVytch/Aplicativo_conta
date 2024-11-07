@@ -157,7 +157,7 @@ public class FragmentTelaContaAdicao extends Fragment {
         conta = database.contaDao().getContaById(contaParaEditar.getId()).get();
 
         Double valorContaAntigo = contaParaEditar.getValor();
-        usuario.setSaldo(valorContaAntigo + usuario.getSaldo());
+        usuario.setSaldo(usuario.getSaldo() - valorContaAntigo);
 
 
         String nomeConta = editTextNomeContaAdicao.getText().toString().trim();

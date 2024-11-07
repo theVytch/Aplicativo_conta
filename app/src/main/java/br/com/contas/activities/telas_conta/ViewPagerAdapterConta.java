@@ -15,6 +15,11 @@ public class ViewPagerAdapterConta extends FragmentStateAdapter {
     private FragmentTelaContaSubtracao fragmentSubtracao;
     private FragmentTelaContaAdicao fragmentAdicao;
 
+    private Fragment currentFragment;
+
+    private int numeroDeFragments = 2;
+
+
     public ViewPagerAdapterConta(@NonNull FragmentActivity fa, Conta contaParaEditar) {
         super(fa);
         if(contaParaEditar != null){
@@ -27,6 +32,7 @@ public class ViewPagerAdapterConta extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         if (contaParaEditar != null){
             if(contaParaEditar.getTipo().equals("ENTRADA")){
+                numeroDeFragments = 1;
                 if (position == 0) {
                     if (fragmentAdicao == null) {
                         fragmentAdicao = new FragmentTelaContaAdicao();
@@ -45,6 +51,7 @@ public class ViewPagerAdapterConta extends FragmentStateAdapter {
                     return fragmentSubtracao;
                 }
             }else {
+                numeroDeFragments = 1;
                 if (position == 0) {
                     if (fragmentSubtracao == null) {
                         fragmentSubtracao = new FragmentTelaContaSubtracao();
@@ -86,6 +93,6 @@ public class ViewPagerAdapterConta extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2; // Número de Fragments
+        return numeroDeFragments; // Número de Fragments
     }
 }
