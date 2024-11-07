@@ -92,4 +92,11 @@
     <string name="rb_medio">Médio</string>
     <string name="rb_grande">Grande</string>
     <string name="rb_cego">Cego</string>
+
+
+    <string name="api_erro">API está fora do ar</string>
+
+    <string name="oferta">Oferta:</string>
+    <string name="alta">Alta:</string>
+    <string name="baixa">Baixa:</string>
 </resources>

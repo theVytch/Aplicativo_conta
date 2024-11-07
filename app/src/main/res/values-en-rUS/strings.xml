@@ -88,4 +88,10 @@
     <string name="rb_medio">Medium</string>
     <string name="rb_grande">Large</string>
     <string name="rb_cego">Blind</string>
+
+    <string name="api_erro">Internal Server Error</string>
+
+    <string name="oferta">Bid: </string>
+    <string name="alta">High:</string>
+    <string name="baixa">Low:</string>
 </resources>
