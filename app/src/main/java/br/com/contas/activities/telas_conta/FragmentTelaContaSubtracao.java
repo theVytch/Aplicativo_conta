@@ -84,7 +84,7 @@ public class FragmentTelaContaSubtracao extends Fragment {
         if (item.getItemId() == R.id.menuItemSalvar) {
             // Ação para o item de menu "Salvar"
             if(contaParaEditar != null){
-                salvarEdicaoConta();
+                salvarNovaEdicaoConta();
             }else{
                 salvarNovaContaSubtracao();
             }
@@ -116,7 +116,7 @@ public class FragmentTelaContaSubtracao extends Fragment {
         usuario = database.usuarioDao().getUsuario().get();
     }
 
-    public void limparCampo(){
+    private void limparCampo(){
         editTextNomeContaSubtracao.setText("");
         editTextValorContaSubtracao.setText(String.valueOf(""));
         editTextDateSubtracao.setText("");
@@ -160,7 +160,7 @@ public class FragmentTelaContaSubtracao extends Fragment {
         editTextValorContaSubtracao.setText("0,00");
     }
 
-    public void salvarEdicaoConta(){
+    private void salvarNovaEdicaoConta(){
         UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
         conta = database.contaDao().getContaById(contaParaEditar.getId()).get();
 
@@ -174,15 +174,7 @@ public class FragmentTelaContaSubtracao extends Fragment {
 
         if(validarFormatoData(dataConta)) {
             if(UtilsValida.validaCampoPreenchido(nomeConta, valorContaNovo)) {
-                conta.setNomeConta(nomeConta);
-                conta.setValor(valorContaNovo);
-                conta.setData(DateConverter.stringToDate(dataConta));
-                conta.setUsuarioId(contaParaEditar.getUsuarioId());
-
-                database.contaDao().update(conta);
-
-                atualizaSaldoUsuario(valorContaNovo, usuario);
-                mudarTelaInicial();
+                salvarEdicaoConta(nomeConta, valorContaNovo, dataConta, database);
             }else{
                 Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
             }
@@ -191,7 +183,19 @@ public class FragmentTelaContaSubtracao extends Fragment {
         }
     }
 
-    public void salvarNovaContaSubtracao() {
+    protected void salvarEdicaoConta(String nomeConta, Double valorContaNovo, String dataConta, UsuarioDatabase database) {
+        conta.setNomeConta(nomeConta);
+        conta.setValor(valorContaNovo);
+        conta.setData(DateConverter.stringToDate(dataConta));
+        conta.setUsuarioId(contaParaEditar.getUsuarioId());
+
+        database.contaDao().update(conta);
+
+        atualizaSaldoUsuario(valorContaNovo, usuario);
+        mudarTelaInicial();
+    }
+
+    private void salvarNovaContaSubtracao() {
         UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
         /*Optional<Usuario> optionalUsuario = database.usuarioDao().getUsuario();
         Usuario usuario = optionalUsuario.get();*/
@@ -201,17 +205,20 @@ public class FragmentTelaContaSubtracao extends Fragment {
         String dataConta = (editTextDateSubtracao.getText().toString().isEmpty()) ? sdf.format(dataAtual) : editTextDateSubtracao.getText().toString().trim();
 
         if(UtilsValida.validaCampoPreenchido(nomeConta, valor)) {
-            conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
-            database.contaDao().insert(conta);
-            atualizaSaldoUsuario(conta.getValor(), usuario);
-            //limparCampo();
-            mudarTelaInicial();
+            salvarConta(nomeConta, valor, dataConta, database);
         }else{
             Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public boolean validarFormatoData(String data) {
+    public void salvarConta(String nomeConta, Double valor, String dataConta, UsuarioDatabase database) {
+        conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
+        database.contaDao().insert(conta);
+        atualizaSaldoUsuario(conta.getValor(), usuario);
+        mudarTelaInicial();
+    }
+
+    private boolean validarFormatoData(String data) {
         sdf.setLenient(false);
 
         try {

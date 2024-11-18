@@ -123,14 +123,18 @@ public class FragmentTelaContaFormatoListaAdicao extends Fragment {
         String dataConta = sdf.format(dataAtual);
 
         if(UtilsValida.validaCampoPreenchido(nomeConta, valor)) {
-            conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
-            conta.setTipo(TIPO);
-            database.contaDao().insert(conta);
-            atualizaSaldoUsuario(conta.getValor(), usuario);
-            limparCampos();
+            salvar(nomeConta, valor, dataConta, usuario, database);
         }else{
             Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void salvar(String nomeConta, Double valor, String dataConta, Usuario usuario, UsuarioDatabase database) {
+        conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
+        conta.setTipo(TIPO);
+        database.contaDao().insert(conta);
+        atualizaSaldoUsuario(conta.getValor(), usuario);
+        limparCampos();
     }
 
     private void atualizaSaldoUsuario(Double saldo, Usuario usuario){
@@ -153,10 +157,5 @@ public class FragmentTelaContaFormatoListaAdicao extends Fragment {
         }
 
         return contaStr;
-    }
-
-    private void mudarTelaInicial(){
-        Intent intent = new Intent(getContext(), ActivityTelaIncialListaConta.class);
-        startActivity(intent);
     }
 }

@@ -74,7 +74,9 @@ public class ActivityTelaUsuario extends AppCompatActivity {
         editTextSaldoUsuario = findViewById(R.id.editTextSaldoUsuario);
         editTextSaldoUsuario.addTextChangedListener(new TextWatcher() {
             //DecimalFormat format = new DecimalFormat("#,##0.00");
-            DecimalFormat format = new DecimalFormat(DecimalDigits.modeloFormatPattern);
+            String pattern = DecimalDigits.modeloFormatPattern != null ? DecimalDigits.modeloFormatPattern : "#,##0.00";
+
+            DecimalFormat format = new DecimalFormat(pattern);
             private String current = "";
 
             @Override
@@ -184,7 +186,7 @@ public class ActivityTelaUsuario extends AppCompatActivity {
         return saldoStr;
     }
 
-    private void salvar(UsuarioDatabase database, String nome, Double saldo){
+    protected void salvar(UsuarioDatabase database, String nome, Double saldo){
         usuario = new Usuario(nome.trim(), saldo);
         database.usuarioDao().insert(usuario);
         if (nome.equals(database.usuarioDao().getNomeUsuario(nome).getNome())) {
@@ -196,13 +198,21 @@ public class ActivityTelaUsuario extends AppCompatActivity {
         }
     }
 
-    private void editar(UsuarioDatabase database, String nome, Double saldo){
+    protected void editar(UsuarioDatabase database, String nome, Double saldo){
         Optional<Usuario> usuarioAtualizado = database.usuarioDao().getUsuario();
         usuario = usuarioAtualizado.get();
         usuario.setNome(nome);
         usuario.setSaldo(saldo);
         database.usuarioDao().update(usuario);
         mudarTelaInicial();
+    }
+
+    public EditText getEditTextNomeUsuario() {
+        return editTextNomeUsuario;
+    }
+
+    public EditText getEditTextSaldoUsuario() {
+        return editTextSaldoUsuario;
     }
 
     private void mudarTelaInicial(){

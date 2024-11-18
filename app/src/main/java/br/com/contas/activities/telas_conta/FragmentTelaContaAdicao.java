@@ -78,7 +78,7 @@ public class FragmentTelaContaAdicao extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menuItemSalvar) {
             if(contaParaEditar != null){
-                salvarEdicaoConta();
+                salvarNovaEdicaoConta();
             }else{
                 salvarNovaContaAdicao();
             }
@@ -152,7 +152,7 @@ public class FragmentTelaContaAdicao extends Fragment {
         editTextValorContaAdicao.setText("0,00");
     }
 
-    public void salvarEdicaoConta(){
+    private void salvarNovaEdicaoConta(){
         UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
         conta = database.contaDao().getContaById(contaParaEditar.getId()).get();
 
@@ -167,15 +167,7 @@ public class FragmentTelaContaAdicao extends Fragment {
 
         if(validarFormatoData(dataConta)) {
             if(UtilsValida.validaCampoPreenchido(nomeConta, valorContaNovo)) {
-                conta.setNomeConta(nomeConta);
-                conta.setValor(valorContaNovo);
-                conta.setData(DateConverter.stringToDate(dataConta));
-                conta.setUsuarioId(contaParaEditar.getUsuarioId());
-
-                database.contaDao().update(conta);
-
-                atualizaSaldoUsuario(valorContaNovo, usuario);
-                mudarTelaInicial();
+                salvarEdicaoConta(nomeConta, valorContaNovo, dataConta, database);
             }else{
                 Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
             }
@@ -184,7 +176,19 @@ public class FragmentTelaContaAdicao extends Fragment {
         }
     }
 
-    public void salvarNovaContaAdicao() {
+    public void salvarEdicaoConta(String nomeConta, Double valorContaNovo, String dataConta, UsuarioDatabase database) {
+        conta.setNomeConta(nomeConta);
+        conta.setValor(valorContaNovo);
+        conta.setData(DateConverter.stringToDate(dataConta));
+        conta.setUsuarioId(contaParaEditar.getUsuarioId());
+
+        database.contaDao().update(conta);
+
+        atualizaSaldoUsuario(valorContaNovo, usuario);
+        mudarTelaInicial();
+    }
+
+    private void salvarNovaContaAdicao() {
         UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
         Optional<Usuario> optionalUsuario = database.usuarioDao().getUsuario();
         Usuario usuario = optionalUsuario.get();
@@ -197,14 +201,18 @@ public class FragmentTelaContaAdicao extends Fragment {
         String dataConta = (editTextDateAdicao.getText().toString().isEmpty()) ? sdf.format(dataAtual) : editTextDateAdicao.getText().toString().trim();
 
         if(UtilsValida.validaCampoPreenchido(nomeConta, valor)) {
-            conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
-            conta.setTipo(TIPO);
-            database.contaDao().insert(conta);
-            atualizaSaldoUsuario(conta.getValor(), usuario);
-            mudarTelaInicial();
+            salvarConta(nomeConta, valor, dataConta, usuario, database);
         }else{
             Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void salvarConta(String nomeConta, Double valor, String dataConta, Usuario usuario, UsuarioDatabase database) {
+        conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
+        conta.setTipo(TIPO);
+        database.contaDao().insert(conta);
+        atualizaSaldoUsuario(conta.getValor(), usuario);
+        mudarTelaInicial();
     }
 
     public boolean validarFormatoData(String data) {
