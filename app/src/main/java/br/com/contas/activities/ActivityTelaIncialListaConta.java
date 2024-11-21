@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -37,7 +36,6 @@ import br.com.contas.persistence.UsuarioDatabase;
 
 import br.com.contas.utils.DecimalDigits;
 import br.com.contas.utils.Ordenar;
-import br.com.contas.utils.UtilsGUI;
 import br.com.contas.R;
 
 public class ActivityTelaIncialListaConta extends AppCompatActivity {
@@ -148,8 +146,6 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        //getMenuInflater().inflate(R.menu.menu_acao_tela_lista_conta, menu);
-        // Obtendo a posição do item no menu de contexto
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
         showCustomDialog(v, info);
@@ -157,20 +153,6 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-
-        int id = item.getItemId();
-        AdapterView.AdapterContextMenuInfo info;
-        info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        /*if (id == R.id.menuItemEditarConta) {
-            mudarParaTelaDeNovaContaParaEditar(info.position);
-        } else if (id == R.id.menuItemDeletarConta) {
-            deletar(info);
-        } else {
-            return super.onContextItemSelected(item);
-        }
-        return super.onContextItemSelected(item);
-
-         */
         return super.onContextItemSelected(item);
     }
 
@@ -216,7 +198,6 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
             if (view != null && view.isActivated()) {
                 Conta conta = (Conta) listViewContas.getItemAtPosition(i);
                 listaItens.add(conta);
-                //listViewContas.getChildAt(i).setActivated(false);
             }
         }
         return listaItens;
@@ -278,64 +259,21 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
         mudarParaTelaDeNovaConta();
     }
 
-    /*public void deletarConta(int posicao){
-        String mensagem = getResources().getString(R.string.mensagemAvisoApagar) + "\n" + lista.get(posicao).getNomeConta() + " ?";
-        Double valorContaExcluida = lista.get(posicao).getValor();
-        boolean tipoConta = lista.get(posicao).getTipo().equals(TIPO);
-
-        DialogInterface.OnClickListener listener = (dialog, which) -> {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
-                    database.contaDao().delete(lista.get(posicao));
-                    lista.remove(posicao);
-                    contaAdapter.notifyDataSetChanged();
-
-                    if(tipoConta) {
-                        removerContaAdicionalDoSaldoUsuario(valorContaExcluida);
-                        colocaSaldoNaTela();
-                        break;
-                    }
-
-                    DialogInterface.OnClickListener confirmarListener = (dialogInner, whichInner) -> {
-                        switch (whichInner) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                retornaValorContaParaSaldoUsuario(valorContaExcluida);
-                                colocaSaldoNaTela();
-                                break;
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                // Não fazer nada
-                                break;
-                        }
-                    };
-                    UtilsGUI.confirmacao(this, getResources().getString(R.string.mensagemRetornarValorContaSaldo), confirmarListener);
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    // Não fazer nada
-                    break;
-            }
-        };
-        UtilsGUI.confirmacao(this, mensagem, listener);
-    }*/
     public void deletarConta(int posicao) {
-        // Obter os dados
         String mensagemExcluir = getResources().getString(R.string.mensagemAvisoApagar) + "\n" + lista.get(posicao).getNomeConta() + " ?";
         Double valorContaExcluida = lista.get(posicao).getValor();
         boolean tipoConta = lista.get(posicao).getTipo().equals(TIPO);
 
-        // Reutilizar o layout customizado
         View dialogView = getLayoutInflater().inflate(R.layout.menu_dialog_custom_coringa, null);
         TextView textView = dialogView.findViewById(R.id.textViewMenuDialogCustomCoringa);
         Button buttonNao = dialogView.findViewById(R.id.buttonContaMenuDialogCustomCoringaNao);
         Button buttonSim = dialogView.findViewById(R.id.buttonContaMenuDialogCustomCoringaSim);
 
-        // Criar o diálogo
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(dialogView)
                 .setCancelable(false)
                 .create();
 
-        // Etapa 1: Confirmar exclusão
         textView.setText(mensagemExcluir);
         buttonSim.setText(R.string.sim);
         buttonNao.setText(R.string.nao);
@@ -352,7 +290,6 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
                 dialog.dismiss();
                 limparSelecionadoNaLista();
             } else {
-                // Etapa 2: Perguntar sobre retorno do valor
                 textView.setText(getResources().getString(R.string.mensagemRetornarValorContaSaldo));
                 buttonSim.setText(R.string.sim);
                 buttonNao.setText(R.string.nao);
@@ -367,20 +304,15 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
             }
         });
 
-        //buttonNao.setOnClickListener(v -> dialog.dismiss());
         buttonNao.setOnClickListener(v -> {
             dialog.dismiss();
             limparSelecionadoNaLista();
         });
 
-        // Mostrar o diálogo
         dialog.show();
     }
 
-
-
     public void deletarMaisDeUmaConta(List<Conta> listaConta) {
-        // Calcular os valores totais
         Double valorTodasContaExcluida = 0.0;
         Double valorTodoSaldoExcluido = 0.0;
 
@@ -392,22 +324,18 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
             }
         }
 
-        // Mensagem inicial
         String mensagemExcluir = getResources().getString(R.string.mensagemAvisoApagarMaisDeUmaConta);
 
-        // Reutilizar o layout customizado
         View dialogView = getLayoutInflater().inflate(R.layout.menu_dialog_custom_coringa, null);
         TextView textView = dialogView.findViewById(R.id.textViewMenuDialogCustomCoringa);
         Button buttonNao = dialogView.findViewById(R.id.buttonContaMenuDialogCustomCoringaNao);
         Button buttonSim = dialogView.findViewById(R.id.buttonContaMenuDialogCustomCoringaSim);
 
-        // Criar o diálogo
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(dialogView)
                 .setCancelable(false)
                 .create();
 
-        // Etapa 1: Confirmar exclusão
         textView.setText(mensagemExcluir);
         buttonSim.setText(R.string.sim);
         buttonNao.setText(R.string.nao);
@@ -418,18 +346,15 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
         buttonSim.setOnClickListener(v -> {
             UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
 
-            // Remover as contas e atualizar a lista
             for (Conta conta : listaConta) {
                 database.contaDao().delete(conta);
                 lista.remove(conta);
             }
             contaAdapter.notifyDataSetChanged();
 
-            // Atualizar o saldo do usuário
             removerContaAdicionalDoSaldoUsuario(finalValorTodoSaldoExcluido);
             colocaSaldoNaTela();
 
-            // Etapa 2: Confirmar retorno do saldo de contas "SAIDA"
             if (finalValorTodasContaExcluida > 0) {
                 textView.setText(getResources().getString(R.string.mensagemRetornarValorTodasAsContaSaldo));
                 buttonSim.setText(R.string.sim);
@@ -454,7 +379,6 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
             limparSelecionadoNaLista();
         });
 
-        // Mostrar o diálogo
         dialog.show();
     }
 
@@ -470,6 +394,36 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
         UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
         usuario.setSaldo(usuario.getSaldo()+valorContaExcluida);
         database.usuarioDao().update(usuario);
+    }
+
+    public void showCustomDialog(View v, AdapterView.AdapterContextMenuInfo info) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View customLayout = getLayoutInflater().inflate(R.layout.menu_dialog_custom, null);
+        builder.setView(customLayout);
+
+        Button buttonEditarConta = customLayout.findViewById(R.id.buttonEditarConta);
+        Button buttonDeletarConta = customLayout.findViewById(R.id.buttonDeletarConta);
+
+
+        AlertDialog dialog = builder.create();
+
+        buttonEditarConta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mudarParaTelaDeNovaContaParaEditar(info.position);
+                dialog.dismiss();
+                limparSelecionadoNaLista();
+            }
+        });
+
+        buttonDeletarConta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletar(info);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     public void mudarParaTelaDeNovaConta() {
@@ -510,35 +464,5 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
                     R.string.mensagemCrieUsuarioParaGerarPdf,
                     Toast.LENGTH_LONG).show();
         }
-    }
-
-    public void showCustomDialog(View v, AdapterView.AdapterContextMenuInfo info) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View customLayout = getLayoutInflater().inflate(R.layout.menu_dialog_custom, null);
-        builder.setView(customLayout);
-
-        Button buttonEditarConta = customLayout.findViewById(R.id.buttonEditarConta);
-        Button buttonDeletarConta = customLayout.findViewById(R.id.buttonDeletarConta);
-
-
-        AlertDialog dialog = builder.create();
-
-        buttonEditarConta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mudarParaTelaDeNovaContaParaEditar(info.position);
-                dialog.dismiss();
-                limparSelecionadoNaLista();
-            }
-        });
-
-        buttonDeletarConta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deletar(info);
-                dialog.dismiss();  // Fecha o diálogo
-            }
-        });
-        dialog.show();
     }
 }
