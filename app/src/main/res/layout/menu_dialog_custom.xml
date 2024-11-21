@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/botao_dialog_custom">
+
+    <Button
+        android:id="@+id/buttonEditarConta"
+        android:text="@string/menuItemEditarConta"
+        android:background="@drawable/botao_dialog_update"
+        android:textColor="@color/corLetraListaCbp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/buttonDeletarConta"
+        android:background="@color/corFundoPopUp"
+        android:textColor="@color/corLetraListaCbp"
+        android:text="@string/menuItemDeletarConta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+

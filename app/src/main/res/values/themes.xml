@@ -24,7 +24,17 @@
         <item name="toolbarStyle">@style/ToolbarStyle</item>
         <item name="popupMenuStyle">@style/PopupMenu</item>
         <item name="actionOverflowButtonStyle">@style/ThemeOverlay</item>
+
+        <item name="android:dropDownListViewStyle">@style/AppTheme.DropDownList</item>
     </style>
+
+    <style name="AppTheme.DropDownList" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:background">#f00</item>
+    </style>
+
+
+
+
 
     <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="titleTextColor">@color/corDoTitulo</item>
@@ -37,6 +47,24 @@
         <item name="android:textColor">@color/corLetraListaCbp</item>
         <item name="android:iconTint">@color/corDoTitulo</item>
     </style>
+
+    <style name="ContextMenuStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:popupBackground">@color/red</item>
+        <item name="android:textColor">@color/yellow</item>
+        <item name="android:iconTint">@color/corDoTitulo</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

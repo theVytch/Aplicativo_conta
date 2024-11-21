@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/botao_dialog_custom"
+    android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/textViewMenuDialogCustomCoringa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:textColor="@color/yellow" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Botão Deletar Conta -->
+        <Button
+            android:id="@+id/buttonContaMenuDialogCustomCoringaNao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/botao_dialog_coringa_nao"
+            android:textColor="@color/corLetraListaCbp" />
+
+        <!-- Espaçamento entre os botões -->
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="wrap_content" />
+
+        <!-- Botão Editar Conta -->
+        <Button
+            android:id="@+id/buttonContaMenuDialogCustomCoringaSim"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/botao_dialog_coringa_sim"
+            android:textColor="@color/corLetraListaCbp" />
+    </LinearLayout>
+
+</LinearLayout>
+
