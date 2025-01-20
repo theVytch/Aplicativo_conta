@@ -10,11 +10,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import java.text.DecimalFormat;
@@ -41,6 +44,8 @@ public class FragmentTelaContaSubtracao extends Fragment {
     private final String FORMAT_DATA = "dd/MM/yyyy";
     private Date dataAtual = new Date();
     private SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATA);
+    private ToggleButton toggle;
+    private String NECESSIDADE_GASTO = "NECESSARIO";
 
     @Nullable
     @Override
@@ -69,6 +74,24 @@ public class FragmentTelaContaSubtracao extends Fragment {
             }
         }
 
+
+        botaoNecessarioDesnecessario();
+
+    }
+
+    private void botaoNecessarioDesnecessario() {
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    NECESSIDADE_GASTO = "DESNECESSARIO";
+                    toggle.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.btn_desnecessario_tela_usuario_conta));
+                } else {
+                    NECESSIDADE_GASTO = "NECESSARIO";
+                    toggle.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.btn_necessario_tela_usuario_conta));
+                }
+            }
+        });
     }
 
     @Override
@@ -103,12 +126,21 @@ public class FragmentTelaContaSubtracao extends Fragment {
         iniciaEditTextValorConta(view);
         editTextDateSubtracao = view.findViewById(R.id.editTextDateSubtracao);
         editTextDateSubtracao.addTextChangedListener(new UtilsDateMaskWatcher(editTextDateSubtracao));
+        toggle = view.findViewById(R.id.toggleButtonNecessarioDesnecessario);
     }
 
     private void adicionaContaParaEditarNosCampos(Conta contaParaEditar) {
         editTextNomeContaSubtracao.setText(contaParaEditar.getNomeConta());
         editTextValorContaSubtracao.setText(DecimalDigits.formatarNumero(contaParaEditar.getValor()));
         editTextDateSubtracao.setText(DateConverter.dateToString(contaParaEditar.getData()));
+        //toggle.setChecked(contaParaEditar.getNecessidadeGasto().equals(NECESSIDADE_GASTO) ? true : false );
+        if (contaParaEditar.getNecessidadeGasto().equals("NECESSARIO")){
+            toggle.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.btn_necessario_tela_usuario_conta));
+            toggle.setChecked(false);
+        } else {
+            toggle.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.btn_desnecessario_tela_usuario_conta));
+            toggle.setChecked(true);
+        }
     }
 
     private void buscaUsuario(){
@@ -177,6 +209,7 @@ public class FragmentTelaContaSubtracao extends Fragment {
                 conta.setNomeConta(nomeConta);
                 conta.setValor(valorContaNovo);
                 conta.setData(DateConverter.stringToDate(dataConta));
+                conta.setNecessidadeGasto(NECESSIDADE_GASTO);
                 conta.setUsuarioId(contaParaEditar.getUsuarioId());
 
                 database.contaDao().update(conta);
@@ -196,12 +229,14 @@ public class FragmentTelaContaSubtracao extends Fragment {
         /*Optional<Usuario> optionalUsuario = database.usuarioDao().getUsuario();
         Usuario usuario = optionalUsuario.get();*/
 
+
         String nomeConta = editTextNomeContaSubtracao.getText().toString().trim();
         Double valor = Double.parseDouble(getNumeroParaString());
         String dataConta = (editTextDateSubtracao.getText().toString().isEmpty()) ? sdf.format(dataAtual) : editTextDateSubtracao.getText().toString().trim();
 
         if(UtilsValida.validaCampoPreenchido(nomeConta, valor)) {
             conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
+            conta.setNecessidadeGasto(NECESSIDADE_GASTO);
             database.contaDao().insert(conta);
             atualizaSaldoUsuario(conta.getValor(), usuario);
             //limparCampo();

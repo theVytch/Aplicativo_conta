@@ -42,6 +42,7 @@ public class FragmentTelaContaAdicao extends Fragment {
     private final String TIPO = "ENTRADA";
     private final String FORMAT_DATA = "dd/MM/yyyy";
     private SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATA);
+    private String NECESSIDADE_GASTO_ADICAO = "MILAGRE";
 
     @Nullable
     @Override
@@ -170,6 +171,7 @@ public class FragmentTelaContaAdicao extends Fragment {
                 conta.setNomeConta(nomeConta);
                 conta.setValor(valorContaNovo);
                 conta.setData(DateConverter.stringToDate(dataConta));
+                conta.setNecessidadeGasto(NECESSIDADE_GASTO_ADICAO);
                 conta.setUsuarioId(contaParaEditar.getUsuarioId());
 
                 database.contaDao().update(conta);
@@ -199,6 +201,7 @@ public class FragmentTelaContaAdicao extends Fragment {
         if(UtilsValida.validaCampoPreenchido(nomeConta, valor)) {
             conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
             conta.setTipo(TIPO);
+            conta.setNecessidadeGasto(NECESSIDADE_GASTO_ADICAO);
             database.contaDao().insert(conta);
             atualizaSaldoUsuario(conta.getValor(), usuario);
             mudarTelaInicial();

@@ -34,6 +34,7 @@ public class FragmentTelaContaFormatoListaAdicao extends Fragment {
     private Conta conta;
     private final String FORMAT_DATA = "dd/MM/yyyy";
     private final String TIPO = "ENTRADA";
+    private final String NECESSIDADE_GASTO_ADICAO = "MILAGRE";
 
     @Nullable
     @Override
@@ -125,6 +126,7 @@ public class FragmentTelaContaFormatoListaAdicao extends Fragment {
         if(UtilsValida.validaCampoPreenchido(nomeConta, valor)) {
             conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
             conta.setTipo(TIPO);
+            conta.setNecessidadeGasto(NECESSIDADE_GASTO_ADICAO);
             database.contaDao().insert(conta);
             atualizaSaldoUsuario(conta.getValor(), usuario);
             limparCampos();
