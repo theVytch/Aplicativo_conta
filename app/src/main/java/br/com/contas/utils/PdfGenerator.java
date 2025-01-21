@@ -37,6 +37,8 @@ public class PdfGenerator {
     public static String localSalvoArquivo = "";
 
     private Context context;
+    private double resultadoFinalDesnecessario = 0.0;
+    private double resultadoFinalNecessario = 0.0;
 
     // Constructor
     public PdfGenerator(Context context) {
@@ -120,12 +122,45 @@ public class PdfGenerator {
             tableBodyResult.setWidthPercentage(100);
             adicionandoInformacoesNaColunaFinal(tableBodyResult, resultadoFinal, font14, usuario);
 
-            //Adiciona tudo e reza
+            //add linha final
+            PdfPTable tableHeadEnd = new PdfPTable(1); // Número de colunas
+            tableHeadEnd.setWidthPercentage(100);
+
+
+            // --INICIO SEGUNDA PAGINA
+            PdfPTable tableHeadDesnecessario = getPdfPTableHeadDesnecessario(sdfDocument, dataAtual, font12, font15);
+            PdfPTable tableBodyDesnecessario = getBodyTabelaDesnecessario(contas, font14, font12, sdfDocument);
+            PdfPTable tableBodyResultDesnecessario = getBodyTabelaResultDesnecessario(usuario, resultadoFinalDesnecessario, font14);
+
+            PdfPTable tableHeadNecessario = getPdfPTableHeadNecessario(sdfDocument, dataAtual, font12, font15);
+            PdfPTable tableBodyNecessario = getBodyTabelaNecessario(contas, font14, font12, sdfDocument);
+            PdfPTable tableBodyResultNecessario = getBodyTabelaResultNecessario(usuario, resultadoFinalNecessario, font14);
+            // --FIM SEGUNDA PAGINA
+
+            // --Adiciona tudo e reza (PRIMEIRA PAGINA)
             document.add(tableHead);
             document.add(espacoBranco);
             document.add(tableBody);
             document.add(espacoBranco);
             document.add(tableBodyResult);
+            // --FIM PRIMEIRA PAGINA
+
+            // --COMECANDO OUTRA PAGINA (SEGUNDA PAGINA)
+            document.newPage();
+            document.add(tableHeadDesnecessario);
+            document.add(tableBodyDesnecessario);
+            document.add(tableBodyResultDesnecessario);
+
+            document.add(espacoBranco);
+            document.add(espacoBranco);
+            document.add(espacoBranco);
+            document.add(espacoBranco);
+
+            document.add(tableHeadNecessario);
+            document.add(tableBodyNecessario);
+            document.add(tableBodyResultNecessario);
+            // --FIM SEGUNDA PAGINA
+
             document.close();
             writer.close();
 
@@ -136,6 +171,118 @@ public class PdfGenerator {
             return false;
         }
     }
+
+    private PdfPTable getPdfPTableHeadDesnecessario(SimpleDateFormat sdfDocument, Date dataAtual, Font font12, Font font15) {
+        PdfPTable tableHead = new PdfPTable(1); // Número de colunas
+        tableHead.setWidthPercentage(100);
+        BaseColor customColor = new BaseColor(116, 190, 225);
+        BaseColor customColorGreen = new BaseColor(144, 238, 144);
+        String titulo = "Desnecessario";
+
+        PdfPCell cellHead = new PdfPCell(new Phrase(titulo, font15));
+        cellHead.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellHead.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cellHead.setBackgroundColor(customColor);
+        tableHead.addCell(cellHead);
+        return tableHead;
+    }
+
+    private PdfPTable getPdfPTableHeadNecessario(SimpleDateFormat sdfDocument, Date dataAtual, Font font12, Font font15) {
+        PdfPTable tableHead = new PdfPTable(1); // Número de colunas
+        tableHead.setWidthPercentage(100);
+        BaseColor customColor = new BaseColor(116, 190, 225);
+        String titulo = "Necessario";
+
+        PdfPCell cellHead = new PdfPCell(new Phrase(titulo, font15));
+        cellHead.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellHead.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cellHead.setBackgroundColor(customColor);
+        tableHead.addCell(cellHead);
+        return tableHead;
+    }
+
+    private PdfPTable getBodyTabelaResultNecessario(Usuario usuario, double resultadoFinalNess, Font font14) {
+        PdfPTable tableBodyResult = new PdfPTable(3);
+        tableBodyResult.setWidthPercentage(100);
+        adicionandoInformacoesNaColunaFinalNecessarioDesnecessario(tableBodyResult, resultadoFinalNess, font14, usuario);
+        return tableBodyResult;
+    }
+
+    private PdfPTable getBodyTabelaNecessario(List<Conta> contas, Font font14, Font font12, SimpleDateFormat sdfDocument) {
+        // Criar tabela Body
+        PdfPTable tableBodyDesnecessario = new PdfPTable(3);
+        tableBodyDesnecessario.setWidthPercentage(100);
+
+        // Cabeçalhos da tabela
+        criandoCabecacolhoDaTabelaBody(font14, tableBodyDesnecessario);
+
+        // Adicionar linhas alternadas entre branco e cinza
+        BaseColor backgroundColorGreen = new BaseColor(144, 238, 144);;
+        for (Conta conta : contas) {
+            if (conta.getNecessidadeGasto().equals("NECESSARIO")){
+                adicionandoInformacoesNasColuna(conta, font12, backgroundColorGreen, tableBodyDesnecessario, sdfDocument);
+            }
+
+            if(conta.getTipo().equals("SAIDA") && conta.getNecessidadeGasto().equals("NECESSARIO")){
+                resultadoFinalNecessario += conta.getValor();
+            }
+        }
+        return tableBodyDesnecessario;
+    }
+
+    private PdfPTable getBodyTabelaDesnecessario(List<Conta> contas, Font font14, Font font12, SimpleDateFormat sdfDocument) {
+        // Criar tabela Body
+        PdfPTable tableBodyNecessario = new PdfPTable(3);
+        tableBodyNecessario.setWidthPercentage(100);
+
+        // Cabeçalhos da tabela
+        criandoCabecacolhoDaTabelaBody(font14, tableBodyNecessario);
+
+        // Adicionar linhas alternadas entre branco e cinza
+        BaseColor backgroundColorRed = new BaseColor(255, 77, 77);
+        for (Conta conta : contas) {
+            if (conta.getNecessidadeGasto().equals("DESNECESSARIO")){
+                adicionandoInformacoesNasColuna(conta, font12, backgroundColorRed, tableBodyNecessario, sdfDocument);
+            }
+
+            if(conta.getTipo().equals("SAIDA") && conta.getNecessidadeGasto().equals("DESNECESSARIO")){
+                resultadoFinalDesnecessario += conta.getValor();
+            }
+        }
+        return tableBodyNecessario;
+    }
+
+    private PdfPTable getBodyTabelaResultDesnecessario(Usuario usuario, double resultadoFinalDess, Font font14) {
+        PdfPTable tableBodyResult = new PdfPTable(3);
+        tableBodyResult.setWidthPercentage(100);
+        adicionandoInformacoesNaColunaFinalNecessarioDesnecessario(tableBodyResult, resultadoFinalDess, font14, usuario);
+        return tableBodyResult;
+    }
+
+    private void adicionandoInformacoesNaColunaFinalNecessarioDesnecessario(PdfPTable tableBodyResult, Double resultadoTotalNess, Font font14, Usuario usuario){
+        //String resultadoString = context.getString(R.string.total_com_espaco) + context.getString(R.string.cifra_com_espaco) + formatarNumero(resultadoTotal);
+        String resultadoString = context.getString(R.string.total_com_espaco) + "  " + context.getString(R.string.cifra_com_espaco) + " " + formatarNumero(resultadoTotalNess);
+
+        String[] lista = {"","", resultadoString};
+
+
+        gambiarraParaDeixarApenasUmaColunaComResultadoEnquantoAsOutrasTresFicamEmBranco(tableBodyResult, font14, lista);
+
+
+        //eXtreme Go Horse--------------
+        gambiarraParaDeixarApenasUmaColunaComResultadoEnquantoAsOutrasTresFicamEmBranco(tableBodyResult, font14, lista);
+        //------------------------------
+
+        // Coluna resultado final
+        PdfPCell cellDoisResult = new PdfPCell(new Phrase(lista[2], font14));
+        cellDoisResult.setBorder(PdfPCell.NO_BORDER);
+        cellDoisResult.setBorderWidthTop(1f);
+        cellDoisResult.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        cellDoisResult.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cellDoisResult.setBackgroundColor(BaseColor.YELLOW);
+        tableBodyResult.addCell(cellDoisResult);
+    }
+
 
     // teste ee-----------------------------------
     private void criandoCabecacolhoDaTabelaBody(Font font14, PdfPTable tableBody) {
@@ -228,5 +375,4 @@ public class PdfGenerator {
         cellUm.setBackgroundColor(BaseColor.WHITE);
         tableBodyResult.addCell(cellUm);
     }
-
 }
