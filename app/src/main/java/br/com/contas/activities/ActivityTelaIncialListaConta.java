@@ -447,6 +447,10 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
         if(usuario != null) {
             Intent intent = new Intent(this, ActivityTelaNovaContaFormatoLista.class);
             startActivity(intent);
+        }else{
+            Toast.makeText(this,
+                    R.string.mensagemCrieUsuarioParaAdicionarConta,
+                    Toast.LENGTH_LONG).show();
         }
     }
 

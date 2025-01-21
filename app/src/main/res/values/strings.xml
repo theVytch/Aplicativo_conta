@@ -99,4 +99,6 @@
     <string name="oferta">Oferta:</string>
     <string name="alta">Alta:</string>
     <string name="baixa">Baixa:</string>
+    <string name="desnecessario">Desnecessário</string>
+    <string name="necessario">Necessário</string>
 </resources>

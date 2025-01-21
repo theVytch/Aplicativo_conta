@@ -34,7 +34,7 @@
         android:background="@drawable/input_saldo_verde_adicao_cbp"
         android:paddingStart="15dp"
         android:ems="10"
-        android:hint="@string/contaDeLuzHint"
+        android:hint="@string/salarioTrabalho"
         android:inputType="text|textCapSentences"
         android:padding="10dp"
         android:textColor="@color/corLetraListaCbp"

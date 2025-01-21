@@ -177,7 +177,7 @@ public class PdfGenerator {
         tableHead.setWidthPercentage(100);
         BaseColor customColor = new BaseColor(116, 190, 225);
         BaseColor customColorGreen = new BaseColor(144, 238, 144);
-        String titulo = "Desnecessario";
+        String titulo = context.getString(R.string.desnecessario);
 
         PdfPCell cellHead = new PdfPCell(new Phrase(titulo, font15));
         cellHead.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -191,7 +191,7 @@ public class PdfGenerator {
         PdfPTable tableHead = new PdfPTable(1); // Número de colunas
         tableHead.setWidthPercentage(100);
         BaseColor customColor = new BaseColor(116, 190, 225);
-        String titulo = "Necessario";
+        String titulo = context.getString(R.string.necessario);
 
         PdfPCell cellHead = new PdfPCell(new Phrase(titulo, font15));
         cellHead.setHorizontalAlignment(Element.ALIGN_CENTER);

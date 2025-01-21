@@ -94,4 +94,6 @@
     <string name="oferta">Bid: </string>
     <string name="alta">High:</string>
     <string name="baixa">Low:</string>
+    <string name="desnecessario">Unnecessary</string>
+    <string name="necessario">Essential</string>
 </resources>
