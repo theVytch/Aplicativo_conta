@@ -40,7 +40,7 @@ import br.com.contas.R;
 
 public class ActivityTelaIncialListaConta extends AppCompatActivity {
 
-    private CustomTextView textViewSaldoUsuarioTelaList;
+    private CustomTextView textViewSaldoUsuarioTelaList, textViewSaldoNecessarioUsuarioTelaList, textViewSaldoDesnecessarioUsuarioTelaList;
     private ListView listViewContas;
     private ContaAdapter contaAdapter;
     private List<Conta> lista;
@@ -221,6 +221,8 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     private void inicializaComponentes() {
         listViewContas = findViewById(R.id.listViewContas);
         textViewSaldoUsuarioTelaList = findViewById(R.id.textViewSaldoUsuarioTelaList);
+        textViewSaldoNecessarioUsuarioTelaList = findViewById(R.id.textViewSaldoNecessarioUsuarioTelaList);
+        textViewSaldoDesnecessarioUsuarioTelaList = findViewById(R.id.textViewSaldoDesnecessarioUsuarioTelaList);
         DecimalDigits.formatPattern(idiomaCelular());
     }
     private String idiomaCelular(){
@@ -231,9 +233,19 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     private void colocaSaldoNaTela(){
         UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
         Optional<Usuario> optionalUsuario = database.usuarioDao().getUsuario();
+        Double saldoValorNecessario = database.contaDao().getContaNecessario(optionalUsuario.get().getId());
+        Double saldoValorDesnecessario = database.contaDao().getContaDesnecessario(optionalUsuario.get().getId());
         Double saldo = optionalUsuario.get().getSaldo();
         if(saldo!=null){
             textViewSaldoUsuarioTelaList.setText(saldo.toString());
+        }
+
+        if(saldoValorDesnecessario!=null){
+            textViewSaldoDesnecessarioUsuarioTelaList.setText(String.valueOf(saldoValorDesnecessario));
+        }
+
+        if(saldoValorNecessario!=null){
+            textViewSaldoNecessarioUsuarioTelaList.setText(String.valueOf(saldoValorNecessario));
         }
     }
 

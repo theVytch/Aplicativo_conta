@@ -35,6 +35,4 @@ public interface UsuarioDao {
 
     @Query("SELECT * FROM Usuario WHERE nome = :nome")
     Usuario getNomeUsuario(String nome);
-
-
 }

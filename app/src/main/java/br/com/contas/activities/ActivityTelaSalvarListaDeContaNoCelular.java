@@ -1,6 +1,7 @@
 package br.com.contas.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -14,6 +15,8 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,25 +104,42 @@ public class ActivityTelaSalvarListaDeContaNoCelular extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void deletarTodasContas(View view){
+    public void deletarTodasContas(View view) {
         String mensagem = getResources().getString(R.string.mensagemAvisoApagarTodasContas);
-        DialogInterface.OnClickListener listener = (dialog, which) -> {
-            switch (which){
-                case DialogInterface.BUTTON_POSITIVE:
-                    UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
-                    database.contaDao().deleteAll();
-                    database.usuarioDao().deleteAllUsuario();
-                    Toast.makeText(this,
-                            R.string.mensagemAvisoTodasContasExcluida,
-                            Toast.LENGTH_LONG).show();
-                    mudarTelaInicial();
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    // Não fazer nada
-                    break;
-            }
-        };
-        UtilsGUI.confirmacao(this, mensagem, listener);
+
+        // Infla o layout customizado para o diálogo
+        View dialogView = getLayoutInflater().inflate(R.layout.menu_dialog_custom_coringa, null);
+        TextView textView = dialogView.findViewById(R.id.textViewMenuDialogCustomCoringa);
+        Button buttonNao = dialogView.findViewById(R.id.buttonContaMenuDialogCustomCoringaNao);
+        Button buttonSim = dialogView.findViewById(R.id.buttonContaMenuDialogCustomCoringaSim);
+
+        // Configura o diálogo customizado
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create();
+
+        textView.setText(mensagem);
+        buttonSim.setText(R.string.sim);
+        buttonNao.setText(R.string.nao);
+
+        // Aqui você define o tamanho do LinearLayout
+        LinearLayout linearLayout = dialogView.findViewById(R.id.linearLayoutDialog); // Certifique-se de que o LinearLayout tenha esse ID no XML
+        linearLayout.setMinimumHeight(400);
+
+        buttonSim.setOnClickListener(v -> {
+            UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+            database.contaDao().deleteAll();
+            database.usuarioDao().deleteAllUsuario();
+
+            //Toast.makeText(this, R.string.mensagemAvisoTodasContasExcluida, Toast.LENGTH_LONG).show();
+            dialog.dismiss();
+            mudarTelaInicial();
+        });
+
+        buttonNao.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 
     public void criarPdf(View view){

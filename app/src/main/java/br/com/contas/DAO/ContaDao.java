@@ -47,6 +47,12 @@ public interface ContaDao {
     @Query("SELECT * FROM Conta Where conta_id = :id")
     Optional<Conta> getContaById(Long id);
 
+    @Query("SELECT SUM(valor) FROM Conta WHERE usuarioId = :id AND necessidadeGasto = 'NECESSARIO' AND tipo = 'SAIDA'")
+    Double getContaNecessario(Long id);
+
+    @Query("SELECT SUM(valor) FROM Conta WHERE usuarioId = :id AND necessidadeGasto = 'DESNECESSARIO' AND tipo = 'SAIDA'")
+    Double getContaDesnecessario(Long id);
+
     @Query("DELETE FROM Conta")
     void deleteAll();
 
