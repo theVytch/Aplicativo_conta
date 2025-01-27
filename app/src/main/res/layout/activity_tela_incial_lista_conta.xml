@@ -45,7 +45,7 @@
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/textViewSaldoUsuarioTelaList"
+      app:layout_constraintTop_toBottomOf="@+id/textViewSaldoDesnecessarioTelaList"
       tools:listitem="@layout/activity_linha_lista_conta" />
 
   <TextView
@@ -71,6 +71,88 @@
       android:textSize="20sp"
       app:layout_constraintStart_toEndOf="@+id/textViewSaldoTelaList"
       app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+  <TextView
+      android:id="@+id/textViewSaldoNecessarioTelaList"
+      android:layout_width="wrap_content"
+      android:layout_height="15dp"
+      android:background="@android:color/transparent"
+      android:includeFontPadding="false"
+      android:text="@string/textViewSaldoDesnecessarioTelaList"
+      android:textColor="@color/corLetraListaCbp"
+      android:textSize="12sp"
+      app:layout_constraintStart_toStartOf="@+id/textViewSaldoTelaList"
+      app:layout_constraintTop_toBottomOf="@+id/textViewSaldoTelaList" />
+
+  <br.com.contas.custom.CustomTextView
+      android:id="@+id/textViewSaldoNecessarioUsuarioTelaList"
+      android:layout_width="wrap_content"
+      android:layout_height="15dp"
+      android:maxWidth="205dp"
+
+      android:minWidth="10dp"
+      android:layout_marginStart="2dp"
+      android:background="@android:color/transparent"
+      android:textColor="@color/corLetraListaCbp"
+      android:textSize="12sp"
+      app:layout_constraintStart_toEndOf="@+id/textViewSaldoNecessarioTelaList"
+      app:layout_constraintTop_toBottomOf="@+id/textViewSaldoTelaList" />
+
+
+  <br.com.contas.custom.CustomTextView
+      android:id="@+id/textViewPontoSaldoNecessarioUsuarioTelaList"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:background="@android:color/transparent"
+      android:text="•"
+      android:textColor="@color/red"
+      android:textSize="34sp"
+      app:layout_constraintBottom_toBottomOf="@+id/textViewSaldoNecessarioTelaList"
+      app:layout_constraintStart_toEndOf="@+id/textViewSaldoNecessarioUsuarioTelaList"
+      app:layout_constraintTop_toBottomOf="@+id/textViewSaldoTelaList" />
+
+
+  <TextView
+      android:id="@+id/textViewSaldoDesnecessarioTelaList"
+      android:layout_width="wrap_content"
+      android:layout_height="15dp"
+      android:background="@android:color/transparent"
+      android:includeFontPadding="false"
+      android:text="@string/textViewSaldoNecessarioTelaList"
+      android:textColor="@color/corLetraListaCbp"
+      android:textSize="12sp"
+      app:layout_constraintStart_toStartOf="@+id/textViewSaldoTelaList"
+      app:layout_constraintTop_toBottomOf="@+id/textViewSaldoNecessarioTelaList" />
+
+  <br.com.contas.custom.CustomTextView
+      android:id="@+id/textViewSaldoDesnecessarioUsuarioTelaList"
+      android:layout_width="wrap_content"
+      android:layout_height="15dp"
+      android:maxWidth="205dp"
+      android:minWidth="10dp"
+      android:layout_marginStart="2dp"
+      android:background="@android:color/transparent"
+      android:textColor="@color/corLetraListaCbp"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="@+id/textViewSaldoNecessarioUsuarioTelaList"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@+id/textViewSaldoDesnecessarioTelaList"
+      app:layout_constraintTop_toBottomOf="@+id/textViewSaldoNecessarioUsuarioTelaList" />
+
+  <br.com.contas.custom.CustomTextView
+      android:id="@+id/textViewPontoSaldoDesnecessarioUsuarioTelaList"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:background="@android:color/transparent"
+      android:text="•"
+      android:textColor="@color/corDoBotaoUsuarioComClickCbp"
+      android:textSize="34sp"
+      app:layout_constraintBottom_toBottomOf="@+id/textViewSaldoDesnecessarioTelaList"
+      app:layout_constraintStart_toEndOf="@+id/textViewSaldoDesnecessarioUsuarioTelaList"
+      app:layout_constraintTop_toBottomOf="@+id/textViewSaldoNecessarioTelaList" />
+
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/floatingBtnAdicionarConta"
