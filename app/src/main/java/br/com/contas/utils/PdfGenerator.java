@@ -130,11 +130,13 @@ public class PdfGenerator {
             // --INICIO SEGUNDA PAGINA
             PdfPTable tableHeadDesnecessario = getPdfPTableHeadDesnecessario(sdfDocument, dataAtual, font12, font15);
             PdfPTable tableBodyDesnecessario = getBodyTabelaDesnecessario(contas, font14, font12, sdfDocument);
-            PdfPTable tableBodyResultDesnecessario = getBodyTabelaResultDesnecessario(usuario, resultadoFinalDesnecessario, font14);
+            Long qtdDes = contas.stream().filter(item -> "DESNECESSARIO".equals(item.getNecessidadeGasto())).count();
+            PdfPTable tableBodyResultDesnecessario = getBodyTabelaResultDesnecessario(usuario, resultadoFinalDesnecessario, font14, qtdDes);
 
             PdfPTable tableHeadNecessario = getPdfPTableHeadNecessario(sdfDocument, dataAtual, font12, font15);
             PdfPTable tableBodyNecessario = getBodyTabelaNecessario(contas, font14, font12, sdfDocument);
-            PdfPTable tableBodyResultNecessario = getBodyTabelaResultNecessario(usuario, resultadoFinalNecessario, font14);
+            Long qtdNes = contas.stream().filter(item -> "NECESSARIO".equals(item.getNecessidadeGasto())).count();
+            PdfPTable tableBodyResultNecessario = getBodyTabelaResultNecessario(usuario, resultadoFinalNecessario, font14, qtdNes);
             // --FIM SEGUNDA PAGINA
 
             // --Adiciona tudo e reza (PRIMEIRA PAGINA)
@@ -201,10 +203,10 @@ public class PdfGenerator {
         return tableHead;
     }
 
-    private PdfPTable getBodyTabelaResultNecessario(Usuario usuario, double resultadoFinalNess, Font font14) {
+    private PdfPTable getBodyTabelaResultNecessario(Usuario usuario, double resultadoFinalNess, Font font14, Long qtd) {
         PdfPTable tableBodyResult = new PdfPTable(3);
         tableBodyResult.setWidthPercentage(100);
-        adicionandoInformacoesNaColunaFinalNecessarioDesnecessario(tableBodyResult, resultadoFinalNess, font14, usuario);
+        adicionandoInformacoesNaColunaFinalNecessarioDesnecessario(tableBodyResult, resultadoFinalNess, font14, usuario, qtd);
         return tableBodyResult;
     }
 
@@ -252,22 +254,25 @@ public class PdfGenerator {
         return tableBodyNecessario;
     }
 
-    private PdfPTable getBodyTabelaResultDesnecessario(Usuario usuario, double resultadoFinalDess, Font font14) {
+    private PdfPTable getBodyTabelaResultDesnecessario(Usuario usuario, double resultadoFinalDess, Font font14, Long qtd) {
         PdfPTable tableBodyResult = new PdfPTable(3);
         tableBodyResult.setWidthPercentage(100);
-        adicionandoInformacoesNaColunaFinalNecessarioDesnecessario(tableBodyResult, resultadoFinalDess, font14, usuario);
+        adicionandoInformacoesNaColunaFinalNecessarioDesnecessario(tableBodyResult, resultadoFinalDess, font14, usuario, qtd);
         return tableBodyResult;
     }
 
-    private void adicionandoInformacoesNaColunaFinalNecessarioDesnecessario(PdfPTable tableBodyResult, Double resultadoTotalNess, Font font14, Usuario usuario){
+    private void adicionandoInformacoesNaColunaFinalNecessarioDesnecessario(PdfPTable tableBodyResult, Double resultadoTotalNess, Font font14, Usuario usuario, Long qtd){
         //String resultadoString = context.getString(R.string.total_com_espaco) + context.getString(R.string.cifra_com_espaco) + formatarNumero(resultadoTotal);
         String resultadoString = context.getString(R.string.total_com_espaco) + "  " + context.getString(R.string.cifra_com_espaco) + " " + formatarNumero(resultadoTotalNess);
+        String quantidade = context.getString(R.string.qtdItens) + " " + qtd;
+        String[] lista = {quantidade,"", resultadoString};
 
-        String[] lista = {"","", resultadoString};
-
-
-        gambiarraParaDeixarApenasUmaColunaComResultadoEnquantoAsOutrasTresFicamEmBranco(tableBodyResult, font14, lista);
-
+        PdfPCell cellQtdItem = new PdfPCell(new Phrase(lista[0], font14));
+        cellQtdItem.setBorder(PdfPCell.NO_BORDER);
+        cellQtdItem.setBorderWidthTop(1f);
+        cellQtdItem.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellQtdItem.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        tableBodyResult.addCell(cellQtdItem);
 
         //eXtreme Go Horse--------------
         gambiarraParaDeixarApenasUmaColunaComResultadoEnquantoAsOutrasTresFicamEmBranco(tableBodyResult, font14, lista);

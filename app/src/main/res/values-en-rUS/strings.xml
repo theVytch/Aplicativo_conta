@@ -99,4 +99,5 @@
 
     <string name="textViewSaldoNecessarioTelaList">Essential: $</string>
     <string name="textViewSaldoDesnecessarioTelaList">Unnecessary: $</string>
+    <string name="qtdItens">Items:</string>
 </resources>

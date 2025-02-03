@@ -78,6 +78,8 @@
     <string name="cifra_com_espaco_e_sinal_de_subtracao">R$ -</string>
     <string name="cifra_com_espaco_e_sinal_de_adicao">R$ +</string>
 
+    <string name="qtdItens">Itens:</string>
+
     <string name="minha_lista_de_contas_">minha_lista_de_contas_</string>
     <string name="pdf">.pdf</string>
 
