@@ -35,13 +35,13 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
     private static final String ORDENACAO_SIZE = "ORDENACAO_SIZE";
     private String opcao = Ordenar.opcaoOrdenacao;
     private TextView textViewSobre;
-    private static TextView textViewCotacao;
+    //private static TextView textViewCotacao;
     private RadioButton radioButtonSmall;
     private RadioButton radioButtonMiddle;
     private RadioButton radioButtonLarge;
     private RadioButton radioButtonBlind;
     private String tamanhoSelecionado = Ordenar.radio_size;
-    private static Cotacao cotacao;
+    //private static Cotacao cotacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +54,14 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
         iniciarComponentes();
         retornaPreferenciaSize();
 
-        chamaApi(getResources());
+        //chamaApi(getResources());
 
         exibirBotaoVoltar();
     }
 
 
 
-    private static void chamaApi(Resources resources) {
+    /*private static void chamaApi(Resources resources) {
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
 
         apiService.getCotacao().enqueue(new Callback<Cotacao>() {
@@ -88,7 +88,7 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
                 Log.e("API_ERROR", t.getMessage());
             }
         });
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -104,7 +104,7 @@ public class ActivityTelaSobreConta extends AppCompatActivity {
         radioButtonLarge = findViewById(R.id.radioButtonLarge);
         radioButtonBlind = findViewById(R.id.radioButtonBlind);
 
-        textViewCotacao = findViewById(R.id.textViewCotacao);
+        //textViewCotacao = findViewById(R.id.textViewCotacao);
     }
 
     private void exibirBotaoVoltar() {
