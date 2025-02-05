@@ -221,8 +221,8 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
     private void inicializaComponentes() {
         listViewContas = findViewById(R.id.listViewContas);
         textViewSaldoUsuarioTelaList = findViewById(R.id.textViewSaldoUsuarioTelaList);
-        textViewSaldoNecessarioUsuarioTelaList = findViewById(R.id.textViewSaldoNecessarioUsuarioTelaList);
         textViewSaldoDesnecessarioUsuarioTelaList = findViewById(R.id.textViewSaldoDesnecessarioUsuarioTelaList);
+        textViewSaldoNecessarioUsuarioTelaList = findViewById(R.id.textViewSaldoNecessarioUsuarioTelaList);
         DecimalDigits.formatPattern(idiomaCelular());
     }
     private String idiomaCelular(){
@@ -244,8 +244,16 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
             textViewSaldoDesnecessarioUsuarioTelaList.setText(String.valueOf(saldoValorDesnecessario));
         }
 
+        if(saldoValorDesnecessario == null){
+            textViewSaldoDesnecessarioUsuarioTelaList.setText("");
+        }
+
         if(saldoValorNecessario!=null){
             textViewSaldoNecessarioUsuarioTelaList.setText(String.valueOf(saldoValorNecessario));
+        }
+
+        if(saldoValorNecessario == null){
+            textViewSaldoNecessarioUsuarioTelaList.setText("");
         }
     }
 
@@ -312,7 +320,11 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
                     dialog.dismiss();
                 });
 
-                buttonNao.setOnClickListener(c -> dialog.dismiss());
+                //buttonNao.setOnClickListener(c -> dialog.dismiss());
+                buttonNao.setOnClickListener(c -> {
+                    colocaSaldoNaTela();
+                    dialog.dismiss();
+                });
             }
         });
 
