@@ -104,6 +104,6 @@
     <string name="desnecessario">Desnecessário</string>
     <string name="necessario">Necessário</string>
 
-    <string name="textViewSaldoNecessarioTelaList">Necessario: R$</string>
-    <string name="textViewSaldoDesnecessarioTelaList">Desnecessari: R$</string>
+    <string name="textViewSaldoNecessarioTelaList">Necessário: R$</string>
+    <string name="textViewSaldoDesnecessarioTelaList">Desnecessário: R$</string>
 </resources>
