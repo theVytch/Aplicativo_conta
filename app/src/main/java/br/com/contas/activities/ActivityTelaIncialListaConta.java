@@ -390,7 +390,10 @@ public class ActivityTelaIncialListaConta extends AppCompatActivity {
                     dialog.dismiss();
                 });
 
-                buttonNao.setOnClickListener(c -> dialog.dismiss());
+                buttonNao.setOnClickListener(c -> {
+                    colocaSaldoNaTela();
+                    dialog.dismiss();
+                });
             } else {
                 dialog.dismiss();
             }
