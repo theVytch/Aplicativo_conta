@@ -85,7 +85,7 @@
       app:layout_constraintTop_toBottomOf="@+id/textViewSaldoTelaList" />
 
   <br.com.contas.custom.CustomTextView
-      android:id="@+id/textViewSaldoNecessarioUsuarioTelaList"
+      android:id="@+id/textViewSaldoDesnecessarioUsuarioTelaList"
       android:layout_width="wrap_content"
       android:layout_height="15dp"
       android:maxWidth="205dp"
@@ -109,7 +109,7 @@
       android:textColor="@color/red"
       android:textSize="34sp"
       app:layout_constraintBottom_toBottomOf="@+id/textViewSaldoDesnecessarioTelaList"
-      app:layout_constraintStart_toEndOf="@+id/textViewSaldoNecessarioUsuarioTelaList"
+      app:layout_constraintStart_toEndOf="@+id/textViewSaldoDesnecessarioUsuarioTelaList"
       app:layout_constraintTop_toBottomOf="@+id/textViewSaldoTelaList" />
 
 
@@ -126,7 +126,7 @@
       app:layout_constraintTop_toBottomOf="@+id/textViewSaldoDesnecessarioTelaList" />
 
   <br.com.contas.custom.CustomTextView
-      android:id="@+id/textViewSaldoDesnecessarioUsuarioTelaList"
+      android:id="@+id/textViewSaldoNecessarioUsuarioTelaList"
       android:layout_width="wrap_content"
       android:layout_height="15dp"
       android:maxWidth="205dp"
@@ -135,10 +135,10 @@
       android:background="@android:color/transparent"
       android:textColor="@color/corLetraListaCbp"
       android:textSize="12sp"
-      app:layout_constraintEnd_toEndOf="@+id/textViewSaldoNecessarioUsuarioTelaList"
+      app:layout_constraintEnd_toEndOf="@+id/textViewSaldoDesnecessarioUsuarioTelaList"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@+id/textViewSaldoNecessarioTelaList"
-      app:layout_constraintTop_toBottomOf="@+id/textViewSaldoNecessarioUsuarioTelaList" />
+      app:layout_constraintTop_toBottomOf="@+id/textViewSaldoDesnecessarioUsuarioTelaList" />
 
   <br.com.contas.custom.CustomTextView
       android:id="@+id/textViewPontoSaldoDesnecessarioUsuarioTelaList"
@@ -150,7 +150,7 @@
       android:textColor="@color/corDoBotaoUsuarioComClickCbp"
       android:textSize="34sp"
       app:layout_constraintBottom_toBottomOf="@+id/textViewSaldoNecessarioTelaList"
-      app:layout_constraintStart_toEndOf="@+id/textViewSaldoDesnecessarioUsuarioTelaList"
+      app:layout_constraintStart_toEndOf="@+id/textViewSaldoNecessarioUsuarioTelaList"
       app:layout_constraintTop_toBottomOf="@+id/textViewSaldoDesnecessarioTelaList" />
 
 
