@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/groupOrdenarLista"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/itemOrdenarDataDesc"
+            android:title="@string/ordenarDataDesc"/>
+        <item
+            android:id="@+id/itemOrdenarDataAsc"
+            android:title="@string/ordenarDataAsc" />
+        <item
+            android:id="@+id/itemOrdenarValorDesc"
+            android:title="@string/ordenarValorDesc" />
+        <item
+            android:id="@+id/itemOrdenarValorAsc"
+            android:title="@string/ordenarValorAsc" />
+        <item
+            android:id="@+id/itemOrdenarNomeDesc"
+            android:title="@string/ordenarNomeDesc" />
+        <item
+            android:id="@+id/itemOrdenarNomeAsc"
+            android:title="@string/ordenarNomeAsc" />
+    </group>
+</menu>

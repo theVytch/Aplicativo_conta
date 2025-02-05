@@ -4,94 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/corDeFundoAplicativo"
-    tools:context=".activities.ActivityTelaNovaConta">
+    android:background="@drawable/background_lista_cbp"
+    tools:context=".activities.telas_conta.ActivityTelaNovaConta">
 
-    <TextView
-        android:id="@+id/textViewNomeDaConta"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/textViewNomeDaConta"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
+    <include
+        layout="@layout/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextNomeConta"
-        android:layout_width="322dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/borda_edittext"
-        android:ems="10"
-        android:hint="@string/contaDeLuzHint"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNomeDaConta" />
-
-    <TextView
-        android:id="@+id/textViewValorDaConta"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/textViewValorDaConta"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNomeConta" />
-
-    <EditText
-        android:id="@+id/editTextValorConta"
-        android:layout_width="322dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/borda_edittext"
-        android:ems="10"
-        android:hint="R$ 0,00"
-        android:inputType="numberDecimal"
-        android:padding="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewValorDaConta" />
-
-    <TextView
-        android:id="@+id/textViewDataQueFoiGasto"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/textViewDataQueFoiGasto"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewValorDaConta"
-        app:layout_constraintTop_toBottomOf="@+id/editTextValorConta" />
-
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/borda_edittext"
-        android:ems="10"
-        android:hint="@string/editTextDateHint"
-        android:inputType="date"
-        android:padding="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        app:layout_constraintStart_toStartOf="@+id/textViewDataQueFoiGasto"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDataQueFoiGasto" />
-
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerConta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,7 +32,7 @@ public class MyApplication extends Application {
 
             @Override
             public void onActivityPaused(@NonNull Activity activity) {
-
+                updateWidgets();
             }
 
             @Override
@@ -53,7 +53,7 @@ public class MyApplication extends Application {
     }
 
     private void updateWidgets() {
-        AppWidgetManager  appWidgetManager = AppWidgetManager.getInstance(this);
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         ComponentName widget = new ComponentName(this, ContasWidget.class);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(widget);
 

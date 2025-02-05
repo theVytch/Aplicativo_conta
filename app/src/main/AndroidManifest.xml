@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".activities.MyApplication"
@@ -49,7 +50,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ActivityTelaNovaContaFormatoLista"
+            android:name=".activities.telas_conta.ActivityTelaNovaContaFormatoLista"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -57,7 +58,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ActivityTelaNovaConta"
+            android:name=".activities.telas_conta.ActivityTelaNovaConta"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ActivityTelaUsuario"

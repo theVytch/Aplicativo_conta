@@ -4,21 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/corDeFundoAplicativo"
+    android:background="@drawable/background_lista_cbp"
     tools:context=".activities.ActivityTelaSobreConta">
+
+    <include
+        layout="@layout/toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewSobre"
         android:layout_width="349dp"
         android:layout_height="293dp"
         android:scrollbars="vertical"
+        android:background="@drawable/tela_pdf"
+        android:paddingStart="45dp"
+        android:paddingEnd="45dp"
+        android:padding="20dp"
         android:text="@string/textViewSobreInformacaoAplicativo"
-        android:textColor="@color/black"
+        android:textColor="@color/corDoTitulo"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.112" />
+        app:layout_constraintVertical_bias="0.184" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupSize"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:layout_marginTop="30dp"
+        android:scrollbars="vertical"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSobre"
+        app:layout_constraintStart_toStartOf="@+id/textViewSobre"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSobre">
+
+        <RadioButton
+                android:id="@+id/radioButtonSmall"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/corLetraListaCbp"
+                android:text="@string/rb_pequeno" />
+
+            <RadioButton
+                android:id="@+id/radioButtonMiddle"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/corLetraListaCbp"
+                android:text="@string/rb_medio" />
+
+        <RadioButton
+            android:id="@+id/radioButtonLarge"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/corLetraListaCbp"
+            android:text="@string/rb_grande" />
+
+            <RadioButton
+                android:id="@+id/radioButtonBlind"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/corLetraListaCbp"
+                android:text="@string/rb_cego" />
+
+
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textViewCotacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textColor="@color/yellow"
+        android:textSize="22sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

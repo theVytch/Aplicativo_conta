@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/menuItemEditarConta"
-        android:title="@string/menuItemEditarConta" />
+        android:title="@string/menuItemEditarConta"/>
     <item
         android:id="@+id/menuItemDeletarConta"
         android:title="@string/menuItemDeletarConta" />

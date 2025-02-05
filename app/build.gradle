@@ -5,12 +5,14 @@ plugins {
 
 android {
     namespace 'br.com.contas'
-    compileSdk 33
+    compileSdk 34
+    compileSdkVersion 34
 
     defaultConfig {
+        compileSdkVersion 34
         applicationId "br.com.contas"
-        minSdk 24
-        targetSdk 33
+        minSdk 26
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -19,6 +21,16 @@ android {
             useSupportLibrary true
         }
         signingConfig signingConfigs.debug
+    }
+
+    buildscript {
+        repositories {
+            google()
+            mavenCentral()
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:8.1.0' // Atualize para a versão mais recente
+        }
     }
 
     buildTypes {
@@ -49,6 +61,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "androidx.viewpager2:viewpager2:1.1.0"
     implementation 'androidx.core:core:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'

@@ -25,12 +25,16 @@ public class Conta implements Serializable {
     @NotNull
     private Date data;
     private Long usuarioId;
+    private String tipo;
+    private String necessidadeGasto;
 
     public Conta(String nomeConta, Double valor, Date data, Long usuarioId) {
         this.nomeConta = nomeConta;
         this.valor = valor;
         this.data = data;
         this.usuarioId = usuarioId;
+        this.tipo = "SAIDA";
+        this.necessidadeGasto = "NECESSARIO";
     }
 
     public Long getId() {
@@ -74,6 +78,22 @@ public class Conta implements Serializable {
 
     public void setUsuarioId(Long usuario) {
         this.usuarioId = usuarioId;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getNecessidadeGasto() {
+        return necessidadeGasto;
+    }
+
+    public void setNecessidadeGasto(String necessidadeGasto) {
+        this.necessidadeGasto = necessidadeGasto;
     }
 
     @Override

@@ -1,14 +1,16 @@
-package br.com.contas.activities;
+package br.com.contas.activities.telas_conta;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,50 +27,46 @@ import br.com.contas.utils.DecimalDigits;
 import br.com.contas.utils.UtilsValida;
 import br.com.contas.R;
 
-public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
-
-    private EditText editTextNomeDaContaFormatoLista, editTextValorContaFormatoLista;
+public class FragmentTelaContaFormatoListaSubtracao extends Fragment {
+    private EditText editTextNomeDaContaFormatoListaSubtracao, editTextValorContaFormatoListaSubtracao;
     private Conta conta;
     private final String FORMAT_DATA = "dd/MM/yyyy";
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_nova_conta_formato_lista);
-
-        iniciarComponentes();
-
-        exibirBotaoVoltar();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_tela_conta_formato_lista_subtracao, container, false);
     }
 
     @Override
-    public void onBackPressed() {
-        mudarTelaInicial();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+
+        iniciarComponentes(view);
+
+        botaoSalvar(view);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            mudarTelaInicial();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private void botaoSalvar(View view) {
+        Button btnSalvar = view.findViewById(R.id.btnSalvarContaFormatoListaSubtracao);
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                salvarNovaContaSubtracao(view);
+            }
+        });
     }
 
-    private void exibirBotaoVoltar() {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+    private void iniciarComponentes(View view){
+        editTextNomeDaContaFormatoListaSubtracao = view.findViewById(R.id.editTextNomeDaContaFormatoListaSubtracao);
+        iniciaEditTextValorConta(view);
     }
 
-    private void iniciarComponentes(){
-        editTextNomeDaContaFormatoLista = findViewById(R.id.editTextNomeDaContaFormatoLista);
-        iniciaEditTextValorConta();
-    }
-
-    private void iniciaEditTextValorConta(){
-        editTextValorContaFormatoLista = findViewById(R.id.editTextValorContaFormatoLista);
-        editTextValorContaFormatoLista.addTextChangedListener(new TextWatcher() {
+    private void iniciaEditTextValorConta(View view){
+        editTextValorContaFormatoListaSubtracao = view.findViewById(R.id.editTextValorContaFormatoListaSubtracao);
+        editTextValorContaFormatoListaSubtracao.addTextChangedListener(new TextWatcher() {
             //DecimalFormat format = new DecimalFormat("#,##0.00");
             DecimalFormat format = new DecimalFormat("#,##0.00");
             private String current = "";
@@ -82,7 +80,7 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (!s.toString().equals(current)) {
-                    editTextValorContaFormatoLista.removeTextChangedListener(this);
+                    editTextValorContaFormatoListaSubtracao.removeTextChangedListener(this);
 
                     String cleanString = s.toString().replaceAll("[^\\d]", "");
 
@@ -95,26 +93,26 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
 
                     String formatted = format.format((parsed / 100));
                     current = formatted;
-                    editTextValorContaFormatoLista.setText(formatted);
-                    editTextValorContaFormatoLista.setSelection(formatted.length());
-                    editTextValorContaFormatoLista.addTextChangedListener(this);
+                    editTextValorContaFormatoListaSubtracao.setText(formatted);
+                    editTextValorContaFormatoListaSubtracao.setSelection(formatted.length());
+                    editTextValorContaFormatoListaSubtracao.addTextChangedListener(this);
                 }
             }
         });
-        editTextValorContaFormatoLista.setText("0,00");
+        editTextValorContaFormatoListaSubtracao.setText("0,00");
     }
 
     private void limparCampos(){
-        editTextNomeDaContaFormatoLista.setText("");
-        editTextValorContaFormatoLista.setText("0,00");
+        editTextNomeDaContaFormatoListaSubtracao.setText("");
+        editTextValorContaFormatoListaSubtracao.setText("0,00");
     }
 
-    public void salvarNovaConta(View view) {
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+    public void salvarNovaContaSubtracao(View view) {
+        UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
         Optional<Usuario> optionalUsuario = database.usuarioDao().getUsuario();
         Usuario usuario = optionalUsuario.get();
 
-        String nomeConta = editTextNomeDaContaFormatoLista.getText().toString().trim();
+        String nomeConta = editTextNomeDaContaFormatoListaSubtracao.getText().toString().trim();
         Double valor = Double.parseDouble(getNumeroParaString());
 
         Date dataAtual = new Date();
@@ -127,12 +125,12 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
             atualizaSaldoUsuario(conta.getValor(), usuario);
             limparCampos();
         }else{
-            Toast.makeText(this, R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void atualizaSaldoUsuario(Double saldo, Usuario usuario){
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+        UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
         usuario.setSaldo(usuario.getSaldo() - saldo);
         database.usuarioDao().update(usuario);
     }
@@ -142,19 +140,14 @@ public class ActivityTelaNovaContaFormatoLista extends AppCompatActivity {
         String contaStr;
         if (DecimalDigits.idiomaCelular.equals("en")) {
             // Formato americano: 1,000.00
-            contaStr = editTextValorContaFormatoLista.getText().toString();
+            contaStr = editTextValorContaFormatoListaSubtracao.getText().toString();
             contaStr = contaStr.replace(",", "");
         } else {
             // Formato brasileiro: 1.000,00
-            contaStr = editTextValorContaFormatoLista.getText().toString().replaceAll("[^\\d,]", "");
+            contaStr = editTextValorContaFormatoListaSubtracao.getText().toString().replaceAll("[^\\d,]", "");
             contaStr = contaStr.replace(",", ".");
         }
 
         return contaStr;
-    }
-
-    private void mudarTelaInicial(){
-        Intent intent = new Intent(this, ActivityTelaIncialListaConta.class);
-        startActivity(intent);
     }
 }

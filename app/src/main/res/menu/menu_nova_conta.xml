@@ -4,15 +4,15 @@
 
     <item
         android:id="@+id/menuItemSalvar"
-        android:icon="@android:drawable/ic_menu_save"
+        android:icon="@drawable/btn_top_salvar_cbp"
         android:title="@string/salvar"
-        android:iconTint="@color/black"
-        app:showAsAction="ifRoom|withText" />
+        android:iconTint="@color/corDoTitulo"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/menuItemCancelar"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:icon="@drawable/btn_top_cancelar_cbp"
         android:title="@string/cancelar"
-        android:iconTint="@color/black"
-        app:showAsAction="ifRoom|withText" />
+        android:iconTint="@color/red"
+        app:showAsAction="always" />
 </menu>

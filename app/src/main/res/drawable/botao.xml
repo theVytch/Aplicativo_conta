@@ -1,5 +1,5 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/botao_selecionado" android:state_pressed="true" /> <!-- pressionado -->
-    <item android:drawable="@drawable/botao_selecionado" android:state_focused="true" /> <!-- com foco -->
-    <item android:drawable="@drawable/botao_normal" /> <!-- normal-->
+    <item android:drawable="@drawable/btn_selecionado_salvar_tela_usuario_conta" android:state_pressed="true" /> <!-- pressionado -->
+    <item android:drawable="@drawable/btn_selecionado_salvar_tela_usuario_conta" android:state_focused="true" /> <!-- com foco -->
+    <item android:drawable="@drawable/btn_salvar_tela_usuario_conta" /> <!-- normal-->
 </selector>

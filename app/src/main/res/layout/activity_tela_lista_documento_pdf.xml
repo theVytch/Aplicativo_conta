@@ -4,15 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/corDeFundoAplicativo"
+    android:background="@drawable/background_lista_cbp"
     tools:context=".activities.ActivityTelaListaDocumentoPdf">
+
+    <include
+        layout="@layout/toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/listViewDocumentos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@android:layout/simple_list_item_1"
-        />
+        android:layout_marginTop="55dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/activity_linha_lista_documentos" />
 
 
 

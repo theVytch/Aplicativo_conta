@@ -12,13 +12,13 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -26,20 +26,28 @@ import androidx.core.content.FileProvider;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.contas.R;
+import br.com.contas.adapter.ListPdfAdapter;
 
 public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
 
+    private ListPdfAdapter listPdfAdapter;
     private ListView listViewDocumetos;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
-    private ArrayList<File> listaDeArquivos;
+    private List<File> listaDeArquivos;
+    private List<String> pdfFiles;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_lista_documento_pdf);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         inicializaComponentes();
         //listarArquivosPdf();
@@ -133,7 +141,8 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
         // Diretório onde os arquivos PDF estão localizados Android/data/br.com.contas/files/Download/
         File downloadsDirectory = new File(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)));
 
-        List<String> pdfFiles = new ArrayList<>();
+        //List<String> pdfFiles = new ArrayList<>();
+        pdfFiles = new ArrayList<>();
 
         File[] files = downloadsDirectory.listFiles();
         if (files != null) {
@@ -145,12 +154,15 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
         }
 
         Collections.sort(pdfFiles,  Collections.reverseOrder());
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pdfFiles);
+
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pdfFiles);
+        ListPdfAdapter adapter = new ListPdfAdapter(this, pdfFiles);
+        adapter.notifyDataSetChanged();
         listViewDocumetos.setAdapter(adapter);
         //listViewDocumetos.setText
     }
 
-    private ArrayList<File> listarPdfs() {
+    private List<File> listarPdfs() {
         ArrayList<File> pdfList = new ArrayList<>();
         File downloadsDirectory = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "");
         File[] files = downloadsDirectory.listFiles();
@@ -161,7 +173,7 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
                 }
             }
         }
-        return pdfList;
+        return pdfList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
     }
 
     private void abrirPdf(File file) {
@@ -174,7 +186,7 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Toast.makeText(this,
-                    "Não foi possivel abrir o documento!",
+                    getResources().getString(R.string.nao_foi_possivel_abrir_o_documento),
                     Toast.LENGTH_LONG).show();
         }
     }
@@ -187,15 +199,16 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
                 deleted = file.delete(); // Tenta deletar o arquivo
                 if (deleted) {
                     listPdfFiles();
-                    Toast.makeText(context, "Arquivo deletado com sucesso", Toast.LENGTH_SHORT).show();
+                    listaDeArquivos.remove(file);
+                    Toast.makeText(context, context.getString(R.string.arquivo_deletado_com_sucesso), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Falha ao deletar o arquivo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.falha_ao_deletar_o_arquivo), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(context, "Arquivo não encontrado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getString(R.string.arquivo_nao_encontrado), Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Toast.makeText(context, "Erro ao deletar o arquivo: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.erro_ao_deletar_o_arquivo) + " " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         return deleted;

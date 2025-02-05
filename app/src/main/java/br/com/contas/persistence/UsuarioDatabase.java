@@ -12,7 +12,7 @@ import br.com.contas.entities.Conta;
 import br.com.contas.entities.Usuario;
 
 
-@Database(entities = {Usuario.class, Conta.class}, version = 2, exportSchema = false)
+@Database(entities = {Usuario.class, Conta.class}, version = 4, exportSchema = false)
 public abstract class UsuarioDatabase extends RoomDatabase {
 
     public abstract UsuarioDao usuarioDao();
