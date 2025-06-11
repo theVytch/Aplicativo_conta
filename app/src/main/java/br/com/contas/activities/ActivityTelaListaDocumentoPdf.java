@@ -173,7 +173,10 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
                 }
             }
         }
-        return pdfList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        //return pdfList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        return pdfList.stream()
+                .sorted((f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified()))
+                .collect(Collectors.toList());
     }
 
     private void abrirPdf(File file) {

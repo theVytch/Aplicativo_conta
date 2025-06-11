@@ -1,15 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/back"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewPdfName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/corLetraListaCbp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutExemplo"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="1dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textViewPdfName"
+            android:layout_width="342dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="-30dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/minha_fonte_bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textViewPdfData"
+            android:layout_width="250dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="25dp"
+            android:gravity="end"
+            android:fontFamily="@font/minha_fonte_bold"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
