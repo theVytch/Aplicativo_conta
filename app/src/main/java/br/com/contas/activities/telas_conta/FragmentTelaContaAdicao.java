@@ -21,14 +21,15 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 import br.com.contas.R;
 import br.com.contas.activities.ActivityTelaIncialListaConta;
 import br.com.contas.entities.Conta;
+import br.com.contas.entities.ContaTipo;
+import br.com.contas.entities.NecessidadeGasto;
 import br.com.contas.entities.Usuario;
-import br.com.contas.persistence.UsuarioDatabase;
 import br.com.contas.persistence.converters.DateConverter;
+import br.com.contas.repository.ContasRepository;
 import br.com.contas.utils.DecimalDigits;
 import br.com.contas.utils.UtilsDateMaskWatcher;
 import br.com.contas.utils.UtilsValida;
@@ -39,10 +40,9 @@ public class FragmentTelaContaAdicao extends Fragment {
     private Usuario usuario;
     private Conta contaParaEditar;
     private Date dataAtual = new Date();
-    private final String TIPO = "ENTRADA";
     private final String FORMAT_DATA = "dd/MM/yyyy";
     private SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATA);
-    private String NECESSIDADE_GASTO_ADICAO = "MILAGRE";
+    private ContasRepository repository;
 
     @Nullable
     @Override
@@ -56,13 +56,14 @@ public class FragmentTelaContaAdicao extends Fragment {
         setHasOptionsMenu(true);
 
         iniciarComponentes(view);
+        repository = new ContasRepository(requireContext());
         buscaUsuario();
 
         if (getArguments() != null) {
             contaParaEditar = (Conta) getArguments().getSerializable("conta_para_editar");
         }
         if (contaParaEditar != null) {
-            if(contaParaEditar.getTipo().equals("ENTRADA")){
+            if(ContaTipo.ENTRADA.equals(contaParaEditar.getTipo())){
                 adicionaContaParaEditarNosCampos(contaParaEditar);
             }
         }
@@ -111,8 +112,7 @@ public class FragmentTelaContaAdicao extends Fragment {
     }
 
     private void buscaUsuario(){
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
-        usuario = database.usuarioDao().getUsuario().get();
+        repository.getUsuario(usuarioEncontrado -> usuario = usuarioEncontrado);
     }
 
     private void iniciaEditTextValorConta(View view){
@@ -154,13 +154,6 @@ public class FragmentTelaContaAdicao extends Fragment {
     }
 
     public void salvarEdicaoConta(){
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
-        conta = database.contaDao().getContaById(contaParaEditar.getId()).get();
-
-        Double valorContaAntigo = contaParaEditar.getValor();
-        usuario.setSaldo(usuario.getSaldo() - valorContaAntigo);
-
-
         String nomeConta = editTextNomeContaAdicao.getText().toString().trim();
         Double valorContaNovo = Double.parseDouble(getNumeroParaString());
         String dataConta = (editTextDateAdicao.getText().toString().isEmpty()) ? sdf.format(dataAtual) : editTextDateAdicao.getText().toString().trim();
@@ -168,16 +161,21 @@ public class FragmentTelaContaAdicao extends Fragment {
 
         if(validarFormatoData(dataConta)) {
             if(UtilsValida.validaCampoPreenchido(nomeConta, valorContaNovo)) {
-                conta.setNomeConta(nomeConta);
-                conta.setValor(valorContaNovo);
-                conta.setData(DateConverter.stringToDate(dataConta));
-                conta.setNecessidadeGasto(NECESSIDADE_GASTO_ADICAO);
-                conta.setUsuarioId(contaParaEditar.getUsuarioId());
+                repository.getContaById(contaParaEditar.getId(), contaAtual -> {
+                    if (contaAtual == null) {
+                        Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                database.contaDao().update(conta);
+                    contaAtual.setNomeConta(nomeConta);
+                    contaAtual.setValor(valorContaNovo);
+                    contaAtual.setData(DateConverter.stringToDate(dataConta));
+                    contaAtual.setNecessidadeGasto(NecessidadeGasto.ADICAO);
+                    contaAtual.setUsuarioId(contaParaEditar.getUsuarioId());
 
-                atualizaSaldoUsuario(valorContaNovo, usuario);
-                mudarTelaInicial();
+                    double saldoDelta = valorContaNovo - contaParaEditar.getValor();
+                    repository.updateConta(contaAtual, saldoDelta, this::mudarTelaInicial);
+                });
             }else{
                 Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
             }
@@ -187,10 +185,6 @@ public class FragmentTelaContaAdicao extends Fragment {
     }
 
     public void salvarNovaContaAdicao() {
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
-        Optional<Usuario> optionalUsuario = database.usuarioDao().getUsuario();
-        Usuario usuario = optionalUsuario.get();
-
         String nomeConta = editTextNomeContaAdicao.getText().toString().trim();
         Double valor = Double.parseDouble(getNumeroParaString());
 
@@ -199,12 +193,17 @@ public class FragmentTelaContaAdicao extends Fragment {
         String dataConta = (editTextDateAdicao.getText().toString().isEmpty()) ? sdf.format(dataAtual) : editTextDateAdicao.getText().toString().trim();
 
         if(UtilsValida.validaCampoPreenchido(nomeConta, valor)) {
-            conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
-            conta.setTipo(TIPO);
-            conta.setNecessidadeGasto(NECESSIDADE_GASTO_ADICAO);
-            database.contaDao().insert(conta);
-            atualizaSaldoUsuario(conta.getValor(), usuario);
-            mudarTelaInicial();
+            repository.getUsuario(usuarioEncontrado -> {
+                if (usuarioEncontrado == null) {
+                    Toast.makeText(getContext(), R.string.mensagemCrieUsuarioParaAdicionarConta, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuarioEncontrado.getId());
+                conta.setTipo(ContaTipo.ENTRADA);
+                conta.setNecessidadeGasto(NecessidadeGasto.ADICAO);
+                repository.insertConta(conta, conta.getValor(), this::mudarTelaInicial);
+            });
         }else{
             Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
         }
@@ -219,12 +218,6 @@ public class FragmentTelaContaAdicao extends Fragment {
         } catch (ParseException e) {
             return false;
         }
-    }
-
-    private void atualizaSaldoUsuario(Double saldo, Usuario usuario){
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
-        usuario.setSaldo(usuario.getSaldo() + saldo);
-        database.usuarioDao().update(usuario);
     }
 
     @NonNull

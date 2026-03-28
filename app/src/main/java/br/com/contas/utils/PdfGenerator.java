@@ -28,6 +28,8 @@ import java.util.List;
 
 import br.com.contas.R;
 import br.com.contas.entities.Conta;
+import br.com.contas.entities.ContaTipo;
+import br.com.contas.entities.NecessidadeGasto;
 import br.com.contas.entities.Usuario;
 
 public class PdfGenerator {
@@ -108,10 +110,10 @@ public class PdfGenerator {
             boolean alternateColor = false;
             double resultadoFinal = 0.0;
             for (Conta conta : contas) {
-                BaseColor backgroundColor = "ENTRADA".equals(conta.getTipo()) ? customColorGreen : (alternateColor ? BaseColor.WHITE : BaseColor.LIGHT_GRAY);
+                BaseColor backgroundColor = ContaTipo.ENTRADA.equals(conta.getTipo()) ? customColorGreen : (alternateColor ? BaseColor.WHITE : BaseColor.LIGHT_GRAY);
 
                 adicionandoInformacoesNasColuna(conta, font12, backgroundColor, tableBody, sdfDocument);
-                if(conta.getTipo().equals("SAIDA")){
+                if(ContaTipo.SAIDA.equals(conta.getTipo())){
                     resultadoFinal += conta.getValor();
                 }
                 alternateColor = !alternateColor;
@@ -130,12 +132,12 @@ public class PdfGenerator {
             // --INICIO SEGUNDA PAGINA
             PdfPTable tableHeadDesnecessario = getPdfPTableHeadDesnecessario(sdfDocument, dataAtual, font12, font15);
             PdfPTable tableBodyDesnecessario = getBodyTabelaDesnecessario(contas, font14, font12, sdfDocument);
-            Long qtdDes = contas.stream().filter(item -> "DESNECESSARIO".equals(item.getNecessidadeGasto())).count();
+            Long qtdDes = contas.stream().filter(item -> NecessidadeGasto.DESNECESSARIO.equals(item.getNecessidadeGasto())).count();
             PdfPTable tableBodyResultDesnecessario = getBodyTabelaResultDesnecessario(usuario, resultadoFinalDesnecessario, font14, qtdDes);
 
             PdfPTable tableHeadNecessario = getPdfPTableHeadNecessario(sdfDocument, dataAtual, font12, font15);
             PdfPTable tableBodyNecessario = getBodyTabelaNecessario(contas, font14, font12, sdfDocument);
-            Long qtdNes = contas.stream().filter(item -> "NECESSARIO".equals(item.getNecessidadeGasto())).count();
+            Long qtdNes = contas.stream().filter(item -> NecessidadeGasto.NECESSARIO.equals(item.getNecessidadeGasto())).count();
             PdfPTable tableBodyResultNecessario = getBodyTabelaResultNecessario(usuario, resultadoFinalNecessario, font14, qtdNes);
             // --FIM SEGUNDA PAGINA
 
@@ -221,11 +223,11 @@ public class PdfGenerator {
         // Adicionar linhas alternadas entre branco e cinza
         BaseColor backgroundColorGreen = new BaseColor(144, 238, 144);;
         for (Conta conta : contas) {
-            if (conta.getNecessidadeGasto().equals("NECESSARIO")){
+            if (NecessidadeGasto.NECESSARIO.equals(conta.getNecessidadeGasto())){
                 adicionandoInformacoesNasColuna(conta, font12, backgroundColorGreen, tableBodyDesnecessario, sdfDocument);
             }
 
-            if(conta.getTipo().equals("SAIDA") && conta.getNecessidadeGasto().equals("NECESSARIO")){
+            if(ContaTipo.SAIDA.equals(conta.getTipo()) && NecessidadeGasto.NECESSARIO.equals(conta.getNecessidadeGasto())){
                 resultadoFinalNecessario += conta.getValor();
             }
         }
@@ -243,11 +245,11 @@ public class PdfGenerator {
         // Adicionar linhas alternadas entre branco e cinza
         BaseColor backgroundColorRed = new BaseColor(255, 77, 77);
         for (Conta conta : contas) {
-            if (conta.getNecessidadeGasto().equals("DESNECESSARIO")){
+            if (NecessidadeGasto.DESNECESSARIO.equals(conta.getNecessidadeGasto())){
                 adicionandoInformacoesNasColuna(conta, font12, backgroundColorRed, tableBodyNecessario, sdfDocument);
             }
 
-            if(conta.getTipo().equals("SAIDA") && conta.getNecessidadeGasto().equals("DESNECESSARIO")){
+            if(ContaTipo.SAIDA.equals(conta.getTipo()) && NecessidadeGasto.DESNECESSARIO.equals(conta.getNecessidadeGasto())){
                 resultadoFinalDesnecessario += conta.getValor();
             }
         }
@@ -332,7 +334,7 @@ public class PdfGenerator {
         table.addCell(cellNome);
 
         String cifra = context.getString(R.string.cifra_com_espaco_e_sinal_de_subtracao);
-        if(conta.getTipo().equals("ENTRADA")){
+        if(ContaTipo.ENTRADA.equals(conta.getTipo())){
             cifra = context.getString(R.string.cifra_com_espaco_e_sinal_de_adicao);
         }
         PdfPCell cellValor = new PdfPCell(new Phrase(cifra + formatarNumero(conta.getValor()), font12));

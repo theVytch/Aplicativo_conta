@@ -8,10 +8,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutExemplo"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
@@ -19,34 +19,38 @@
 
         <TextView
             android:id="@+id/textViewPdfName"
-            android:layout_width="342dp"
+            android:layout_width="0dp"
             android:layout_height="29dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="-30dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:ellipsize="end"
             android:fontFamily="@font/minha_fonte_bold"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            tools:text="minha_lista_de_contas" />
 
         <TextView
             android:id="@+id/textViewPdfData"
-            android:layout_width="250dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="45dp"
-            android:layout_marginEnd="25dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/minha_fonte_medium"
             android:gravity="end"
-            android:fontFamily="@font/minha_fonte_bold"
-            android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPdfName"
+            tools:text="28-03-2026-11:42:10" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

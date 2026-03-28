@@ -16,4 +16,23 @@
     <item
         android:id="@+id/menu_criar_pdf"
         android:title="@string/menu_criar_pdf" />
+
+    <item
+        android:id="@+id/menu_selecionar_exclusao"
+        android:title="@string/menu_selecionar_exclusao" />
+
+    <item
+        android:id="@+id/menu_excluir_selecionadas"
+        android:title="@string/menu_excluir_selecionadas"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/menu_selecionar_todos"
+        android:title="@string/menu_selecionar_todos"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/menu_cancelar_selecao"
+        android:title="@string/menu_cancelar_selecao"
+        android:visible="false" />
 </menu>

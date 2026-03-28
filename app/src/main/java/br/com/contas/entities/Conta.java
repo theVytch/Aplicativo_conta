@@ -33,8 +33,8 @@ public class Conta implements Serializable {
         this.valor = valor;
         this.data = data;
         this.usuarioId = usuarioId;
-        this.tipo = "SAIDA";
-        this.necessidadeGasto = "NECESSARIO";
+        this.tipo = ContaTipo.SAIDA;
+        this.necessidadeGasto = NecessidadeGasto.NECESSARIO;
     }
 
     public Long getId() {
@@ -77,7 +77,7 @@ public class Conta implements Serializable {
     }
 
     public void setUsuarioId(Long usuario) {
-        this.usuarioId = usuarioId;
+        this.usuarioId = usuario;
     }
 
     public String getTipo() {

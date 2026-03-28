@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import br.com.contas.entities.Conta;
+import br.com.contas.entities.ContaTipo;
 
 public class ViewPagerAdapterConta extends FragmentStateAdapter {
 
@@ -31,7 +32,7 @@ public class ViewPagerAdapterConta extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         if (contaParaEditar != null){
-            if(contaParaEditar.getTipo().equals("ENTRADA")){
+            if(ContaTipo.ENTRADA.equals(contaParaEditar.getTipo())){
                 numeroDeFragments = 1;
                 if (position == 0) {
                     if (fragmentAdicao == null) {

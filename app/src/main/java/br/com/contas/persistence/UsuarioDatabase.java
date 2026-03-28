@@ -28,7 +28,6 @@ public abstract class UsuarioDatabase extends RoomDatabase {
                                                     UsuarioDatabase.class,
                                                     "usuarios.db")
                                                     .fallbackToDestructiveMigration()
-                                                    .allowMainThreadQueries()
                                                     .build();
                 }
             }

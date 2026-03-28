@@ -18,14 +18,13 @@ import androidx.fragment.app.Fragment;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 import br.com.contas.R;
-import br.com.contas.activities.ActivityTelaIncialListaConta;
 import br.com.contas.entities.Conta;
-import br.com.contas.entities.Usuario;
-import br.com.contas.persistence.UsuarioDatabase;
+import br.com.contas.entities.ContaTipo;
+import br.com.contas.entities.NecessidadeGasto;
 import br.com.contas.persistence.converters.DateConverter;
+import br.com.contas.repository.ContasRepository;
 import br.com.contas.utils.DecimalDigits;
 import br.com.contas.utils.UtilsValida;
 
@@ -33,8 +32,7 @@ public class FragmentTelaContaFormatoListaAdicao extends Fragment {
     private EditText editTextNomeDaContaFormatoListaAdicao, editTextValorContaFormatoListaAdicao;
     private Conta conta;
     private final String FORMAT_DATA = "dd/MM/yyyy";
-    private final String TIPO = "ENTRADA";
-    private final String NECESSIDADE_GASTO_ADICAO = "MILAGRE";
+    private ContasRepository repository;
 
     @Nullable
     @Override
@@ -48,6 +46,7 @@ public class FragmentTelaContaFormatoListaAdicao extends Fragment {
         setHasOptionsMenu(true);
 
         iniciarComponentes(view);
+        repository = new ContasRepository(requireContext());
 
         botaoSalvar(view);
     }
@@ -112,10 +111,6 @@ public class FragmentTelaContaFormatoListaAdicao extends Fragment {
     }
 
     public void salvarNovaAdicaoConta(View view) {
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
-        Optional<Usuario> optionalUsuario = database.usuarioDao().getUsuario();
-        Usuario usuario = optionalUsuario.get();
-
         String nomeConta = editTextNomeDaContaFormatoListaAdicao.getText().toString().trim();
         Double valor = Double.parseDouble(getNumeroParaString());
 
@@ -124,21 +119,20 @@ public class FragmentTelaContaFormatoListaAdicao extends Fragment {
         String dataConta = sdf.format(dataAtual);
 
         if(UtilsValida.validaCampoPreenchido(nomeConta, valor)) {
-            conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
-            conta.setTipo(TIPO);
-            conta.setNecessidadeGasto(NECESSIDADE_GASTO_ADICAO);
-            database.contaDao().insert(conta);
-            atualizaSaldoUsuario(conta.getValor(), usuario);
-            limparCampos();
+            repository.getUsuario(usuario -> {
+                if (usuario == null) {
+                    Toast.makeText(getContext(), R.string.mensagemCrieUsuarioParaAdicionarConta, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
+                conta.setTipo(ContaTipo.ENTRADA);
+                conta.setNecessidadeGasto(NecessidadeGasto.ADICAO);
+                repository.insertConta(conta, conta.getValor(), this::limparCampos);
+            });
         }else{
             Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void atualizaSaldoUsuario(Double saldo, Usuario usuario){
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
-        usuario.setSaldo(usuario.getSaldo() + saldo);
-        database.usuarioDao().update(usuario);
     }
 
     @NonNull
@@ -155,10 +149,5 @@ public class FragmentTelaContaFormatoListaAdicao extends Fragment {
         }
 
         return contaStr;
-    }
-
-    private void mudarTelaInicial(){
-        Intent intent = new Intent(getContext(), ActivityTelaIncialListaConta.class);
-        startActivity(intent);
     }
 }

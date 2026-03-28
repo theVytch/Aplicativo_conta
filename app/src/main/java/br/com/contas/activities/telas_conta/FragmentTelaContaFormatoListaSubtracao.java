@@ -17,12 +17,10 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 import br.com.contas.entities.Conta;
-import br.com.contas.entities.Usuario;
-import br.com.contas.persistence.UsuarioDatabase;
 import br.com.contas.persistence.converters.DateConverter;
+import br.com.contas.repository.ContasRepository;
 import br.com.contas.utils.DecimalDigits;
 import br.com.contas.utils.UtilsValida;
 import br.com.contas.R;
@@ -31,6 +29,7 @@ public class FragmentTelaContaFormatoListaSubtracao extends Fragment {
     private EditText editTextNomeDaContaFormatoListaSubtracao, editTextValorContaFormatoListaSubtracao;
     private Conta conta;
     private final String FORMAT_DATA = "dd/MM/yyyy";
+    private ContasRepository repository;
 
     @Nullable
     @Override
@@ -44,6 +43,7 @@ public class FragmentTelaContaFormatoListaSubtracao extends Fragment {
         setHasOptionsMenu(true);
 
         iniciarComponentes(view);
+        repository = new ContasRepository(requireContext());
 
         botaoSalvar(view);
     }
@@ -108,10 +108,6 @@ public class FragmentTelaContaFormatoListaSubtracao extends Fragment {
     }
 
     public void salvarNovaContaSubtracao(View view) {
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
-        Optional<Usuario> optionalUsuario = database.usuarioDao().getUsuario();
-        Usuario usuario = optionalUsuario.get();
-
         String nomeConta = editTextNomeDaContaFormatoListaSubtracao.getText().toString().trim();
         Double valor = Double.parseDouble(getNumeroParaString());
 
@@ -120,19 +116,18 @@ public class FragmentTelaContaFormatoListaSubtracao extends Fragment {
         String dataConta = sdf.format(dataAtual);
 
         if(UtilsValida.validaCampoPreenchido(nomeConta, valor)) {
-            conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
-            database.contaDao().insert(conta);
-            atualizaSaldoUsuario(conta.getValor(), usuario);
-            limparCampos();
+            repository.getUsuario(usuario -> {
+                if (usuario == null) {
+                    Toast.makeText(getContext(), R.string.mensagemCrieUsuarioParaAdicionarConta, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                conta = new Conta(nomeConta, valor, DateConverter.stringToDate(dataConta), usuario.getId());
+                repository.insertConta(conta, -conta.getValor(), this::limparCampos);
+            });
         }else{
             Toast.makeText(getContext(), R.string.mensagemCampoVazio, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void atualizaSaldoUsuario(Double saldo, Usuario usuario){
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(getContext());
-        usuario.setSaldo(usuario.getSaldo() - saldo);
-        database.usuarioDao().update(usuario);
     }
 
     @NonNull

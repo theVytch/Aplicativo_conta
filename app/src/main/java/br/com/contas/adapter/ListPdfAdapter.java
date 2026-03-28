@@ -5,26 +5,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import br.com.contas.R;
-import br.com.contas.custom.CustomTextView;
 
+import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.List;
 
-public class ListPdfAdapter extends ArrayAdapter<String> {
-    private Context context;
-    private List<String> pdfFiles;
+import br.com.contas.R;
+
+public class ListPdfAdapter extends ArrayAdapter<File> {
+    private static final Pattern PDF_NAME_PATTERN = Pattern.compile("^(.*)_(\\d{2}-\\d{2}-\\d{4}-\\d{2}:\\d{2}:\\d{2})\\.pdf$");
+
+    private final Context context;
+    private final List<File> pdfFiles;
 
     private static class DocumentoHolder{
         public TextView textViewPdfName;
         public TextView textViewPdfData;
     }
 
-    public ListPdfAdapter(Context context, List<String> pdfFiles) {
+    public ListPdfAdapter(Context context, List<File> pdfFiles) {
         super(context, R.layout.activity_linha_lista_documentos, pdfFiles);
         this.context = context;
         this.pdfFiles = pdfFiles;
@@ -35,10 +39,9 @@ public class ListPdfAdapter extends ArrayAdapter<String> {
         return pdfFiles.size();
     }
 
-
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @NonNull
@@ -51,24 +54,46 @@ public class ListPdfAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(R.layout.activity_linha_lista_documentos, parent, false);
 
             holder = new DocumentoHolder();
-            holder.textViewPdfName = convertView.findViewById(R.id.textViewPdfName); // use o ID correto aqui
-            holder.textViewPdfData = convertView.findViewById(R.id.textViewPdfData); // use o ID correto aqui
+            holder.textViewPdfName = convertView.findViewById(R.id.textViewPdfName);
+            holder.textViewPdfData = convertView.findViewById(R.id.textViewPdfData);
 
             convertView.setTag(holder);
-        }else {
-            holder = (ListPdfAdapter.DocumentoHolder) convertView.getTag();
+        } else {
+            holder = (DocumentoHolder) convertView.getTag();
         }
 
         convertView.setBackgroundResource(R.drawable.linha_lista_background_documento);
 
-        String currentPdf = pdfFiles.get(position);
-        holder.textViewPdfName.setText(currentPdf.substring(0, currentPdf.length() - 24));
-
-        String pdfInvertido = new StringBuilder(currentPdf).reverse().toString();
-        String dataDoc = pdfInvertido.substring(4, 23);
-
-        holder.textViewPdfData.setText(new StringBuffer(dataDoc).reverse().toString());
+        File currentPdf = pdfFiles.get(position);
+        String currentPdfName = currentPdf.getName();
+        holder.textViewPdfName.setText(retornarTituloDocumento(currentPdfName));
+        holder.textViewPdfData.setText(retornarDataDocumento(currentPdfName));
 
         return convertView;
+    }
+
+    private String retornarTituloDocumento(String fileName) {
+        Matcher matcher = PDF_NAME_PATTERN.matcher(fileName);
+        if (matcher.matches()) {
+            return matcher.group(1);
+        }
+
+        return removerExtensaoPdf(fileName);
+    }
+
+    private String retornarDataDocumento(String fileName) {
+        Matcher matcher = PDF_NAME_PATTERN.matcher(fileName);
+        if (matcher.matches()) {
+            return matcher.group(2);
+        }
+
+        return "";
+    }
+
+    private String removerExtensaoPdf(String fileName) {
+        if (fileName.toLowerCase().endsWith(".pdf")) {
+            return fileName.substring(0, fileName.length() - 4);
+        }
+        return fileName;
     }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -15,6 +16,7 @@ import java.util.Set;
 import br.com.contas.R;
 import br.com.contas.custom.CustomTextView;
 import br.com.contas.entities.Conta;
+import br.com.contas.entities.ContaTipo;
 import br.com.contas.persistence.converters.DateConverter;
 import br.com.contas.utils.Ordenar;
 
@@ -23,16 +25,19 @@ public class ContaAdapter extends BaseAdapter {
     private Context context;
     private List<Conta> contas;
     private Set<Integer> posicaoSelecionada;
+    private boolean selectionMode;
 
     private static class ContaHolder{
         public TextView textViewNomeConta, textViewData;
         public CustomTextView textViewValorConta;
+        public CheckBox checkBoxSelecionarConta;
     }
 
-    public ContaAdapter(Context context, List<Conta> contas, Set<Integer> posicaoSelecionada){
+    public ContaAdapter(Context context, List<Conta> contas, Set<Integer> posicaoSelecionada, boolean selectionMode){
         this.context = context;
         this.contas = contas;
         this.posicaoSelecionada = posicaoSelecionada;
+        this.selectionMode = selectionMode;
     }
 
     @Override
@@ -66,6 +71,7 @@ public class ContaAdapter extends BaseAdapter {
             holder.textViewNomeConta = convertView.findViewById(R.id.textViewNomeContaLinha);
             holder.textViewValorConta = convertView.findViewById(R.id.textViewValorContaLinha);
             holder.textViewData = convertView.findViewById(R.id.textViewData);
+            holder.checkBoxSelecionarConta = convertView.findViewById(R.id.checkBoxSelecionarConta);
 
             convertView.setTag(holder);
         } else {
@@ -77,12 +83,15 @@ public class ContaAdapter extends BaseAdapter {
         holder.textViewData.setText(DateConverter.dateToString(contas.get(position).getData()));
 
 
-        if (contas.get(position).getTipo().equals("ENTRADA")) {
+        if (ContaTipo.ENTRADA.equals(contas.get(position).getTipo())) {
             convertView.setBackgroundResource(R.drawable.linha_lista_background_adicao_saldo);
         } else {
             convertView.setBackgroundResource(R.drawable.linha_lista_background);
         }
 
+        holder.checkBoxSelecionarConta.setVisibility(selectionMode ? View.VISIBLE : View.GONE);
+        holder.checkBoxSelecionarConta.setChecked(posicaoSelecionada.contains(position));
+        holder.checkBoxSelecionarConta.setClickable(false);
         convertView.setActivated(posicaoSelecionada.contains(position));
         return convertView;
     }

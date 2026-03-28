@@ -1,10 +1,8 @@
 package br.com.contas.activities;
 
-import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,21 +10,20 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,9 +34,7 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
 
     private ListPdfAdapter listPdfAdapter;
     private ListView listViewDocumetos;
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
     private List<File> listaDeArquivos;
-    private List<String> pdfFiles;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,13 +45,20 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         inicializaComponentes();
-        //listarArquivosPdf();
-        listPdfFiles();
+        atualizarListaDePdfs();
         abrirDocumentoComUmClickNaLista();
         registerForContextMenu(listViewDocumetos);
-
+        abrirTelaDeDeletar();
         exibirBotaoVoltar();
     }
+
+    private void abrirTelaDeDeletar() {
+        listViewDocumetos.setOnItemLongClickListener((parent, view, position, id) -> {
+            confirmarExclusaoPdf(position);
+            return true; // impede que o menu de contexto padrão apareça
+        });
+    }
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -71,15 +73,21 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         if (id == R.id.menuItemDeletarConta) {
-            deletarDocumentoPdf(info);
+            //deletarDocumentoPdf(info);
+            confirmarExclusaoPdf(info.position);
         } else {
             return super.onContextItemSelected(item);
         }
         return super.onContextItemSelected(item);
     }
 
-    private void deletarDocumentoPdf(AdapterView.AdapterContextMenuInfo info) {
+    /*private void deletarDocumentoPdf(AdapterView.AdapterContextMenuInfo info) {
         int position = info.position;
+        File fileName = listaDeArquivos.get(position);
+        deletarArquivo(this, fileName);
+    }*/
+
+    private void deletarDocumentoPdf(int position) {
         File fileName = listaDeArquivos.get(position);
         deletarArquivo(this, fileName);
     }
@@ -100,66 +108,20 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
     }
 
     private void abrirDocumentoComUmClickNaLista() {
-        listaDeArquivos = listarPdfs();
-
-        listViewDocumetos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                File fileSelecionado = listaDeArquivos.get(position);
-                abrirPdf(fileSelecionado);
-            }
+        listViewDocumetos.setOnItemClickListener((parent, view, position, id) -> {
+            File fileSelecionado = listaDeArquivos.get(position);
+            abrirPdf(fileSelecionado);
         });
-    }
-
-    private void listarArquivosPdf() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-            listPdfFiles();
-        } else {
-            listPdfFiles();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                listPdfFiles();
-            }
-        }
     }
 
     private void inicializaComponentes() {
         listViewDocumetos = findViewById(R.id.listViewDocumentos);
     }
 
-    private void listPdfFiles() {
-        // Diretório onde os arquivos PDF estão localizados Android/data/br.com.contas/files/Download/
-        File downloadsDirectory = new File(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)));
-
-        //List<String> pdfFiles = new ArrayList<>();
-        pdfFiles = new ArrayList<>();
-
-        File[] files = downloadsDirectory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                if (file.isFile() && file.getName().endsWith(".pdf")) {
-                    pdfFiles.add(file.getName());
-                }
-            }
-        }
-
-        Collections.sort(pdfFiles,  Collections.reverseOrder());
-
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pdfFiles);
-        ListPdfAdapter adapter = new ListPdfAdapter(this, pdfFiles);
-        adapter.notifyDataSetChanged();
-        listViewDocumetos.setAdapter(adapter);
-        //listViewDocumetos.setText
+    private void atualizarListaDePdfs() {
+        listaDeArquivos = listarPdfs();
+        listPdfAdapter = new ListPdfAdapter(this, listaDeArquivos);
+        listViewDocumetos.setAdapter(listPdfAdapter);
     }
 
     private List<File> listarPdfs() {
@@ -201,8 +163,7 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
             if (file.exists()) {
                 deleted = file.delete(); // Tenta deletar o arquivo
                 if (deleted) {
-                    listPdfFiles();
-                    listaDeArquivos.remove(file);
+                    atualizarListaDePdfs();
                     Toast.makeText(context, context.getString(R.string.arquivo_deletado_com_sucesso), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, context.getString(R.string.falha_ao_deletar_o_arquivo), Toast.LENGTH_SHORT).show();
@@ -216,6 +177,38 @@ public class ActivityTelaListaDocumentoPdf extends AppCompatActivity {
         }
         return deleted;
     }
+
+    private void confirmarExclusaoPdf(int posicao) {
+        String nomeArquivo = listaDeArquivos.get(posicao).getName();
+        String mensagem = "Deseja excluir o PDF \"" + nomeArquivo + "\"?";
+
+        View dialogView = getLayoutInflater().inflate(R.layout.menu_dialog_custom_coringa, null);
+        TextView textView = dialogView.findViewById(R.id.textViewMenuDialogCustomCoringa);
+        Button buttonNao = dialogView.findViewById(R.id.buttonContaMenuDialogCustomCoringaNao);
+        Button buttonSim = dialogView.findViewById(R.id.buttonContaMenuDialogCustomCoringaSim);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create();
+
+        textView.setText(mensagem);
+        buttonSim.setText(R.string.sim);
+        buttonNao.setText(R.string.nao);
+
+        buttonSim.setOnClickListener(v -> {
+            /*File file = new File(nomeArquivo);
+            if (file.exists()) {*/
+                deletarDocumentoPdf(posicao);
+            //}
+            dialog.dismiss();
+        });
+
+        buttonNao.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
 
     private void mudarTelaSalvarListaDeContaNoCelular(){
         Intent intent = new Intent(this, ActivityTelaSalvarListaDeContaNoCelular.class);

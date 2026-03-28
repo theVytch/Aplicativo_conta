@@ -50,6 +50,13 @@
     <string name="menu_usuario">Usuário</string>
     <string name="menu_sobre">Sobre</string>
     <string name="menu_criar_pdf">Criar PDF</string>
+    <string name="menu_selecionar_exclusao">Selecionar para excluir</string>
+    <string name="menu_excluir_selecionadas">Excluir selecionadas</string>
+    <string name="menu_selecionar_todos">Selecionar todos</string>
+    <string name="menu_limpar_selecao">Limpar seleção</string>
+    <string name="menu_cancelar_selecao">Cancelar seleção</string>
+    <string name="titulo_modo_selecao">Selecione as contas</string>
+    <string name="titulo_selecao_contas">%1$d selecionadas</string>
     <string name="ver_documentos">Ver Documentos</string>
 
     <string name="nao_foi_possivel_abrir_o_documento">Não foi possivel abrir o documento!</string>

@@ -1,8 +1,8 @@
 package br.com.contas.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,25 +15,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import br.com.contas.entities.Usuario;
-import br.com.contas.persistence.UsuarioDatabase;
 import br.com.contas.R;
+import br.com.contas.entities.Usuario;
 import br.com.contas.utils.DecimalDigits;
+import br.com.contas.viewmodel.UsuarioViewModel;
 
 public class ActivityTelaUsuario extends AppCompatActivity {
 
-    private EditText editTextNomeUsuario, editTextSaldoUsuario;
-    private String idiomaCel;
+    private EditText editTextNomeUsuario;
+    private EditText editTextSaldoUsuario;
     private Button btnSalvarUsuario;
-    private Usuario usuario;
-    private int usuarioExiste = 0; // 1 - existe, 0 - nao existe
-
+    private UsuarioViewModel usuarioViewModel;
+    private boolean usuarioExiste;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +38,15 @@ public class ActivityTelaUsuario extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         iniciarComponentes();
-
+        configurarViewModel();
         exibirBotaoVoltar();
-     }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        usuarioViewModel.loadUsuario();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -55,6 +55,26 @@ public class ActivityTelaUsuario extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void configurarViewModel() {
+        usuarioViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
+        usuarioViewModel.getUsuarioLiveData().observe(this, this::renderizarUsuario);
+    }
+
+    private void renderizarUsuario(Usuario usuario) {
+        if (usuario != null) {
+            editTextNomeUsuario.setText(usuario.getNome());
+            editTextSaldoUsuario.setText(DecimalDigits.formatarNumero(usuario.getSaldo()));
+            btnSalvarUsuario.setText(R.string.atualizar);
+            usuarioExiste = true;
+            return;
+        }
+
+        editTextNomeUsuario.setText("");
+        editTextSaldoUsuario.setText("");
+        btnSalvarUsuario.setText(R.string.salvar);
+        usuarioExiste = false;
     }
 
     private void exibirBotaoVoltar() {
@@ -67,13 +87,11 @@ public class ActivityTelaUsuario extends AppCompatActivity {
         editTextNomeUsuario = findViewById(R.id.editTextNomeUsuario);
         iniciaEditTextValorConta();
         btnSalvarUsuario = findViewById(R.id.btnSalvarUsuario);
-        verificarSeUsuarioJaExiste();
     }
 
     private void iniciaEditTextValorConta(){
         editTextSaldoUsuario = findViewById(R.id.editTextSaldoUsuario);
         editTextSaldoUsuario.addTextChangedListener(new TextWatcher() {
-            //DecimalFormat format = new DecimalFormat("#,##0.00");
             DecimalFormat format = new DecimalFormat(DecimalDigits.modeloFormatPattern);
             private String current = "";
 
@@ -107,102 +125,39 @@ public class ActivityTelaUsuario extends AppCompatActivity {
         });
     }
 
-    private void verificarSeUsuarioJaExiste(){
-        UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
-        Optional<Usuario> optionalUsuario = database.usuarioDao().getUsuario();
-        if(optionalUsuario.isPresent()){
-            mudarTelaParaEdicao(optionalUsuario.get());
-        }else{
-            mudarTelaParaCriarUsuario();
-        }
-    }
-
-    private void mudarTelaParaEdicao(Usuario usuario){
-        editTextNomeUsuario.setText(usuario.getNome());
-        editTextSaldoUsuario.setText(DecimalDigits.formatarNumero(usuario.getSaldo()));
-        btnSalvarUsuario.setText(R.string.atualizar);
-        usuarioExiste = 1;
-    }
-
-    private void mudarTelaParaCriarUsuario(){
-        editTextNomeUsuario.setText("");
-        editTextSaldoUsuario.setText("");
-        btnSalvarUsuario.setText(R.string.salvar);
-        usuarioExiste = 0;
-    }
-
     public void salvarUsuario(View view){
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
+        String nome = editTextNomeUsuario.getText().toString().trim();
+        if (nome.isEmpty()) {
+            Toast.makeText(this, R.string.mensagemNomeUsuarioObrigatorio, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            UsuarioDatabase database = UsuarioDatabase.getDatabase(this);
+        String saldoStr = getNumeroParaString();
+        if (saldoStr.isEmpty()) {
+            Toast.makeText(this, R.string.mensagemSaldoUsuarioObrigatorio, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            String nome = editTextNomeUsuario.getText().toString().trim();
-            if (nome.isEmpty()) {
-                runOnUiThread(() -> {
-                    Toast.makeText(this,
-                            R.string.mensagemNomeUsuarioObrigatorio,
-                            Toast.LENGTH_SHORT).show();
-                });
-                return;
-            }
-
-            //String saldoStr = editTextSaldoUsuario.getText().toString().replaceAll("[^\\d,]", "").replace(",", ".");
-            String saldoStr = getNumeroParaString();
-            if (saldoStr.isEmpty()) {
-                runOnUiThread(() -> {
-                    Toast.makeText(this,
-                            R.string.mensagemSaldoUsuarioObrigatorio,
-                            Toast.LENGTH_SHORT).show();
-                });
-                return;
-            }
-
-            Double saldo = Double.parseDouble(saldoStr);
-
-            if (usuarioExiste == 0) {
-                salvar(database, nome, saldo);
+        Double saldo = Double.parseDouble(saldoStr);
+        usuarioViewModel.salvarUsuario(nome, saldo, usuarioExiste, success -> {
+            if (success) {
+                mudarTelaInicial();
             } else {
-                editar(database, nome, saldo);
+                Toast.makeText(this, R.string.mensagemErroCriarUsuario, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    @NonNull
     private String getNumeroParaString() {
         String saldoStr;
         if (DecimalDigits.idiomaCelular.equals("en")) {
-            // Formato americano: 1,000.00
-            saldoStr = editTextSaldoUsuario.getText().toString();
-            saldoStr = saldoStr.replace(",", "");
+            saldoStr = editTextSaldoUsuario.getText().toString().replace(",", "");
         } else {
-            // Formato brasileiro: 1.000,00
             saldoStr = editTextSaldoUsuario.getText().toString().replaceAll("[^\\d,]", "");
             saldoStr = saldoStr.replace(",", ".");
         }
 
         return saldoStr;
-    }
-
-    private void salvar(UsuarioDatabase database, String nome, Double saldo){
-        usuario = new Usuario(nome.trim(), saldo);
-        database.usuarioDao().insert(usuario);
-        if (nome.equals(database.usuarioDao().getNomeUsuario(nome).getNome())) {
-            mudarTelaInicial();
-        }else{
-            Toast.makeText(this,
-                    R.string.mensagemErroCriarUsuario,
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void editar(UsuarioDatabase database, String nome, Double saldo){
-        Optional<Usuario> usuarioAtualizado = database.usuarioDao().getUsuario();
-        usuario = usuarioAtualizado.get();
-        usuario.setNome(nome);
-        usuario.setSaldo(saldo);
-        database.usuarioDao().update(usuario);
-        mudarTelaInicial();
     }
 
     private void mudarTelaInicial(){
